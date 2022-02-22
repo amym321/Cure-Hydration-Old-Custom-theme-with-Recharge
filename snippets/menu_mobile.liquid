@@ -1,0 +1,132 @@
+<style>
+#menu-mobile .login-button {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-color: {{ settings.content_main_color }};
+}
+
+#menu-mobile .login-button a {
+  color: #FFF;
+  padding: 1em;
+}
+
+#menu-mobile .login-button a.log-out {
+  background: #c92237;
+}
+
+#menu-mobile .menu-mobile li i {
+  color: #ccc;
+  padding: 0;
+  height: fit-content;
+}
+
+#menu-mobile .menu-mobile li i:nth-of-type(2) {
+  transform: translateX(-100%) translateY(-1px) rotate(90deg);
+}
+
+#menu-mobile .menu-mobile li.active > a + i {
+  transform: none;
+}
+
+#menu-mobile .menu-mobile li.active i {
+  color: {{ settings.content_main_color }};
+}
+
+#menu-mobile a {
+  margin-right: 5px;
+}
+
+#menu-mobile .login-button a {
+  margin: 0;
+}
+
+</style>
+
+<div id="menu-mobile" class="ease-animation-slow">
+  <div class="wrapper">
+    <div class="head clearfix">
+      <div class="title">Menu</div>
+      <div class="close">
+        <i class="lnr animation lnr-cross"></i>
+      </div>
+    </div>
+    <div class="content">
+      <ul class="menu-mobile">
+        {% for first_link in linklists.main-menu-4.links %}
+          <li class="flex flex-wrap {% if first_link.links != blank %}has-dropdown{% endif %}">
+            <a href="{{ first_link.url }}" {% if first_link.url == "#" %}onclick="$(this).next('i').click(); return false;"{% endif %}>
+              {{ first_link.title | escape }}
+            </a>
+            {% if first_link.links != blank %}
+              <i class="fa fa-plus animation"></i>
+              <div class="one-whole">
+                <ul>
+                  {% include 'menu_mobile_level', parent_link: first_link %}
+                </ul>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="foot">
+        {% if settings.show_search_header %}
+        <form action="/search" method="get" class="search-form">
+          <div class="clearfix">
+            <input type="text" class="input-search animation" name="q" value="" accesskey="4" autocomplete="off" placeholder="Search">
+            <input type="submit" class="icon fa" value="&#xf002;" />
+            <input type="hidden" name="type" value="product" />
+          </div>
+        </form>
+        {% endif %}
+
+        {% if settings.show_social_header %}
+          {% include 'social_links' %}
+        {% endif %}
+      </div>
+    </div>
+    {% if shop.customer_accounts_enabled %}
+      <div class="login-button flex">
+        {% if customer %}
+          <a href="/account" class="my-account animation one-whole">
+            <span>My Account</span>
+          </a>
+          <a href="/account/logout" class="my-account animation one-whole log-out">
+            <span>Logout</span>
+          </a>
+        {% else %}
+          <a href="/account/login" class="my-account animation one-whole">
+            <span>Login</span>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+	$(function() {
+      $("#menu-mobile-button").click(function(){
+      	$('#menu-mobile').toggleClass('open');
+        $('body, html').css({overflow: 'hidden'});
+        $('#page').addClass('mode-overlay anim');
+        return false;
+      });
+      $("#menu-mobile .close").click(function(){
+      	$('#menu-mobile').removeClass('open');
+        $('body, html').css({overflow: 'auto'});
+        $('#page').removeClass('mode-overlay anim');
+        return false;
+      });
+      $("#menu-mobile .menu-mobile li.has-dropdown i").click(function(){
+        $(this).parent().toggleClass('active');
+      	$(this).parent().find('ul:first').slideToggle();
+        return false;
+      });
+
+      $('#menu-mobile .menu-mobile li i').click(function () {
+        $(this).toggleClass('fa-minus');
+        $(this).toggleClass('fa-plus');
+      })
+	});
+</script>

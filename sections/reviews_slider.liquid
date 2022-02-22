@@ -1,0 +1,102 @@
+{% schema %}
+  {
+    "name": "Reviews Slider",
+    "class": "carousel",
+    "max_blocks": 15,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }
+    ],
+    "blocks":[
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "testimonial",
+            "label": "Tesimonial",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, eaque, rem voluptas voluptate obcaecati, quo quia exercitationem error beatae nemo eum optio aspernatur minus!"
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author",
+            "default":"John Doe"
+          },
+          {
+            "type": "text",
+            "id": "author_company",
+            "label": "Author Company",
+            "default":"John Doe's Magazine"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    {
+      "name": "Reviews Slider",
+      "category": "Home",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+   ]
+  }
+{% endschema %}
+
+<style>
+  #home section.reviews-slider-section{padding: 2em 0 0 0;}
+  .reviews-slider-section h3{font-size: 1em;letter-spacing: 1.8px;text-align: center;margin-bottom: 0.5em;}
+  .reviews-slider-section .review{text-align: center;}
+  .reviews-slider-section .testimonial-text{font-weight: 700;max-width: 700px;margin: auto;line-height: 30px;font-size: 1.4em;position: relative;}
+  .reviews-slider-section .testimonial-text span{color: {{settings.content_main_color}};font-size: 65px;position: relative;right: 0.2em;top: 0.1em;}
+  .reviews-slider-section .testimonial-text span:last-child{-ms-transform: rotate(180deg);-webkit-transform: rotate(180deg);transform: rotate(180deg);display: inline-block;left: 0.2em;top: 0.2em;}
+  .reviews-slider-section .author{color:#898989;margin: 1em auto 0;}
+  .reviews-slider-section .company{color: {{settings.content_main_color}};}
+  
+  #shopify-section-{{section.id}} .slick-slider .slick-track{display: flex;justify-content: center;align-items: center;}
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow{font-size: 28px;font-weight: 800;color: #888c98;}
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow.left-arrow{left:-20px;top: 5em;}
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow.right-arrow{right:-20px;top: 5em;}
+</style>
+
+<section class="reviews-slider-section">
+  <div class="container-big">
+    <h3>{{section.settings.title}}</h3>
+    <div class="reviews-slider">
+      {% for block in section.blocks %}
+      <div class="review">
+        <p class="testimonial-text"><span>“</span>{{block.settings.testimonial}} <span>“</span></p>
+        <p class="author">{{block.settings.author}}</p>
+        <p class="company">{{block.settings.author_company}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  $(function(){
+    var reviewsSlider = $('#shopify-section-{{ section.id }} .reviews-slider');
+    reviewsSlider.slick({
+      autoplay: true,
+      dots: false,
+      arrows: true,
+      fade: false,
+      pauseOnHover: true,
+      autoplaySpeed: 5000,
+      prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>'
+    });   
+  });
+</script>

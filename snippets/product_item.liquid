@@ -1,0 +1,125 @@
+<div class="product-item animation {% unless isCarousel %}grid__item large--{{settings.grid_items_per_row}} medium--{{ settings.grid_items_per_row_medium }} small--{{ settings.grid_items_per_row_small }}{% endunless %}">
+  <div class="image-wrapper" style="position: relative;">
+    {% if hoverButtons %}
+      {% assign currentVariant = currentProduct.first_available_variant %}
+      {% assign rechargeVariant = currentVariant.metafields.subscriptions.discount_variant_id %}
+      <div class="product-{{ currentProduct.id }} product-controls medium-down--hide flex align-items-center justify-content-center">
+        {% if rechargeVariant != blank %}
+          <a href="" class="btn add-subscription" data-variant-id="{{ rechargeVariant }}">Subscribe & Save</a>
+        {% endif %}
+        <a href="" class="btn add-to-cart add-onetime" data-variant-id="{{ currentVariant.id }}">Add to Cart</a>
+      </div>
+      <form class="hide product-{{ currentProduct.id }}-form" data-productid="{{currentProduct.id}}">
+        {%- if currentProduct.available -%}{%- include 'subscription-product', product:currentProduct -%}{%- endif -%}
+        <input type="hidden" name="id" value="{{ currentVariant.id }}">
+        <input type="hidden" name="quantity" value="1">
+      </form>
+      <script>
+        $(function () {
+          $('.image-wrapper .product-{{ currentProduct.id }}').click(function (e) {
+            if ($(e.originalEvent.target).hasClass('product-{{ currentProduct.id }}')) {
+              window.location = '{{ currentVariant.url }}';
+            }
+          });
+
+          $('.image-wrapper .product-{{ currentProduct.id }}.product-controls a').click(function (e) {
+            e.preventDefault();
+            if($(this).hasClass('add-subscription')){
+              $(this).closest('.product-item').find('form .rc_block__type__autodeliver input').click();
+            }else{
+              $(this).closest('.product-item').find('form .rc_block__type__onetime input').click();
+            }
+            //var variantId = $(this).data('variant-id');
+            var form = $(this).closest('.product-item').find('form');
+            //form.find('input[name=id]').val(variantId);
+            //console.log(form);
+            addToCart(form);
+          });
+        });
+      </script>
+    {% endif %}
+
+    {% if settings.grid_product_image_behavior == "thumbs_swatches" %}
+      {% include 'product_item_img_swatches' %}
+    {% elsif settings.grid_product_image_behavior == "alternate_image" %}
+      {% include 'product_item_img_alternate' %}
+    {% else %}
+      {% include 'product_item_img' %}
+    {% endif %}
+
+    {% if quickview %}
+      <div class="layer quick-view-btn ease-animation" data-url="{{ currentProduct.url | within: collection }}?view=quick-view">
+        <div>QUICK VIEW <i class="lnr lnr-arrow-right"></i></div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if settings.grid_product_image_behavior == "thumbs_swatches" %}
+    {% include 'thumbs_swatches' %}
+  {% endif %}
+
+  <div class="info">
+    {% for tag in currentProduct.tags %}
+      {% if tag contains 'color' %}
+        {% assign color = tag | split: '-' %}
+        <div class="color-line" style="background-color: {{color[1]}}"></div>
+      {% endif %}
+    {% endfor %}
+    <a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">
+      <div class="title animation {{ currentProduct.tags }}">
+        {% if currentProduct.metafields['c_f'].custom_title != blank %}
+          {{currentProduct.metafields['c_f'].custom_title}}
+        {% else %}
+          {{ currentProduct.title }}
+        {% endif %}
+      </div>
+    </a>
+    {% if currentProduct.metafields['c_f'].product_item_sub_text != blank %}
+      <p class="product-sub-text">{{currentProduct.metafields['c_f'].product_item_sub_text}}</p>
+    {% endif %}
+
+      <div class="price-new clearfix">
+
+          {% comment %} {% if currentProduct.price_min < currentProduct.compare_at_price_min and settings.show_sales_pricing %}
+
+            <div class="retail">
+              <span data-price="retail">{{ currentProduct.compare_at_price | money | remove: '.00' }}</span>
+            </div>
+
+          {% endif %} {% endcomment %}
+          <div class="deal">
+            <span class="red-price" data-price="deal">{{ currentProduct.price_min | money | remove: '.00' }}
+              {% comment %} {% for variant in currentProduct.variants %}
+                {% if forloop.first == true %}
+                  {% if variant.metafields.subscriptions.discount_variant_price  %}
+                     (${{ variant.metafields.subscriptions.discount_variant_price }} {{settings.plp_subscription_price_text}})
+                  {% endif %}
+                {% endif %}
+              {% endfor %} {% endcomment %}
+            </span>
+          </div>
+
+      </div>
+
+
+  {% comment %} <form action="{% unless settings.allow_ajax_cart %}/cart/add{% endunless %}" method="post" class="variants add-to-cart-form {% if currentProduct.price_min < currentProduct.compare_at_price_min %}sale-price{% endif %}" enctype="multipart/form-data" data-productid="{{currentProduct.id}}">
+
+    {% if currentProduct.available %}{% include 'subscription-product-1' %}{% endif %}
+
+    <input type="text" class="hide" name="id" data-productid="{{ product.id }}" value="{{currentProduct.first_available_variant.id}}" data-productid="{{currentProduct.id}}">
+
+    {% assign buttonLabel = 'ADD TO BAG'%}
+    {% if currentProduct.tags contains 'pre-order'%}
+      {% assign buttonLabel = 'Pre-Order'%}
+    {% endif %}
+    <div class="content-available">
+      <button type="submit" name="add" id="add-to-cart-button" class="btn flex"><span>{{buttonLabel}}</span></button>
+    </div>
+    <div class="content-soldout hide">
+      This product is SOLD OUT.
+    </div>
+
+  </form> {% endcomment %}
+  </div>
+
+</div>

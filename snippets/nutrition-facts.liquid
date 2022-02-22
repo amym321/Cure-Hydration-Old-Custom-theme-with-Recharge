@@ -1,0 +1,42 @@
+<style>
+  .nutrition-facts {cursor: pointer; margin-top: 0;text-decoration: none; color:{{ settings.content_main_color}};}
+
+  .tingle-modal .close {z-index: 2; cursor: pointer; position: absolute; background: #fff; border-radius: 50%; top: -1.3em; right: -1.3em; width: 3em; height: 3em; border: 2px solid #000; display: flex; display: -webkit-flex; align-items: center; justify-content: center;}
+  .tingle-modal .close .cross {width: 0.75em; height: 0.75em; left: 1px; position: relative;}
+  .tingle-modal .close .cross:before, .tingle-modal .close .cross:after {content: ''; display: block; width: 2px; height: 130%; background: #000; -ms-transform: rotate(45deg); -webkit-transform: rotate(45deg); transform: rotate(45deg); transform-origin: 0 0; position: absolute; top: 0; right: 0; -webkit-transition: all 0.2s ease-out;  -moz-transition: all 0.2s ease-out; -o-transition: all 0.2s ease-out; -ms-transition: all 0.2s ease-out; transition: all 0.2s ease-out;}
+  .tingle-modal .close .cross:after {height: 2px; width: 130%; top: 0; left: 0; right: auto;}
+  .isNotMobile .tingle-modal .close:hover {border-color: {{ settings.content_main_color}};;}
+  .isNotMobile .tingle-modal .close:hover .cross:before,
+  .isNotMobile .tingle-modal .close:hover .cross:after {background: {{ settings.content_main_color}};}
+
+  div.nutrition-facts:hover {color:#0063a0;}
+
+  #nutrition-popup {position: relative;}
+  #nutrition-popup img {max-width: 500px; width: 100%;}
+  #nutrition-popup:after {content: ''; position: absolute; top: 0; right: 0; width: 12%; padding-top: 12%;}
+
+  .nutrition-modal-multi-facts #nutrition-popup{display: flex;justify-content: center;align-items: flex-start;flex-wrap: wrap;width: 900px;max-width: 100%;padding: 0 3px 0 4px;}
+  .nutrition-modal-multi-facts #nutrition-popup img{width: calc( 100% / 3 );}
+
+  @media all and (min-width: 601px) {
+    .nutrition-modal-multi-facts .tingle-modal-box{max-width: 90%;}
+    .tingle-modal.nutrition-modal .tingle-modal__close,
+    .nutrition-modal-multi-facts .tingle-modal__close{display: none;}
+  }
+  @media all and (max-width: 600px) {
+    .nutrition-modal-multi-facts #nutrition-popup img{width: 100%;}
+  }
+</style>
+
+{%- assign nutrition_facts_images = currentProduct.metafields['c_f'].nutrition_facts %}
+{%- assign nutrition_facts_images_split = nutrition_facts_images | split: '+'  %}
+
+<div class="nutrition-facts" onclick="Simplistic.openModal($('#nutrition-popup'),'nutrition-modal{% if nutrition_facts_images_split.size > 1 %}-multi-facts{% endif %}')">Nutrition Facts</div>
+<div class="hide">
+  <div id="nutrition-popup">
+    <div class="close small--hide" onclick="modal.close();"><div class="cross"></div></div>
+    {%- for image in nutrition_facts_images_split  -%}
+      <img src="{{image}}" alt="nutrition facts" />
+    {%- endfor -%}
+  </div>
+</div>

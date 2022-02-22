@@ -1,0 +1,131 @@
+<style>
+  #shopify-section-{{section.id}} .container{max-width: 1000px;}
+  
+  #shopify-section-{{section.id}} .item{justify-content: center;margin-top: 2.5em}
+  #shopify-section-{{section.id}} .item>div{flex-direction: column;}
+  #shopify-section-{{section.id}} .item img {max-width: 100%;margin: auto;}
+  #shopify-section-{{section.id}} .item .text-container{margin-top: 0.8em}
+  #shopify-section-{{section.id}} .item h3{font-size: 1em;letter-spacing: normal;margin-bottom: 0;}
+  #shopify-section-{{section.id}} .item p{line-height: 1.1em;font-size: 0.9em;margin: auto;}
+
+  #shopify-section-{{section.id}} .button-container{margin-top: 2em;}
+  #shopify-section-{{section.id}} .btn{text-decoration: none;font-size: 1.1em;padding: 0.9em 3em;}
+
+  {%- for block in section.blocks -%}
+    #shopify-section-{{ section.id }} .block-{{ block.id }} img{width: {{block.settings.icon_width_dkp}}em;}
+  {%- endfor -%}
+
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} .items-container{margin-top: 1em;}
+    #shopify-section-{{section.id}} .item{margin-top: 1.5em;}
+    #shopify-section-{{section.id}} .item>div{flex-direction: row;width: 100%;}
+    #shopify-section-{{section.id}} .item .text-container{margin-top: 0;flex-direction: column;align-items: center;justify-content: center;}
+    #shopify-section-{{section.id}} .item h3{font-size: 0.9em;}
+    #shopify-section-{{section.id}} .item p{margin: 0;}
+    #shopify-section-{{section.id}} .btn{padding: 0.7em 2em;font-size: 1em;}
+    {%- for block in section.blocks -%}
+      #shopify-section-{{ section.id }} .block-{{ block.id }} img{width: {{block.settings.icon_width_sm}}em;}
+    {%- endfor -%}
+  }
+</style>
+
+{%- case section.blocks.size -%}
+  {%- when 1 -%}
+    {%- assign item-width-large = 'one-whole' -%}
+  {%- when 2 -%}
+    {%- assign item-width-large = 'one-half' -%}
+  {%- when 3 -%}
+    {%- assign item-width-large = 'one-third' -%}
+  {%- else -%}
+    {%- assign item-width-large = 'one-quarter' -%}
+{%- endcase -%}
+
+<div class="container">
+  <div class="items-container grid">
+    {%- for block in section.blocks -%}
+    <div class="item flex grid__item {{item-width-large}} medium--one-half small--one-whole block-{{ block.id }}" {{ block.shopify_attributes }}>
+      <div class="flex">
+        <div class="image-container one-whole small--four-tenths flex justify-content-center align-items-center">
+          <img class="lazyload" data-sizes="auto" src="{% render 'image_placeholder', image: block.settings.icon %}" data-srcset="{% render 'lazy_src', image: block.settings.icon %}" alt="{{block.settings.icon.alt}}" />
+        </div>
+        <div class="text-container text-center one-whole small--six-tenths small--flex">
+          {%- if block.settings.title != "" -%}
+            <h3>{{block.settings.title}}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != "" -%}
+            {{block.settings.text}}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+  <div class="button-container text-center">
+    <a href="{{section.settings.button_url}}" class="btn" target="_blank">{{section.settings.button_label}}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+   "name":"Icons + Text",
+   "tag": "section",
+   "class": "page-ambassador-icons-and-text",
+   "settings":[
+      {
+        "type":"url",
+        "id":"button_url",
+        "label":"Button Link",
+        "info":"Paste or search."
+      },
+      {
+        "type":"text",
+        "id":"button_label",
+        "label":"Button Label",
+        "default":"APPLY NOW"
+      }
+   ],
+   "blocks":[
+      {
+         "type":"icon-text",
+         "name":"Icon + Text",
+         "settings":[
+            {
+               "type":"image_picker",
+               "id":"icon",
+               "label":"icon"
+            },
+            {
+              "type": "range",
+              "id": "icon_width_dkp",
+              "label": "Icon Width (Desktop)",
+              "min": 1,
+              "max": 25,
+              "step": 1,
+              "unit": "em",
+              "default": 7
+            },
+            {
+              "type": "range",
+              "id": "icon_width_sm",
+              "label": "Icon Width (Mobile)",
+              "min": 1,
+              "max": 25,
+              "step": 1,
+              "unit": "em",
+              "default": 5
+            },
+            {
+               "type":"text",
+               "id":"title",
+               "label":"Title"
+            },
+            {
+               "type":"richtext",
+               "id":"text",
+               "label":"Text"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

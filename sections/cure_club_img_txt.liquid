@@ -1,0 +1,168 @@
+{% schema %}
+{
+  "name":"Image + Text",
+  "settings":[
+    {
+      "type":"color",
+      "id":"section_bg",
+      "label":"Background Color",
+      "default":"#ffffff"
+    },
+	{
+        "type": "checkbox",
+        "id": "zoom_on_hover",
+        "label": "Image zoom on hover",
+        "default": true
+    }
+  ],
+  "blocks":[
+    {
+      "type":"image_text",
+      "name":"Image + Text",
+      "settings":[
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+        },
+        {
+          "type":"color",
+          "id":"bg_color",
+          "label":"Background Color",
+          "default":"#fff"
+        },
+        {
+          "type":"select",
+          "id":"image_position_x",
+          "label":"Image position X",
+          "options":[
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ],
+          "default":"left"
+        },
+        {
+          "type":"select",
+          "id":"text_alignment",
+          "label":"Text Alignment",
+          "options":[
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"center",
+              "label":"Center"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ],
+          "default":"left"
+        },
+        {
+          "type":"image_picker",
+          "id":"icon",
+          "label":"Icon"
+        },
+        {
+          "type":"text",
+          "id":"title",
+          "label":"Title",
+          "default":"Lorem ipsum"
+        },
+        {
+          "type":"textarea",
+          "id":"text",
+          "label":"Text",
+          "default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .multipurpose {text-align: center;}
+  .multipurpose .container-big{max-width: 1700px;padding:0;}
+  .multipurpose .image {position: relative; overflow: hidden;}
+  .multipurpose .img {position: relative; padding-top: 60%; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center; -webkit-transition: all 1s ease-out; -moz-transition: all 1s ease-out; -o-transition: all 1s ease-out; transition: all 1s ease-out; -ms-transform: scale(1, 1); -webkit-transform: scale(1, 1); transform: scale(1, 1);}
+    
+  .multipurpose .image-text .flex {align-items: center; flex-wrap: wrap;}
+  .multipurpose .image-text .flex.reverse {-webkit-flex-direction: row-reverse; flex-direction: row-reverse;}
+  .multipurpose .image-text .img {padding-top: 60%;}
+  .multipurpose .image-text .text .wrap {margin: auto;}
+  .multipurpose .image-text .title-container{align-items: center;}
+  .multipurpose .image-text .title-container img{max-width: 56px;margin-right: 1em;}
+  .multipurpose .image-text .text h2{text-transform: capitalize;color:{{ settings.content_main_color}};margin-bottom: 0;}
+  .multipurpose .image-text .text p {max-width: 360px; display: inline-block;color:rgba(16,15,15,0.58);line-height: 26px;margin: 1em 0 0;font-weight: 600;}
+  
+  .multipurpose .cure-club-text p{;}
+  .multipurpose .cure-club-text ul{list-style-type: none;}
+  .multipurpose .cure-club-text ul img{width: 20px;height: 20px;margin-right: 0.4em;position: relative;bottom: 1px;}
+  .multipurpose .cure-club-text ul li{align-items: center;height: 30px;}
+  .multipurpose .cure-club-text ul li p{color: #4A4A4A;line-height: 1em!important;margin-bottom: 0!important;margin-top: 0!important;height: 20px;display:block!important}
+  
+  @media all and (min-width: 901px) {
+  .multipurpose .image-block.one-whole .img {padding-top: 35%;}
+  .multipurpose .image-block.one-third .img {padding-top: 90%;}
+  .multipurpose .image-block.two-thirds .img {padding-top: 45%;}
+  }
+  
+  @media all and (max-width: 900px) and (min-width: 601px) {
+    .multipurpose .image-text .text .wrap {padding: 2em;}
+    .multipurpose .image-block .img {padding: 0; height: 350px;}
+    .multipurpose .image-text .img {padding-top: 80%;}
+  }
+  @media all and (max-width: 970px) {
+    .multipurpose .image-text .title-container img{max-width:40px;}
+    .multipurpose .image-text .text h2{font-size: 1.4em;}
+    .multipurpose .image-text .text p{font-size: 0.9em;margin-top: 1.5em;}
+  }
+  @media all and (max-width: 900px) {
+    .multipurpose .image-text>.flex{flex-direction: column-reverse!important;}
+    .multipurpose .image-text .title-container{justify-content: center;}
+    .multipurpose .image-text .text p{text-align: center;}
+    .multipurpose .image-text .text .wrap{padding: 2.5em 20px;}
+  }
+  @media all and (max-width: 600px) {
+    .multipurpose .image-block {padding-bottom: 1em;}
+    .multipurpose .image-text {padding-bottom: 0;}
+  }
+  
+</style>
+
+<section class="multipurpose" style="background: {{section.settings.section_bg}};">
+
+  <div class="container-big">
+    <div class="grid">
+    {% for block in section.blocks %}
+      <div class="image-text grid__item one-whole">
+        <div class="flex {% if block.settings.image_position_x == "right" %}reverse{% endif %}"  style="background-color: {{block.settings.bg_color}};">
+          <div class="image one-half medium-down--one-whole">
+            <div
+              class="img lazyload"
+              data-bgset="{% include 'lazy_src', image: block.settings.image  %}">
+            </div>
+          </div>
+          <div class="text one-half medium-down--one-whole text-{{block.settings.text_alignment}} flex">
+            <div class="wrap">
+              <div class="title-container flex">{% if block.settings.title != "" %}{% if block.settings.icon %}<img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.icon %}" alt="icon">{% endif %}<h2>{{block.settings.title}}</h2>{% endif %}</div>
+              {% if block.settings.text != "" %}<p>{{block.settings.text}}</p>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+  
+</section>

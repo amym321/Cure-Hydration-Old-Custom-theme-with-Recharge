@@ -1,0 +1,41 @@
+<style>
+	@media all and (max-width: 600px){
+		.page.page-{{page.handle}}{margin-top: 1em;}
+	}
+</style>
+<div class="page page-{{page.handle}}">
+  <h1 class="visuallyhidden">{{page.title}}</h1>
+	<div class="container">
+	  {%- section 'page-ambassador-hero' -%}
+	  {%- section 'page-ambassador-main-text' -%}
+	  {%- section 'page-ambassador-icons-and-text' -%}
+	  {%- section 'page-ambassador-who-should-apply' -%}
+	  {%- section 'page-ambassador-cta' -%}
+	  {%- section 'page-ambassador-instagram' -%}
+	</div>
+</div>
+
+<script>
+	$(function(){
+		
+		// buttons fix for IOS & Android
+		// because of how the custom font is rendered in some OS, the text doesn't look vertical aligned inside the buttons
+		var paddingFix = 5;
+		function updatePadding(){
+			$('.page-{{page.handle}} .btn').each(function(){
+				var btn = $(this);
+				var currentPaddingBottom = parseFloat(btn.css('padding-bottom').replace('px',''));
+				var newPaddingBottom = currentPaddingBottom - paddingFix;
+		    btn.css('padding-bottom',newPaddingBottom + "px");
+			});
+		}
+	  if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+	    updatePadding();
+	  }else if(navigator.appVersion.indexOf("Mac")!== -1 && $(window).width() > 900){
+	    updatePadding();
+	  }else if(navigator.userAgent.toLowerCase().indexOf("android") > -1){
+	  	updatePadding();
+	  }
+
+	});
+</script>

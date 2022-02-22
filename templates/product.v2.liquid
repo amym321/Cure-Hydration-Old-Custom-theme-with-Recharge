@@ -1,0 +1,34 @@
+{%- if product.tags contains "packs" -%}
+	{%- assign packs = true -%}
+{%- else -%}
+	{%- assign packs = false -%}
+{%- endif -%}
+
+{%- include '_product' with packs -%}
+
+{%- section 'value_props' -%}
+
+{%- section 'social_impact_pdp' -%}
+
+{%- include 'product_ingredients' -%}
+
+{% if product.metafields.custom_fields["us_vs_them_chart_image_url"] != blank %}
+  {%- section 'us_vs_them_img' -%}
+{% endif %}
+
+{%- section 'product_accordion_metafield_faq' -%}
+
+{%- if settings.show_related_products -%}
+  {%- include 'related_products' -%}
+{%- endif -%}
+
+{%- if settings.show_recently_viewed -%}
+    <script>
+        $(function(){
+            Shopify.Products.recordRecentlyViewed();
+        });
+    </script>
+  {%- include 'recently_viewed' -%}
+{%- endif -%}
+
+{%- section 'advisory_board' -%}

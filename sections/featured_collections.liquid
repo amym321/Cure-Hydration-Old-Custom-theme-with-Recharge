@@ -1,0 +1,162 @@
+{% schema %}
+  {
+    "name": "Featured Collections",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Featured Collections"
+      },
+	  {
+        "type": "color",
+        "id": "section_bg",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+	  {
+        "type": "text",
+        "id": "items_height",
+        "label": "Items Height",
+        "default": "60%",
+		"info": "In % relative to the width of the element, 100% being squared."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity",
+        "label": "Show products quantity?",
+        "default": true
+      },
+	  {
+        "type": "select",
+        "id": "items_row",
+        "label": "Items per row",
+        "options": [
+		  {
+            "value": "large--one-half",
+            "label": "2 items per row"
+          },
+          {
+            "value": "large--one-third",
+            "label": "3 items per row"
+          },
+          {
+            "value": "large--one-quarter",
+            "label": "4 items per row"
+          }
+        ],
+		"default": "large--one-third"
+      },
+	  {
+        "type": "select",
+        "id": "items_row_medium",
+        "label": "Items per row Tablets",
+        "options": [
+		  {
+            "value": "medium--one-half",
+            "label": "2 items per row"
+          },
+          {
+            "value": "medium--one-third",
+            "label": "3 items per row"
+          },
+          {
+            "value": "medium--one-quarter",
+            "label": "4 items per row"
+          }
+        ],
+		"default": "medium--one-third"
+      },
+	  {
+        "type": "select",
+        "id": "items_row_small",
+        "label": "Items per row Phones",
+        "options": [
+		  {
+            "value": "small--one-whole",
+            "label": "1 items per row"
+          },
+          {
+            "value": "small--one-half",
+            "label": "2 items per row"
+          },
+          {
+            "value": "small--one-third",
+            "label": "3 items per row"
+          }
+        ],
+		"default": "small--one-whole"
+      }
+	],
+	"blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Collections",
+        "category": "Home"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .featured-collections {text-align: center;}
+  .featured-collections .wrap {position: relative; padding: 0; margin: auto;}
+  .featured-collections .col {width: 100%; position: relative; overflow: hidden;}
+  .featured-collections .col .bg {position: absolute; left:0; top:0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat;}
+  .featured-collections .col .overlay {display: flex; display: -webkit-flex; align-items: center; justify-content: center; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);}
+  .featured-collections .col .overlay .title {font-size: 1.5em; color: #fff; font-weight: 700; text-transform: uppercase;}
+  .featured-collections .col .overlay .title span {display: block; font-size: 0.6em; text-transform: none; font-weight: 300;}
+  .isNotMobile .featured-collections .col:hover .bg {box-shadow: 0 12px 20px rgba(0,0,0,0.2); -ms-transform: scale(1.05, 1.05); -webkit-transform: scale(1.05, 1.05); transform: scale(1.05, 1.05);}
+  .isNotMobile .featured-collections .col:hover .overlay {background: rgba(0,0,0,0);}
+  .isNotMobile .featured-collections .col:hover .title {color: {{settings.content_main_color}};}
+  
+  @media all and (max-width: 600px) {
+    .featured-collections .grid__item {margin-bottom: 20px;}
+  }
+</style>
+
+<section class="featured-collections" style="background: {{section.settings.section_bg}};">
+  <div class="container">
+    {% if section.settings.title != "" %}<h2>{{section.settings.title}}</h2>{% endif %}
+    <div class="wrap">
+      <div class="grid">
+        {% for block in section.blocks %}
+        <div class="grid__item {{section.settings.items_row}} {{section.settings.items_row_medium}} {{section.settings.items_row_small}}">
+          {% assign col = collections[block.settings.collection] %}
+          <a href="{{col.url}}">
+            <div class="col" style="padding-top: {{section.settings.items_height}};">
+              <div
+                class="bg ease-animation-slow"
+                {% if col.image != blank %}
+                  data-bgset="{% include 'lazy_src', image: col.image.src e %}"
+                {% else %}
+                  data-bgset="{% include 'lazy_src', image: col.products.first.featured_image %}"
+                {% endif %}></div>
+              <div class="overlay ease-animation-slow">
+                <div class="title ease-animation-slow">
+                  {{col.title}}
+                  {% if section.settings.show_quantity %}
+                  <span>{{ col.all_products_count }} {{ col.all_products_count | pluralize: 'product', 'products' }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

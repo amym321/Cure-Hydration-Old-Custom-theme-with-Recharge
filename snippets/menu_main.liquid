@@ -1,0 +1,53 @@
+{% assign parent1 = settings.mega_menu_parent_1 | handleize %}
+{% assign parent2 = settings.mega_menu_parent_2 | handleize %}
+<ul>
+  {% for link in linklists.main-menu-4.links %}
+    {% assign ratio = linklists.main-menu-4.links.size | divided_by: 2 | plus: extra_items %}
+
+    {% if menu_side != blank and extra_items != blank %}
+      {% if menu_side == 'left-side' %}
+        {% if forloop.index >= ratio %}
+          {% continue %}
+        {% endif %}
+      {% elsif menu_side == 'right-side' %}
+        {% if forloop.index < ratio %}
+            {% continue %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    <li class="{% if link.active %}active{% endif %}">
+      <div class="{% if link.links != blank %}has-dropdown{% endif %} {% if settings.mega_menu_1 and link.handle == parent1 %}has-dropdown mega-menu-trigger{% endif %} {% if settings.mega_menu_2 and link.handle == parent2 %}has-dropdown mega-menu-trigger{% endif %}">
+        <a href="{{ link.url }}" {% if link.url == '#' %}onclick="return false;"{% endif %}>
+          {{ link.title | escape }}<i class="fa fa-angle-down arrow"></i>
+        </a>
+        {% if settings.mega_menu_1 and link.handle == parent1 %}
+        	{% section 'mega_menu_1' %}
+        {% elsif settings.mega_menu_2 and link.handle == parent2 %}
+        	{% section 'mega_menu_2' %}
+        {% else %}
+          {% if link.links != blank %}
+          <ul class="submenu">
+            {% for level2_link in link.links %}
+            <li class="{% if level2_link.active %}active{% endif %}">
+              <div class="{% if level2_link.links != blank %}has-dropdown{% endif %}  link-{{link.handle}}">
+                <a href="{{ level2_link.url }}">{{ level2_link.title | escape }} <i class="fa fa-angle-right arrow arrow-right"></i></a>
+                {% if level2_link.links != blank %}
+                <ul class="submenu">
+                  {% for level3_link in level2_link.links %}
+                  <li class="{% if level3_link.active %}active{% endif %}">
+                    <a href="{{ level3_link.url }}">{{ level3_link.title | escape }}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ul>

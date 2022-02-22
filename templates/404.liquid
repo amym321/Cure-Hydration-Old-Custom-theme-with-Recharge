@@ -1,0 +1,10 @@
+<div id="error-page" class="container">
+  <div class="title"><i class="fa fa-exclamation"></i><br />We're sorry, but the page you're looking for could not be found.</div>
+  <ul>
+    {% for link in linklists.main-menu.links %}
+    <li class="animation">
+      <a href="{{ link.url }}" class="animation" data-ga="{{ link.title | escape }}">{{ link.title | escape }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

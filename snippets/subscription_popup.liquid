@@ -1,0 +1,130 @@
+<style>
+.popup-wrapper {text-align:left; position: relative; width:58em; max-width:100%; background-color: {{settings.subscription_bg_color}}; }
+.popup-wrapper .wrap {position: relative; z-index: 5; padding: 5em 3em}
+.popup-wrapper .img {position: absolute; left: 0; top: 0; height: 100%; background-repeat: no-repeat; background-position: center; background-size: cover;}
+.popup-wrapper .logo {width: 100%; max-width: 12em; margin-bottom: 2em;}
+.popup-wrapper p {color: {{settings.subscription_text_color}}; font-family: {{ settings.body_font }}; font-size: 1em; margin-bottom:1em;}
+.popup-wrapper .btn {margin-top: 1em;}
+.popup-wrapper.success p {margin-bottom: 0;}
+.popup-wrapper h2 {font-size:{{settings.subscription_title_font_size}};font-style:{{settings.subscription_title_font_style}};font-weight:{{settings.subscription_title_font_weight}};font-family:{{settings.subscription_title_font}};text-transform:{{settings.subscription_title_font_transform}};}
+</style>
+
+<div class="hide">
+  <div id="subscription-pop-up">
+    <div class="popup-wrapper">
+      <div class="grid-full">
+        <div class="image grid__item one-half small--one-whole">
+          <div class="img one-half small--hide" style="background-image: url({{"subscription_bg.jpg" | asset_img_url: "530x"}});"></div>
+          <div class="img one-half hide small--one-whole small--show" style="background-image: url({{"subscription_bg_sm.jpg" | asset_img_url: "530x"}});"></div>
+        </div>
+        <div class="grid__item one-half small--one-whole">
+          <div class="wrap">
+            <img class="logo" src="{{"logo.png" | asset_url}}" alt="{{settings.subscription_title}}" />
+            <div class="form-wrap">
+              {% if settings.subscription_title != "" %}<h2>{{settings.subscription_title}}</h2>{% endif %}
+              {% if settings.subscription_text != "" %}<p>{{settings.subscription_text}}</p>{% endif %}
+              
+              {% if settings.popup_action == "form" %}
+                {% if settings.use_mailchimp_form %}
+                <form class="clearfix" id="signupform" method="post" action="//{{settings.mailchimp_domain}}/subscribe/post-json?u={{settings.mailchimp_user}}&id={{settings.mailchimp_id}}&c=?">
+                  <input type="email" placeholder="Your Email" name="EMAIL" class="required email" />
+                  <input type='submit' class="btn prefix animation email-submit" value="Subscribe" name="subscribe" />
+                </form>
+                {% else %}
+                <form id="email_signup_popup" class="klaviyo_gdpr_embed_JJgCpw" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+                 <input type="hidden" name="contact[tags]" value="newsletter">
+                 <input type="hidden" name="g" value="JJgCpw">
+                 <input type="hidden" name="$fields" value="$consent">
+                 <input type="hidden" name="$list_fields" value="$consent">
+                 <input class="required email" type="email" value="" name="email" id="k_id_email" placeholder="Email" required />
+                 <input type='submit' class="btn klaviyo_submit_button email-submit prefix animation" value="SUBSCRIBE" name="subscribe" id="email-submit" />
+                 <div class="klaviyo_messages">
+                 <div class="success_message" style="display:none;"></div>
+                 <div class="error_message" style="display:none;"></div>
+                 </div> 
+                </form>
+                <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+                <script type="text/javascript">
+                 KlaviyoSubscribe.attachToForms('#email_signup_popup', {
+                   hide_form_on_success: true,
+                   success_message: "Thank you for signing up!"
+                 });
+                </script>
+                {% endif %}
+              {% elsif settings.popup_action == "button" %}
+              <a href="{{settings.popup_cta_button_link}}" class="btn">{{settings.popup_cta_button_text}}</a>
+              {% endif %}
+            </div>
+            <div class="success hide">
+              {% if settings.subscription_success != "" %}<h2>{{settings.subscription_success}}</h2>{% endif %}
+              {% if settings.subscription_success_msg != "" %}<p>{{settings.subscription_success_msg}}</p>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    $(document).ready(function(){
+      {% if settings.subscription_first_time %}
+      if(!Cookies.get('subscription_special_showed')) {
+      {% endif %}
+        setTimeout(function(){
+          modal = new tingle.modal({
+            closeMethods: ['overlay', 'button', 'escape'],
+            closeLabel: "Close",
+            cssClass: ['subscription-popup']
+          });
+          modal.setContent($('#subscription-pop-up'));
+          modal.open();
+
+          {% if settings.subscription_first_time %}
+          Cookies.set('subscription_special_showed', '1');
+          {% endif %}
+        }, {{settings.subscription_delay_time}});
+      {% if settings.subscription_first_time %}
+      }
+      {% endif %}
+    });
+
+    // Enable when not using Klaviyo form
+    // $('#subscription-pop-up form').submit(function(e){
+    //   e.preventDefault();
+    //   e.stopImmediatePropagation();
+
+    //   $(this).find('.error').removeClass('error');
+
+    //   var error = false;
+    //   $(this).find('.required').each(function(){
+    //     if($(this).val()=="") {
+    //       error = true;
+    //       $(this).addClass('error');
+    //     }
+    //   });
+    //   if(!error) {
+    //     if(!Simplistic.validateEmail($(this).find('.email').val())) {
+    //       error = true;
+    //       $(this).find('.email').addClass('error');
+    //     }
+    //   }
+
+    //   if(!error) {
+    //     var form = $(this);
+    //     $.ajax({
+    //       url: form.attr('action'),
+    //       data: form.serialize(),
+    //       {% if settings.use_mailchimp_form %}
+    //       dataType: 'jsonp',
+    //       {% endif %}
+    //       type: 'POST'
+    //     }).always(function(){
+    //       form.closest('.popup-wrapper').find('.form-wrap').hide();
+    //       form.closest('.popup-wrapper').find('.success').show();
+    //     });
+    //   }
+    // });
+  });  
+</script>

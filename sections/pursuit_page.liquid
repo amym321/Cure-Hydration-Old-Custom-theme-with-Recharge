@@ -1,0 +1,975 @@
+{% schema %}
+{
+  "name":"Pursuit Page",
+  "presets":[
+    {
+        "name":"Pursuit Page",
+        "category":"Landing page"
+    }
+  ],
+  "settings":[
+  ],
+  "blocks":[
+    {
+      "type":"text_two_columns",
+      "name":"Two Columns Text",
+      "settings":[
+        {
+            "type":"textarea",
+            "id":"text_1",
+            "label":"Text 1 - Column 1",
+            "default": "Lorem ipsum"
+        },
+        {
+            "type":"textarea",
+            "id":"text_2",
+            "label":"Text 2 - Column 1",
+            "default": "Lorem ipsum"
+        },
+        {
+            "type":"textarea",
+            "id":"text_3",
+            "label":"Text 3 - Column 2",
+            "default": "Lorem ipsum"
+        }
+      ]
+    },
+    {
+      "type":"cta_block",
+      "name":"CTA",
+      "settings":[
+        {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+        },
+        {
+            "type":"color",
+            "id":"bg_color",
+            "label":"Background Color"
+        },
+        {
+            "type":"text",
+            "id":"button",
+            "label":"Button"
+        },
+        {
+            "type":"url",
+            "id":"link",
+            "label":"Link"
+        },
+        {
+            "type":"textarea",
+            "id":"modal_content",
+            "label":"Modal Content (instead of link)"
+        }
+      ]
+    },
+    {
+      "type":"faqs",
+      "name":"FAQs",
+      "settings":[
+        {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+        },
+        {
+            "type":"text",
+            "id":"question_1",
+            "label":"Question 1"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_1",
+            "label":"Answer 1"
+        },
+        {
+            "type":"text",
+            "id":"question_2",
+            "label":"Question 2"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_2",
+            "label":"Answer 2"
+        },
+        {
+            "type":"text",
+            "id":"question_3",
+            "label":"Question 3"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_3",
+            "label":"Answer 3"
+        },
+        {
+            "type":"text",
+            "id":"question_4",
+            "label":"Question 4"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_4",
+            "label":"Answer 4"
+        },
+        {
+            "type":"text",
+            "id":"question_5",
+            "label":"Question 5"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_5",
+            "label":"Answer 5"
+        },
+        {
+            "type":"text",
+            "id":"question_6",
+            "label":"Question 6"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_6",
+            "label":"Answer 6"
+        },
+        {
+            "type":"text",
+            "id":"question_7",
+            "label":"Question 7"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_7",
+            "label":"Answer 7"
+        },
+        {
+            "type":"text",
+            "id":"question_8",
+            "label":"Question 8"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_8",
+            "label":"Answer 8"
+        },
+        {
+            "type":"text",
+            "id":"question_9",
+            "label":"Question 9"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_9",
+            "label":"Answer 9"
+        },
+        {
+            "type":"text",
+            "id":"question_10",
+            "label":"Question 10"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_10",
+            "label":"Answer 10"
+        },
+        {
+            "type":"text",
+            "id":"question_11",
+            "label":"Question 11"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_11",
+            "label":"Answer 11"
+        },
+        {
+            "type":"text",
+            "id":"question_12",
+            "label":"Question 12"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_12",
+            "label":"Answer 12"
+        },
+        {
+            "type":"text",
+            "id":"question_13",
+            "label":"Question 13"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_13",
+            "label":"Answer 13"
+        },
+        {
+            "type":"text",
+            "id":"question_14",
+            "label":"Question 14"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_14",
+            "label":"Answer 14"
+        },
+        {
+            "type":"text",
+            "id":"question_15",
+            "label":"Question 15"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_15",
+            "label":"Answer 15"
+        },
+        {
+            "type":"text",
+            "id":"question_16",
+            "label":"Question 16"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_16",
+            "label":"Answer 16"
+        },
+        {
+            "type":"text",
+            "id":"question_17",
+            "label":"Question 17"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_17",
+            "label":"Answer 17"
+        },
+        {
+            "type":"text",
+            "id":"question_18",
+            "label":"Question 18"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_18",
+            "label":"Answer 18"
+        },
+        {
+            "type":"text",
+            "id":"question_19",
+            "label":"Question 19"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_19",
+            "label":"Answer 19"
+        },
+        {
+            "type":"text",
+            "id":"question_20",
+            "label":"Question 20"
+        },
+        {
+            "type":"textarea",
+            "id":"answer_20",
+            "label":"Answer 20"
+        }
+      ]
+    },
+    {
+      "type":"custom_html",
+      "name":"Custom HTML",
+      "settings":[
+        {
+          "type":"textarea",
+          "id":"content",
+          "label":"Content"
+        },
+        {
+          "type": "text",
+          "id": "block_padding_desktop",
+          "label": "Block padding Desktop",
+          "default": "4em 1em"
+        },
+        {
+          "type": "text",
+          "id": "block_padding_mobile",
+          "label": "Block padding Mobile",
+          "default": "3em 1em"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#F0F0F0"
+        }
+      ]
+    },
+    {
+      "type":"logos",
+      "name":"Logos",
+      "settings":[
+        {
+          "type":"image_picker",
+          "id":"logo_1",
+          "label":"Logo 1"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_1",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_1",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_2",
+          "label":"Logo 2"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_2",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_2",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_3",
+          "label":"Logo 3"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_3",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_3",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_4",
+          "label":"Logo 4"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_4",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_4",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_5",
+          "label":"Logo 5"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_5",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_5",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_6",
+          "label":"Logo 6"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_6",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_6",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_7",
+          "label":"Logo 7"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_7",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_7",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type":"image_picker",
+          "id":"logo_8",
+          "label":"Logo 8"
+        },
+        {
+          "type": "range",
+          "id": "logo_width_8",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "logo_width_mobile_8",
+          "label": "Logo width",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        }
+      ]
+    },
+    {
+      "type":"image_overlay",
+      "name":"Image + Overlay",
+      "settings":[
+        {
+            "type":"image_picker",
+            "id":"image",
+            "label":"Image"
+        },
+        {
+            "type":"image_picker",
+            "id":"image_mobile",
+            "label":"Image Mobile (optional)"
+        },
+        {
+            "type":"color",
+            "id":"bg_color",
+            "label":"Background Color",
+            "default":"#ffffff"
+        },
+        {
+            "type":"color",
+            "id":"text_color",
+            "label":"Text Color",
+            "default":"#ffffff"
+        },
+        {
+            "type":"checkbox",
+            "id":"full_width",
+            "label":"Full Width",
+            "default": false
+        },
+        {
+            "type":"select",
+            "id":"width",
+            "label":"Width",
+            "options":[
+              {
+                  "value":"one-third",
+                  "label":"33.33%"
+              },
+              {
+                  "value":"one-half",
+                  "label":"50%"
+              },
+              {
+                  "value":"two-thirds",
+                  "label":"66.66%"
+              },
+              {
+                  "value":"one-whole",
+                  "label":"100%"
+              }
+            ],
+            "default":"one-half"
+        },
+        {
+            "type":"select",
+            "id":"text_alignment",
+            "label":"Text Alignment",
+            "options":[
+              {
+                  "value":"left",
+                  "label":"Left"
+              },
+              {
+                  "value":"center",
+                  "label":"Center"
+              },
+              {
+                  "value":"right",
+                  "label":"Right"
+              }
+            ],
+            "default":"center"
+        },
+        {
+            "type":"text",
+            "id":"title",
+            "label":"Title",
+            "default":"Lorem ipsum"
+        },
+        {
+            "type":"textarea",
+            "id":"text",
+            "label":"Text",
+            "default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula. Ut ac massa dapibus, vulputate leo quis, commodo tortor."
+        },
+        {
+            "type":"text",
+            "id":"button",
+            "label":"Button",
+            "default":"Shop Now"
+        },
+        {
+            "type":"url",
+            "id":"link",
+            "label":"Link"
+        }
+      ]
+    },
+    {
+      "type":"image_text",
+      "name":"Image + Text",
+      "settings":[
+        {
+          "type": "checkbox",
+          "id": "show_block",
+          "label": "Show Content?",
+          "default": true
+        },
+        {
+            "type":"image_picker",
+            "id":"image",
+            "label":"Image"
+        },
+        {
+            "type":"color",
+            "id":"bg_color",
+            "label":"Background Color",
+            "default":"#f5f5f5"
+        },
+        {
+            "type":"select",
+            "id":"image_position_x",
+            "label":"Image position X",
+            "options":[
+              {
+                  "value":"left",
+                  "label":"Left"
+              },
+              {
+                  "value":"right",
+                  "label":"Right"
+              }
+            ],
+            "default":"left"
+        },
+        {
+            "type":"select",
+            "id":"text_alignment",
+            "label":"Text Alignment",
+            "options":[
+              {
+                  "value":"left",
+                  "label":"Left"
+              },
+              {
+                  "value":"center",
+                  "label":"Center"
+              },
+              {
+                  "value":"right",
+                  "label":"Right"
+              }
+            ],
+            "default":"left"
+        },
+        {
+            "type":"text",
+            "id":"title",
+            "label":"Title",
+            "default":"Lorem ipsum"
+        },
+        {
+            "type":"textarea",
+            "id":"text",
+            "label":"Text",
+            "default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi."
+        },
+        {
+            "type":"text",
+            "id":"button",
+            "label":"Button",
+            "default":"Shop Now"
+        },
+        {
+            "type":"url",
+            "id":"link",
+            "label":"Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .page {margin: 0 auto 1em;}
+  section.multipurpose{padding: 0;}
+  .multipurpose .faqs h2 {margin-bottom: 0.5em;}
+  .multipurpose .faqs {margin-top: 1em; margin-bottom: 3em;}
+  .multipurpose .faqs .faqs-wrapper {padding: 0 1em; max-width: 1106px; margin: 0 auto;}
+  .multipurpose .faqs a {color: {{settings.content_main_color}};}
+  .multipurpose .faqs .faq-item {border-top: 1px solid currentColor; line-height: 1.67; padding: 0.7em 0;}
+  .multipurpose .faqs .faq-item:last-child {border-bottom: 1px solid currentColor;}
+  .multipurpose .faqs .faq-item .question {text-align: left; font-weight: 700;}
+  .multipurpose .faqs .faq-item .answer {text-align: left; padding-bottom: 1.5em;}
+  .multipurpose .faqs button {background: transparent; padding: 0; align-items: start}
+  .multipurpose .faqs button .icon-collapsable {top: 0.45em;}
+  .multipurpose .icon-collapsable {position: relative; flex-shrink: 0; font-size: 15px; display: inline-block; width: 1em; height: 1em; margin-left: 2em; transform: scale(0.9);}
+  .multipurpose .icon-collapsable:before {content: ''; position: absolute; top: 0; left: 0.4em; width: 0.2em; height: 1em; background-color: currentColor; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -ms-transition: all 0.2s linear; transition: all 0.2s linear;}
+  .multipurpose .icon-collapsable:after {content: ''; position: absolute; top: 0.4em; left: 0; width: 1em; height: 0.2em; background-color: currentColor; }
+  .multipurpose button[aria-expanded="true"] .icon-collapsable:before {transform: rotate(90deg);}
+  .multipurpose .icon-expand:before
+  .multipurpose {text-align: center;}
+  .multipurpose a.btn {text-decoration: none;}
+  .multipurpose .btn {white-space: nowrap;}
+  .multipurpose .logos > .flex {align-items: center; justify-content: space-around; max-width: 570px;}
+  .multipurpose .logos img {margin-bottom: 3em;}
+  .multipurpose .logos img:first-of-type {margin-left: 0;}
+  .multipurpose .logos img:last-of-type {margin-right: 0;}
+  .multipurpose .btn {font-size: 0.8889em;}
+  .cta-modal iframe {display: block;}
+  .cta-modal.tingle-modal--overflow {padding-top: 0;}
+  .multipurpose .image {position: relative; overflow: hidden;}
+  .multipurpose .img {position: relative; padding-top: 60%; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center; -webkit-transition: all 1s ease-out; -moz-transition: all 1s ease-out; -o-transition: all 1s ease-out; transition: all 1s ease-out; -ms-transform: scale(1, 1); -webkit-transform: scale(1, 1); transform: scale(1, 1);}
+  .isNotMobile .multipurpose .img:hover { {% if section.settings.zoom_on_hover %}-ms-transform: scale(1.05, 1.05); -webkit-transform: scale(1.05, 1.05); transform: scale(1.05, 1.05);{% endif %} }
+  
+  .multipurpose .cta-block h2, .multipurpose .image-text h2 {color: {{settings.content_main_color}};}
+  .multipurpose h2 img {height: 40px; margin-right: 12px;}
+  .multipurpose .text-two-columns {padding-top: 1em; padding-bottom: 2em;}
+  .multipurpose .text-two-columns ul {margin-top: 0.8em;}
+  .multipurpose .text-two-columns li {list-style-type: none; padding-left: 1.2em; position: relative; margin-bottom: 0.8em;}
+  .multipurpose .text-two-columns li:before {content: ''; width: 8px; height: 8px; background-color: {{settings.content_main_color}}; border-radius: 50%; position: absolute; left: 0; top: 0.5em; }
+  .multipurpose .text-two-columns .text1 + .text2 {padding-top: 25px; }
+  .multipurpose .text-two-columns .text1 {text-align: left; font-size: 24px; line-height: 1.5; font-weight: 700;}
+  .multipurpose .text-two-columns .text2 {text-align: left; font-size: 18px; line-height: 1.58; font-weight: 500; padding-bottom: 35px;}
+  .multipurpose .text-two-columns .text3 {text-align: left; font-size: 18px; line-height: 1.6; }
+  .multipurpose .cta-block  {padding-top: 1.5em; padding-bottom: 2em;}
+  .multipurpose .cta-block > .flex {flex-wrap: wrap; }
+  .multipurpose .cta-block h2 {text-align: left; margin-bottom: 0; text-transform: none; font-size: 31px; font-weight: bold; margin-bottom: 1em; line-height: 1.33;}
+  .multipurpose .cta-block .btn {padding-left: 2em; padding-right: 2em;}
+  .multipurpose .image-block {max-width: {{settings.container_width}}; }
+  .multipurpose .image-block.full-width {max-width: 100%;}
+  .multipurpose .image-block .overlay {display: flex; display: -webkit-flex; align-items: center; justify-content: center; position: absolute; width: 100%; height: 100%; left: 0; top: 0;} 
+  .multipurpose .image-block .overlay .wrap {max-width: 600px; padding: 3em;}
+  .multipurpose .in-title-image {height: 40px;}
+  
+  
+  .multipurpose .image-text-wrapper {max-width: {{settings.container_width}}; margin-left: auto; margin-right: auto;}
+  .multipurpose .image-text.full-width {max-width: 100%;}
+  .multipurpose .image-text .flex {align-items: center; flex-wrap: wrap;}
+  .multipurpose .image-text .flex.reverse {-webkit-flex-direction: row-reverse; flex-direction: row-reverse;}
+  .multipurpose .image-text .img {padding-top: 68%;}
+  .multipurpose .image-text .text .wrap {margin: auto; padding: 1em;}
+  .multipurpose .image-text .text h2{text-transform: none;margin-bottom: 15px;}
+  .multipurpose .image-text .text p {max-width: 470px; display: inline-block;line-height: 26px;margin-bottom: 2em;}
+  .multipurpose .image-text .text p:last-child {margin-bottom: 0;}
+  .multipurpose .image-text .text .btn{margin-bottom: 1em;}
+  
+  .templateIndex .multipurpose .image-text:nth-child(2) .text p{max-width: 340px;}
+  .templateIndex .multipurpose .image-text:nth-child(3) .text p{max-width: 320px;}
+  
+  @media all and (min-width: 901px) {
+  .multipurpose .faqs {margin-top: 5em; margin-bottom: 4em;}
+  .multipurpose .logos > .flex {flex-wrap: nowrap; justify-content: space-between; max-width: 1070px;}
+  .multipurpose .cta-block {padding-top: 2.5em 0 3em; margin-bottom: 1.5em;}
+  .multipurpose .cta-block > .flex {flex-wrap: nowrap; }
+  .multipurpose .cta-block h2 {padding: 0 9% 0 1em; font-size: 45px; margin-bottom: 0;}
+  .multipurpose .cta-block .btn {width: auto; margin-right: 2em;}
+  .multipurpose .text-two-columns {padding-top: 2em; padding-bottom: 2em;}
+  .multipurpose .text-two-columns .column1, .multipurpose .text-two-columns .column2 {padding: 50px; }
+  .multipurpose .text-two-columns .text1 {font-size: 29px;}
+  .multipurpose .text-two-columns .text2 {font-size: 23px; padding-bottom: 0;}
+  .multipurpose .text-two-columns .text3 {font-size: 18px;}
+  .multipurpose .image-text {margin-top: 2em; }
+  .multipurpose .image-block.one-whole .img {padding-top: 35%;}
+  .multipurpose .image-block.one-third .img {padding-top: 90%;}
+  .multipurpose .image-block.two-thirds .img {padding-top: 45%;}
+  }
+  
+  @media all and (max-width: 900px) and (min-width: 601px) {
+    .multipurpose .image-text .text .wrap {padding: 2em 2em 3em;}
+    .multipurpose .image-block .img {padding: 0; height: 350px;}
+    .multipurpose .image-block {padding-bottom: 1em;}
+    .multipurpose .image-text .img {padding-top: 80%;}
+    .multipurpose .cta-block > .flex {max-width: 470px; margin-left: auto; margin-right: auto;}
+  }
+  @media all and (max-width: 600px) {
+    .multipurpose .cta-block .btn {width: 100%;}
+    .multipurpose .image-block {padding-bottom: 1em;}
+    .multipurpose .image-text {padding-bottom: 0;}
+    .multipurpose .image-text .text .wrap {padding: 2em 1em 3em;}
+  }
+</style>
+
+<section class="multipurpose" style="background: {{section.settings.section_bg}};">
+  
+  {% if section.settings.title != blank %}
+  <div class="container">
+      <h2>{{section.settings.title}}</h2>
+  </div>
+  {% endif %}
+
+  <div class="grid justify-content-center">
+  {% for block in section.blocks %}
+    {% if block.type == "text_two_columns" %}
+    <div class="text-two-columns grid__item one-whole">
+      <div class="flex flex-wrap container ">
+        <div class="column1 seven-twelfths medium-down--one-whole">
+          {% if block.settings.text_1 != blank %}<div class="text1">{{block.settings.text_1}}</div>{% endif %}
+          {% if block.settings.text_2 != blank %}<div class="text2">{{block.settings.text_2}}</div>{% endif %}
+        </div>
+        <div class="column2 five-twelfths medium-down--one-whole ">
+          {% if block.settings.text_3 != blank %}<div class="text3">{{block.settings.text_3}}</div>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% elsif block.type == "cta_block" %}
+    <div class="cta-block grid__item one-whole" style="background-color: {{block.settings.bg_color}};">
+      <div class="flex align-items-center container ">
+        {% if block.settings.title != blank %}<h2>{{block.settings.title}}</h2>{% endif %}
+        {% if block.settings.modal_content != blank %}
+        <button type="button" class="btn" id="cta-block-{{block.id}}">{{block.settings.button}}</button>
+        <script>
+        $(function() {
+          $('#cta-block-{{block.id}}').click(function() {
+            var content = {{block.settings.modal_content | json}};
+  	        Simplistic.openModal(content, 'cta-modal');
+          });
+        })
+        </script>
+        {% elsif block.settings.button != blank %}
+          <div><a class="btn" href="{{block.settings.link}}">{{block.settings.button}}</a></div>
+        {% endif %}
+      </div>
+    </div>
+    {% elsif block.type == "faqs" %}
+    <div class="faqs grid__item one-whole">
+      <div class="faqs-wrapper">
+      {% if block.settings.title != blank %}<h2>{{block.settings.title}}</h2>{% endif %}
+      {% for i in (1..20) %}
+      {%- assign questionKey = 'question_' | append: i -%}
+        {%- if block.settings[questionKey] != blank -%}
+          {%- assign answerKey = 'answer_' | append: i -%}
+          <div class="faq-item">
+            <button aria-expanded="false" class="flex align-items-center justify-content-between one-whole">
+              <span class="question">{{block.settings[questionKey]}}</span>
+              <i class="icon-collapsable animation"></i>
+            </button>
+            <div class="answer hide">{{block.settings[answerKey]}}</div>
+          </div>
+        {%- endif -%}
+      {% endfor %}
+      </div>
+    </div>
+    {% elsif block.type == "custom_html" %}
+    <style>
+    .multipurpose .custom-html.block-{{block.id}} .bg {background-color: {{block.settings.bg_color}}; padding: {{block.settings.block_padding_mobile}};}
+    @media all and (min-width: 901px) {
+    .multipurpose .custom-html.block-{{block.id}} .bg {padding: {{block.settings.block_padding_desktop}};}
+    }
+    </style>
+    <div class="custom-html block-{{block.id}} grid__item one-whole">
+      <div class="bg">{{block.settings.content}}</div>
+    </div>
+
+    {% elsif block.type == "logos" %}
+    <div class="logos grid__item one-whole" style="background-color: {{block.settings.bg_color}};">
+      <div class="flex flex-wrap container">
+        <style>
+        {% for i in (1..8) %}
+          {%- assign logoKey = 'logo_' | append: i -%}
+          {%- if block.settings[logoKey] != blank -%}
+            {%- assign logoWidthKey = 'logo_width_' | append: i -%}
+            .multipurpose .logos img.item{{i}} {width: {{block.settings[logoWidthKey]}}%; }
+          {% endif %}
+        {% endfor %}
+        @media (max-width: 900px) {
+        {% for i in (1..8) %}
+          {%- assign logoKey = 'logo_' | append: i -%}
+          {%- if block.settings[logoKey] != blank -%}
+            {%- assign logoWidthMobileKey = 'logo_width_mobile_' | append: i -%}
+            .multipurpose .logos img.item{{i}} {width: {{block.settings[logoWidthMobileKey]}}%; }
+          {% endif %}
+        {% endfor %}
+        }
+        </style>
+        {% for i in (1..8) %}
+          {%- assign logoKey = 'logo_' | append: i -%}
+          {%- if block.settings[logoKey] != blank -%}
+            <img class="item{{i}} lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings[logoKey] %}" alt="{{block.settings[logoKey].alt}}" />
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% elsif block.type == "image_text" and block.settings.show_block %}
+    <div class="image-text grid__item one-whole {% if block.settings.full_width == true %}full-width{%- endif -%} ">
+      <div class="image-text-wrapper flex {% if block.settings.image_position_x == "right" %}reverse{% endif %}"  style="background-color: {{block.settings.bg_color}};">
+        <div class="image one-half medium-down--one-whole">
+          <div class="img lazyload" data-bgset="{% include 'lazy_src', image: block.settings.image %}">
+          </div>
+        </div>
+        <div class="text one-half  medium-down--one-whole text-{{block.settings.text_alignment}} flex">
+          <div class="wrap">
+            {% if block.settings.title != blank %}<h2>{{block.settings.title}}</h2>{% endif %}
+            {% if block.settings.text != blank %}<p>{{block.settings.text}}</p>{% endif %}
+            {% if block.settings.button != blank %}<div><a class="btn" href="{{block.settings.link}}">{{block.settings.button}}</a></div>{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% elsif block.type == "image_overlay" %}
+    <style>
+      .multipurpose .image-block.block-{{block.id}} .img {padding-top: {{100 | divided_by: block.settings.image.aspect_ratio}}%;}
+      {%- if block.settings.image_mobile != blank -%}
+      .multipurpose .image-block.block-{{block.id}} .img.mobile {padding-top: {{100 | divided_by: block.settings.image_mobile.aspect_ratio}}%;}
+      {%- endif -%}
+    
+    </style>
+    <div class="image-block block-{{block.id}} grid__item {{block.settings.width}} small--one-whole  {% if block.settings.full_width == true %}full-width{%- endif -%} ">
+      {% if block.settings.link != blank %}<a href="{{block.settings.link}}">{% endif %}
+      <div class="image">
+        <div class="img {% if block.settings.image_mobile != blank %}medium-down--hide{% endif %}" style="{% if block.settings.image != blank %}background-image: url({{block.settings.image | img_url: 'master'}});{% endif %}background-color: {{block.settings.bg_color}};" aria-label="{{block.settings.image.alt}}"></div>
+        {% if block.settings.image_mobile != blank %}
+        <div class="img mobile large--hide" data-bgset="{% include 'lazy_src', image: block.settings.image_mobile %}" style="background-color: {{block.settings.bg_color}};" aria-label="{{block.settings.image_mobile.alt}}"></div>
+        {% endif %}
+        <div class="overlay">
+          <div class="wrap text-{{block.settings.text_alignment}}" style="color: {{block.settings.text_color}};">
+            {% if block.settings.title != blank %}<h2 style="color: {{block.settings.text_color}};">{{block.settings.title}}</h2>{% endif %}
+            {% if block.settings.text != blank %}<p>{{block.settings.text}}</p>{% endif %}
+            {% if block.settings.button != blank %}<div><a class="btn" href="{{block.settings.link}}">{{block.settings.button}}</a></div>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% if block.settings.link != blank %}</a>{% endif %}
+    </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+  
+</section>
+<script>
+$(function() {
+
+  $('#shopify-section-{{section.id}} a[href^="#"]').click(function(e) {
+    var elementSelector = $(this).attr('href');
+    if (elementSelector=='#' || $(this).attr('onclick')) {
+      return true;
+    }
+    e.preventDefault();
+    var headerHeight = 0;
+    headerHeight = $('#header').outerHeight();
+    $('html,body').animate({scrollTop: $(elementSelector).offset().top -headerHeight -30},'slow');
+  });
+
+  $('#shopify-section-{{section.id}} .faqs button').click(function() {
+    var $this = $(this);
+    var answer = $this.closest('.faq-item').find('.answer');
+    if ($this.attr('aria-expanded')=='true') {
+      $this.attr('aria-expanded', 'false');
+      answer.slideUp();
+    } else {
+      $this.attr('aria-expanded', 'true');
+      answer.slideDown();
+    }
+    
+  });
+
+});
+</script>

@@ -1,0 +1,60 @@
+<style>
+  .product-badges-section{margin-top: 1em;}
+  .product-badges-section .badges-container{flex-wrap: wrap;justify-content: space-between;}
+  .product-badges-section .badge img{max-width: 45px;margin: auto;}
+  .product-badges-section .badge p{font-family: "GT Pressura Mono",sans-serif;color: #6E6D6E;line-height: 12px;font-size: 0.6em;text-align: center;}
+   @media all and (max-width: 600px){
+     .product-badges-section .badge:first-child{margin-bottom: 1em;}
+   }
+</style>
+
+<section class="product-badges-section">
+  <div class="badges-container flex">
+    {%- if product.metafields.custom_fields["gallery_badge-balanced_energy"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'balanced_energy.png' | file_img_url: 'master'}}" alt="balanced energy">
+        <p>Balanced<br>Energy</p>
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-rapid_hydration"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'rapid_hydration.png' | file_img_url: 'master'}}" alt="rapid hydration">
+        <p>Science-Backed<br>Hydration</p>
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-organic_ingredie"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'organic.png' | file_img_url: 'master'}}" alt="organic">
+        {% if product.handle contains 'matcha' %}
+        <p>Organic</p>
+        {% else %}
+        <p>Plant-Based</p>
+        {% endif %}
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-non_gmo"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'non_gmo.png' | file_img_url: 'master'}}" alt="non_gmo">
+        <p>Non-GMO</p>
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-no_added_sugar"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'no_added_sugar.png' | file_img_url: 'master'}}" alt="no added sugar">
+        <p>No Added<br>Sugar</p>
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-vegan"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'vegan.png' | file_img_url: 'master'}}" alt="vegan">
+        <p>Vegan</p>
+      </div>
+    {%- endif -%}
+    {%- if product.metafields.custom_fields["gallery_badge-gluten_free"] == 1 -%}
+     <div class="badge one-sixth small--one-third text-center">
+        <img src="{{'gluten_free.png' | file_img_url: 'master'}}" alt="gluten free">
+        <p>Gluten<br>Free</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>

@@ -1,0 +1,34 @@
+{%- include '_product', packs: true -%}
+
+{% comment %} {%- section 'when_to_take' -%} {% endcomment %}
+
+{% comment %} {%- section 'line' -%} {% endcomment %}
+
+{% comment %} {%- section 'how_to_take' -%} {% endcomment %}
+
+{% if product.metafields.custom_fields["us_vs_them_chart_image_url"] != blank %}
+  {%- section 'us_vs_them_img' -%}
+{% endif %}
+
+{%- section 'value_props' -%}
+
+{% comment %} {%- section 'social_impact_pdp' -%} {% endcomment %}
+
+{%- include 'product_ingredients' -%}
+
+{%- section 'product_accordion_metafield_faq' -%}
+
+{%- if settings.show_related_products -%}
+  {%- include 'related_products' -%}
+{%- endif -%}
+
+{%- if settings.show_recently_viewed -%}
+    <script>
+        $(function(){
+            Shopify.Products.recordRecentlyViewed();
+        });
+    </script>
+  {%- include 'recently_viewed' -%}
+{%- endif -%}
+
+{%- section 'advisory_board' -%}

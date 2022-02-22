@@ -1,0 +1,106 @@
+<div id="cart" class="two-columns container">
+  {% if cart.items == empty %} 
+  <div class="empty">
+    <i class="fa fa-shopping-cart"></i><br />Your shopping cart is empty. Check out our <a href="/collections/all">shop</a> to see what's available
+  </div>
+  {% else %}
+  <form action="/cart" method="post" id="cartform" class="clearfix">
+
+    <div class="grid">
+      
+      <div class="grid__item four-sixths medium--one-whole small--one-whole">
+
+        {% if settings.cart_items_table %}
+        <table class="main">
+          <thead class="small--hide">
+            <tr class="top-labels">
+              <th class="text-left">Item</th>
+              <th>Unit $</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody class="items-container"> 
+            {% for item in cart.items %}
+            {% include 'cart-item-table' %}
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        
+        <div class="items">
+          {% for item in cart.items %}
+            {% include 'cart-item' %}
+          {% endfor %}
+        </div>
+        
+        {% endif %}
+      </div>
+      
+      <div class="grid__item two-sixths medium--one-whole small--one-whole">
+        
+        <div class="subtotal">
+          <div class="label">Subtotal</div>
+          <div class="number">{{ cart.total_price | money }}</div>
+        </div>
+
+        {% if settings.allow_note %}	
+        <div class="addnote">
+          <div>
+            <input type="checkbox" id="chk-is-instructions" class="checkbox-custom" {% if cart.note != nil and cart.note != "" %} checked="checked" {% endif %} />
+            <label for="chk-is-instructions" class="checkbox-custom-label animation">Add special instructions to your order</label>
+          </div>
+          <div id="instructions-note">
+            <textarea id="note" name="note" maxlength="100">{{ cart.note }}</textarea>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if settings.cart_additional_msg != "" %}
+        <div class="additional-message">{{ settings.cart_additional_msg }}</div>
+        {% endif %}
+
+        {% if settings.cart_return_policy != "" %}
+        <div class="hide"><div id="return-policy"><div class="title">Return Policy</div>{{ settings.cart_return_policy }}</div></div>
+        <div class="return-policy-button"><a href="#" onclick="Simplistic.openModal($('#return-policy')); return false;">RETURN POLICY</a></div>
+        {% endif%}
+
+        <div class="buttons text-center">
+          <div class="clearfix">
+            <input type="button" class="btn secondary continue" value="Continue shopping" onclick="location.href='/'; return false;">
+            <input type="submit" class="btn secondary update" value="Update cart" id="update-cart" name="update" />
+            <input type="submit" class="btn checkout-button" name="checkout" value="Checkout" />
+          </div>
+          {% if additional_checkout_buttons %}
+          <div class="additional-checkout-buttons">
+            <span>Or check out using:</span>
+            {{ content_for_additional_checkout_buttons }}
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+  {% include 'shipping-calculator' %}
+
+  {% endif %}
+</div>
+
+<script>
+  $(document).ready(function () {
+    //item title formating
+    $('.item').each(function(){
+      var originalTitle = $(this).find('.title .text').html();
+      if (originalTitle != undefined && originalTitle.indexOf("Off") != -1){
+        var discount = originalTitle.slice(originalTitle.indexOf("Off")-7,originalTitle.indexOf("Off")-1);
+        var productName = originalTitle.slice(0,originalTitle.indexOf("Off")-8);
+        var newTitle = productName+"<br/>"+"Auto-Renew"+"<br/>"+discount+" Off";
+        $(this).find('.title .text').html(newTitle);
+      } 
+    });
+  });
+</script>

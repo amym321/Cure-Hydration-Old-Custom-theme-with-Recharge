@@ -1,0 +1,5 @@
+{% if settings.blog_layout == "list" %}
+	{% include 'blog_template_list' %}
+{% else %}
+	{% include 'blog_template_grid' %}
+{% endif %}

@@ -1,0 +1,19 @@
+<div id="collection" class="container clearfix">
+  {% section 'collection_custom_item_1' %}
+  {% section 'collection_custom_item_2' %}
+  {% section 'collection_custom_item_3' %}
+  {%- paginate collection.products by 30 -%}
+  {%- if collection.products.size > 0 -%}
+  	<div class="grid">
+      {%- for product in collection.products -%}
+        {%- unless product.tags contains 'hide' -%}
+          {%- include 'product_item', currentProduct: product, quickview: settings.allow_quick_view -%}
+        {%- endunless -%}
+      {%- endfor -%}
+  	</div>
+  	{%- include 'pagination' -%}
+  {%- else %}  -  
+  	<div class="no-products"><i class="fa fa-tag"></i><br />No products found in this collection</div>
+  {%- endif -%}
+  {%- endpaginate -%}
+</div>

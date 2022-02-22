@@ -1,0 +1,664 @@
+{% schema %}
+{
+   "name":"us_vs_them_lemon",
+   "presets":[
+      {
+         "name":"us_vs_them_lemon"
+      }
+   ],
+   "settings":[
+      {
+         "type":"header",
+         "content":"General Settings"
+      },
+      {
+	       "type":"image_picker",
+	       "id":"title_image",
+	       "label":"Title Image"
+      },
+      {
+        "type":"text",
+        "id":"title_image_alt",
+        "label":"Title Image alt Text",
+        "default":"Us vs Them",
+        "info":"A brief description of the image. For SEO and screen readers."
+      },
+      {
+	       "type":"image_picker",
+	       "id":"bg_img",
+	       "label":"Background Image"
+      },
+      {
+         "type":"header",
+         "content":"First Drink"
+      },
+      {
+	       "type":"image_picker",
+	       "id":"first_bottle",
+	       "label":"Bottle Image"
+      },
+      {
+        "type":"text",
+        "id":"first_bottle_image_alt",
+        "label":"Bottle Image alt Text",
+        "default":"bottle image",
+        "info":"A brief description of the image. For SEO and screen readers."
+      },
+      {
+	       "type":"image_picker",
+	       "id":"first_bottle_hover",
+	       "label":"Bottle Image on Hover"
+      },
+      {
+         "type":"text",
+         "id":"first_title",
+         "label":"Title"
+      },
+      {
+         "type":"text",
+         "id":"first_calories",
+         "label":"Calories"
+      },
+      {
+         "type":"text",
+         "id":"first_sodium",
+         "label":"Sodium"
+      },
+      {
+         "type":"text",
+         "id":"first_potassium",
+         "label":"Potassium"
+      },
+      {
+         "type":"text",
+         "id":"first_sugar",
+         "label":"Sugar"
+      },
+      {
+         "type":"text",
+         "id":"first_added_sugar",
+         "label":"Added Suggar"
+      },
+      {
+	      "type":"select",
+	      "id":"first_no_artificial_ingredients",
+	      "label":"No Artificial Ingredients",
+	      "options":[
+	        {
+	          "value":"yes",
+	          "label":"Yes"
+	        },
+	        {
+	          "value":"no",
+	          "label":"No"
+	        }
+	      ],
+	      "default":"no"
+	    },
+	    {
+         "type":"header",
+         "content":"Second Drink"
+      },
+      {
+	       "type":"image_picker",
+	       "id":"second_bottle",
+	       "label":"Bottle Image"
+      },
+      {
+        "type":"text",
+        "id":"second_bottle_image_alt",
+        "label":"Bottle Image alt Text",
+        "default":"bottle image",
+        "info":"A brief description of the image. For SEO and screen readers."
+      },
+      {
+	       "type":"image_picker",
+	       "id":"second_bottle_hover",
+	       "label":"Bottle Image on Hover"
+      },
+      {
+         "type":"text",
+         "id":"second_title",
+         "label":"Title"
+      },
+      {
+         "type":"text",
+         "id":"second_calories",
+         "label":"Calories"
+      },
+      {
+         "type":"text",
+         "id":"second_sodium",
+         "label":"Sodium"
+      },
+      {
+         "type":"text",
+         "id":"second_potassium",
+         "label":"Potassium"
+      },
+      {
+         "type":"text",
+         "id":"second_sugar",
+         "label":"Sugar"
+      },
+      {
+         "type":"text",
+         "id":"second_added_sugar",
+         "label":"Added Suggar"
+      },
+      {
+	      "type":"select",
+	      "id":"second_no_artificial_ingredients",
+	      "label":"No Artificial Ingredients",
+	      "options":[
+	        {
+	          "value":"yes",
+	          "label":"Yes"
+	        },
+	        {
+	          "value":"no",
+	          "label":"No"
+	        }
+	      ],
+	      "default":"no"
+	    },
+	    {
+         "type":"header",
+         "content":"Third Drink"
+      },
+      {
+	       "type":"image_picker",
+	       "id":"third_bottle",
+	       "label":"Bottle Image"
+      },
+      {
+        "type":"text",
+        "id":"third_bottle_image_alt",
+        "label":"Bottle Image alt Text",
+        "default":"bottle image",
+        "info":"A brief description of the image. For SEO and screen readers."
+      },
+      {
+	       "type":"image_picker",
+	       "id":"third_bottle_hover",
+	       "label":"Bottle Image on Hover"
+      },
+      {
+         "type":"text",
+         "id":"third_title",
+         "label":"Title"
+      },
+      {
+         "type":"text",
+         "id":"third_calories",
+         "label":"Calories"
+      },
+      {
+         "type":"text",
+         "id":"third_sodium",
+         "label":"Sodium"
+      },
+      {
+         "type":"text",
+         "id":"third_potassium",
+         "label":"Potassium"
+      },
+      {
+         "type":"text",
+         "id":"third_sugar",
+         "label":"Sugar"
+      },
+      {
+         "type":"text",
+         "id":"third_added_sugar",
+         "label":"Added Suggar"
+      },
+      {
+	      "type":"select",
+	      "id":"third_no_artificial_ingredients",
+	      "label":"No Artificial Ingredients",
+	      "options":[
+	        {
+	          "value":"yes",
+	          "label":"Yes"
+	        },
+	        {
+	          "value":"no",
+	          "label":"No"
+	        }
+	      ],
+	      "default":"no"
+	    },
+	    {
+         "type":"header",
+         "content":"Fourth Drink"
+      },
+      {
+	       "type":"image_picker",
+	       "id":"fourth_bottle",
+	       "label":"Bottle Image"
+      },
+      {
+        "type":"text",
+        "id":"fourth_bottle_image_alt",
+        "label":"Bottle Image alt Text",
+        "default":"bottle image",
+        "info":"A brief description of the image. For SEO and screen readers."
+      },
+      {
+	       "type":"image_picker",
+	       "id":"fourth_bottle_hover",
+	       "label":"Bottle Image on Hover"
+      },
+      {
+         "type":"text",
+         "id":"fourth_title",
+         "label":"Title"
+      },
+      {
+         "type":"text",
+         "id":"fourth_calories",
+         "label":"Calories"
+      },
+      {
+         "type":"text",
+         "id":"fourth_sodium",
+         "label":"Sodium"
+      },
+      {
+         "type":"text",
+         "id":"fourth_potassium",
+         "label":"Potassium"
+      },
+      {
+         "type":"text",
+         "id":"fourth_sugar",
+         "label":"Sugar"
+      },
+      {
+         "type":"text",
+         "id":"fourth_added_sugar",
+         "label":"Added Suggar"
+      },
+      {
+	      "type":"select",
+	      "id":"fourth_no_artificial_ingredients",
+	      "label":"No Artificial Ingredients",
+	      "options":[
+	        {
+	          "value":"yes",
+	          "label":"Yes"
+	        },
+	        {
+	          "value":"no",
+	          "label":"No"
+	        }
+	      ],
+	      "default":"no"
+	    }      
+   ]
+}
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} { {% if section.settings.bg_img %} background-image: url({{section.settings.bg_img | img_url: 'master'}});background-size: cover;background-position: center;background-repeat: no-repeat;{% endif %}padding:1em;}
+	
+	#shopify-section-{{section.id}} .us-vs-them-section{background-color: transparent;}
+
+	#shopify-section-{{section.id}} .mobile-content{display: none;}
+
+	#shopify-section-{{section.id}} .title-container{text-align: left;border-bottom: 1px solid #eef2fe;padding-bottom: 0.5em;margin-bottom: 2em;}
+	#shopify-section-{{section.id}} .title-container img{width: 335px;max-width: 90%;}
+	
+	#shopify-section-{{section.id}} table th{line-height: 15px;padding:10px 0;}
+	#shopify-section-{{section.id}} table th:not(.empty){background-color: #eef2fe;color: #6085fa;font-size: 0.7em;font-weight: 800;}
+	#shopify-section-{{section.id}} .desktop-content table tr td{width: calc(100%/5);}
+	#shopify-section-{{section.id}} table tr td{border: 1px solid #eef2fe;text-align: center;font-family: GT Pressura Mono, sans-serif;font-size: 0.7em;color: #eef2fe;line-height: 15px;padding:10px 0;}
+	#shopify-section-{{section.id}} table tr td.text-left{text-align: left;padding-left: 10px;}
+	#shopify-section-{{section.id}} .images-row td{border: none;}
+	#shopify-section-{{section.id}} table tr td .cross-icon,
+	#shopify-section-{{section.id}} table tr td .check-icon{position: relative;top: 3px;max-width: 21px;margin: auto;}
+	#shopify-section-{{section.id}} .image-container{position: relative;padding-top: 160px;}
+	#shopify-section-{{section.id}} .image-container img{position: absolute;position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);max-width: 65px;}
+	#shopify-section-{{section.id}} .image-container .hover-img{opacity: 0;}
+	
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-1-hover .col-1.image-container .hover-img{opacity: 1;z-index: 2;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-1-hover .col-1:not(.no-bg-hover){background-color: #809df9;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-2-hover .col-2.image-container .hover-img{opacity: 1;z-index: 2;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-2-hover .col-2:not(.no-bg-hover){background-color: #809df9;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-3-hover .col-3.image-container .hover-img{opacity: 1;z-index: 2;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-3-hover .col-3:not(.no-bg-hover){background-color: #809df9;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-4-hover .col-4.image-container .hover-img{opacity: 1;z-index: 2;}
+	.isNotMobile #shopify-section-{{section.id}} .desktop-content table.col-4-hover .col-4:not(.no-bg-hover){background-color: #809df9;}
+
+	#shopify-section-{{section.id}} .slick-slider .slick-arrow{color: #eef2fe;font-weight: 400;font-size: 40px;top: 18%;}
+	#shopify-section-{{section.id}} .slick-slider .slick-arrow.fa-angle-right{right: 0;}
+	#shopify-section-{{section.id}} .slick-dots li{margin:0 10px;}
+	#shopify-section-{{section.id}} .slick-dots li button{height: 10px;width: 10px;border: 1px solid #eef2fe;background-color: {{settings.content_main_color}};}
+	#shopify-section-{{section.id}} .slick-dots li.slick-active button{background-color: #eef2fe;}
+
+
+  @media all and (max-width: 600px){
+		#shopify-section-{{section.id}} .us-vs-them-section{padding: 2em 1em 3em;}
+
+  	#shopify-section-{{section.id}} .desktop-content{display: none;}
+  	#shopify-section-{{section.id}} .mobile-content{display: block;}
+  	#shopify-section-{{section.id}} .mobile-content .image-container{margin-bottom: 1em;}
+  	#shopify-section-{{section.id}} table tr td .cross-icon,
+  	#shopify-section-{{section.id}} table tr td .check-icon{top: 1px;max-width: 18px;}
+
+		#shopify-section-{{section.id}} .slick-dots{bottom: -2.5em;}
+  }
+</style>
+
+<section class="us-vs-them-section">
+	<div class="title-container">
+		<img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.title_image %}" alt="{{section.settings.title_image_alt}}">
+	</div>
+	<div class="desktop-content flex">
+		<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+			<tr class="images-row">
+				<td></td>
+				<td class="col-1 image-container no-bg-hover">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.first_bottle %}" alt="{{section.settings.first_bottle_image_alt}}" class=" lazyload no-hover-img">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.first_bottle_hover %}" alt="{{section.settings.first_bottle_image_alt}}" class=" lazyload hover-img animation">
+				</td>
+				<td class="col-2 image-container no-bg-hover">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.second_bottle %}" alt="{{section.settings.second_bottle_image_alt}}" class=" lazyload no-hover-img">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.second_bottle_hover %}" alt="{{section.settings.second_bottle_image_alt}}" class=" lazyload hover-img animation">
+				</td>
+				<td class="col-3 image-container no-bg-hover">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.third_bottle %}" alt="{{section.settings.third_bottle_image_alt}}" class=" lazyload no-hover-img">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.third_bottle_hover %}" alt="{{section.settings.third_bottle_image_alt}}" class=" lazyload hover-img animation">
+				</td>
+				<td class="col-4 image-container no-bg-hover">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.fourth_bottle %}" alt="{{section.settings.fourth_bottle_image_alt}}" class=" lazyload no-hover-img">
+					<img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.fourth_bottle_hover %}" alt="{{section.settings.fourth_bottle_image_alt}}" class=" lazyload hover-img animation">
+				</td>
+			</tr>
+		  <tr>
+		    <th class="empty"></th>
+		    <th class="col-1 no-bg-hover">{{section.settings.first_title}}</th>
+		    <th class="col-2 no-bg-hover">{{section.settings.second_title}}</th>
+		    <th class="col-3 no-bg-hover">{{section.settings.third_title}}</th>
+		    <th class="col-4 no-bg-hover">{{section.settings.fourth_title}}</th>
+		  </tr>
+		  <tr>
+		    <td class="text-left">Calories</td>
+		    <td class="col-1">{{section.settings.first_calories}}</td>
+		    <td class="col-2">{{section.settings.second_calories}}</td>
+		    <td class="col-3">{{section.settings.third_calories}}</td>
+		    <td class="col-4">{{section.settings.fourth_calories}}</td>
+		  </tr>
+		  <tr>
+		    <td class="text-left">Sodium</td>
+		    <td class="col-1">{{section.settings.first_sodium}}</td>
+		    <td class="col-2">{{section.settings.second_sodium}}</td>
+		    <td class="col-3">{{section.settings.third_sodium}}</td>
+		    <td class="col-4">{{section.settings.fourth_sodium}}</td>
+		  </tr>
+		  <tr>
+		    <td class="text-left">Potassium</td>
+		    <td class="col-1">{{section.settings.first_potassium}}</td>
+		    <td class="col-2">{{section.settings.second_potassium}}</td>
+		    <td class="col-3">{{section.settings.third_potassium}}</td>
+		    <td class="col-4">{{section.settings.fourth_potassium}}</td>
+		  </tr>
+		  <tr>
+		    <td class="text-left">Sugar</td>
+		    <td class="col-1">{{section.settings.first_sugar}}</td>
+		    <td class="col-2">{{section.settings.second_sugar}}</td>
+		    <td class="col-3">{{section.settings.third_sugar}}</td>
+		    <td class="col-4">{{section.settings.fourth_sugar}}</td>
+		  </tr>
+		  <tr>
+		    <td class="text-left">Added Sugar</td>
+		    <td class="col-1">{{section.settings.first_added_sugar}}</td>
+		    <td class="col-2">{{section.settings.second_added_sugar}}</td>
+		    <td class="col-3">{{section.settings.third_added_sugar}}</td>
+		    <td class="col-4">{{section.settings.fourth_added_sugar}}</td>
+		  </tr>
+		  <tr>
+		    <td class="text-left">No Artificial Ingredients</td>
+		    <td class="col-1">
+					{% if section.settings.first_no_artificial_ingredients == "no" %}
+						<img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+					{% else %}
+						<img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+					{% endif %}
+		    </td>
+		    <td class="col-2">
+		    	{% if section.settings.second_no_artificial_ingredients == "no" %}
+						<img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+					{% else %}
+						<img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+					{% endif %}
+		    </td>
+		    <td class="col-3">
+		    	{% if section.settings.third_no_artificial_ingredients == "no" %}
+						<img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+					{% else %}
+						<img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+					{% endif %}
+		    </td>
+		    <td class="col-4">
+		    	{% if section.settings.fourth_no_artificial_ingredients == "no" %}
+						<img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+					{% else %}
+						<img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+					{% endif %}
+		    </td>
+		  </tr>
+		</table>		
+	</div>
+	<div class="mobile-content">
+
+		<div class="item">
+			<div class="image-container">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.first_bottle %}" alt="{{section.settings.first_bottle_image_alt}}" class="no-hover-img lazyload">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.first_bottle_hover %}" alt="{{section.settings.first_bottle_image_alt}}" class="hover-img animation lazyload">
+			</div>
+			<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+				<tr>
+					<th colspan="2">{{section.settings.first_title}}</th>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Calories</td>
+					<td width="20%">{{section.settings.first_calories}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sodium</td>
+					<td width="20%">{{section.settings.first_sodium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Potassium</td>
+					<td width="20%">{{section.settings.first_potassium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sugar</td>
+					<td width="20%">{{section.settings.first_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Added Sugar</td>
+					<td width="20%">{{section.settings.first_added_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">No Artificial Ingredients</td>
+					<td width="20%">
+						{% if section.settings.first_no_artificial_ingredients == "no" %}
+            <img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+	          {% else %}
+	            <img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+	          {% endif %}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="item">
+			<div class="image-container">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.second_bottle %}" alt="{{section.settings.second_bottle_image_alt}}" class="no-hover-img lazyload">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.second_bottle_hover %}" alt="{{section.settings.second_bottle_image_alt}}" class="hover-img animation lazyload">
+			</div>
+			<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+				<tr>
+					<th colspan="2">{{section.settings.second_title}}</th>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Calories</td>
+					<td width="20%">{{section.settings.second_calories}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sodium</td>
+					<td width="20%">{{section.settings.second_sodium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Potassium</td>
+					<td width="20%">{{section.settings.second_potassium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sugar</td>
+					<td width="20%">{{section.settings.second_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Added Sugar</td>
+					<td width="20%">{{section.settings.second_added_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">No Artificial Ingredients</td>
+					<td width="20%">
+						{% if section.settings.second_no_artificial_ingredients == "no" %}
+            <img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+	          {% else %}
+	            <img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+	          {% endif %}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="item">
+			<div class="image-container">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.third_bottle %}" alt="{{section.settings.third_bottle_image_alt}}" class="no-hover-img lazyload">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.third_bottle_hover %}" alt="{{section.settings.third_bottle_image_alt}}" class="hover-img animation lazyload">
+			</div>
+			<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+				<tr>
+					<th colspan="2">{{section.settings.third_title}}</th>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Calories</td>
+					<td width="20%">{{section.settings.third_calories}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sodium</td>
+					<td width="20%">{{section.settings.third_sodium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Potassium</td>
+					<td width="20%">{{section.settings.third_potassium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sugar</td>
+					<td width="20%">{{section.settings.third_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Added Sugar</td>
+					<td width="20%">{{section.settings.third_added_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">No Artificial Ingredients</td>
+					<td width="20%">
+						{% if section.settings.third_no_artificial_ingredients == "no" %}
+            <img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+	          {% else %}
+	            <img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+	          {% endif %}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="item">
+			<div class="image-container">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.fourth_bottle %}" alt="{{section.settings.fourth_bottle_image_alt}}" class="no-hover-img lazyload">
+        <img data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.fourth_bottle_hover %}" alt="{{section.settings.fourth_bottle_image_alt}}" class="hover-img animation lazyload">
+			</div>
+			<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+				<tr>
+					<th colspan="2">{{section.settings.fourth_title}}</th>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Calories</td>
+					<td width="20%">{{section.settings.fourth_calories}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sodium</td>
+					<td width="20%">{{section.settings.fourth_sodium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Potassium</td>
+					<td width="20%">{{section.settings.fourth_potassium}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Sugar</td>
+					<td width="20%">{{section.settings.fourth_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">Added Sugar</td>
+					<td width="20%">{{section.settings.fourth_added_sugar}}</td>
+				</tr>
+				<tr>
+					<td width="80%" class="text-left">No Artificial Ingredients</td>
+					<td width="20%">
+						{% if section.settings.fourth_no_artificial_ingredients == "no" %}
+            <img src="{{ "cross.svg" | asset_url }}" alt="no" class="cross-icon">
+	          {% else %}
+	            <img src="{{ "check.svg" | asset_url }}" alt="yes" class="check-icon">
+	          {% endif %}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</section>
+
+
+
+<script>
+	$('.col-1').on('mouseover', function(){
+	  $('table').addClass('col-1-hover');
+	}).on('mouseout', function(){
+	  $('table').removeClass('col-1-hover');
+	});
+	$('.col-2').on('mouseover', function(){
+	  $('table').addClass('col-2-hover');
+	}).on('mouseout', function(){
+	  $('table').removeClass('col-2-hover');
+	});
+	$('.col-3').on('mouseover', function(){
+	  $('table').addClass('col-3-hover');
+	}).on('mouseout', function(){
+	  $('table').removeClass('col-3-hover');
+	});
+	$('.col-4').on('mouseover', function(){
+	  $('table').addClass('col-4-hover');
+	}).on('mouseout', function(){
+	  $('table').removeClass('col-4-hover');
+	});
+	$(function(){
+    var itemsSlider = $('#shopify-section-{{ section.id }} .mobile-content');
+    itemsSlider.slick({
+      autoplay: false,
+      dots: true,
+      arrows: true,
+      prevArrow: '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+      nextArrow: '<i class="fa fa-angle-right" aria-hidden="true"></i>',
+      fade: false,
+      pauseOnHover: true,
+      speed: 1000,
+      autoplaySpeed: 5000,
+      slidesToShow: 1      
+    });   
+  });
+</script>

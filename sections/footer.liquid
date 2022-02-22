@@ -1,0 +1,649 @@
+<style>
+  #footer {width: 100%; {% if section.settings.text_color != 'rgba(0,0,0,0)'%}color: {{section.settings.text_color}}; {% endif%} margin: 0; text-align: center; background-color: {{ section.settings.bg_color }}; {% if section.settings.border_color != blank %}border-top: 1px solid {{ section.settings.border_color }};{% endif %} }
+  #footer .container {padding: 0 2em; max-width: 100%;}
+  #footer .top {padding: {{section.settings.section_padding_desktop}};}
+  #footer .logo {display: inline-block; line-height: 100%; width: 100%; max-width: {{section.settings.logo_max_width}}; margin-right: 9vw;}
+  #footer .logo img {width: 100%;}
+
+  #footer .social-links a {display: flex; display: -webkit-flex; align-items: center; justify-content: center; text-align: center; font-size: 1.1em; border-radius: 100%; color: {{ section.settings.social_text_color }}; margin-right: 1.5em;}
+  #footer .social-links svg path {fill: {{ section.settings.social_text_color }};}
+  
+
+  #footer .grid.main > .grid__item {text-align: left;}
+  #footer .grid.main > .grid__item:nth-child(1) {width: 40%;}
+  #footer .grid.main > .grid__item:nth-child(2) {width: 18%;}
+  #footer .grid.main > .grid__item:nth-child(3) {width: 19%;}
+  #footer .grid.main > .grid__item:nth-child(4) {width: 23%;}
+  #footer .grid.main .title {margin-bottom: 1.5em; text-transform: uppercase; font-size: 0.8em; font-weight: 500; letter-spacing: 0.14em;}
+  #footer .grid.main .title button {display: none;}
+
+  #footer .top .links {list-style-type: none; margin-bottom: 3em; display: flex; flex-flow: column; align-items: flex-start;}
+  #footer .top .links a {display: block; }
+  #footer .top .links a, #footer .section-contact .item {margin: 0; padding: 0.3em 0; font-family: inherit; text-align: left; font-size: 0.867em;}
+  #footer .section-contact {text-align: left;}
+  #footer .section-contact .item > * { display: flex; align-items: center;}
+  #footer .section-contact .item svg {font-size: 1.3em;}
+  #footer .section-contact .item .phone-wrapper svg {transform: scale(1.2);}
+  #footer .section-contact .svg-wrapper {display: inherit; padding: 0; margin-right: 1em;}
+  #footer .section-contact .contact-text {margin-top: 1.3em;}
+  
+  #footer .mailing-list {margin-bottom: 0; max-width: 411px;}
+  #footer .mailing-list label {display: block; padding: 0; margin-bottom: 1em; {% if section.settings.mailing_list_label_color != 'rgba(0,0,0,0)'%}color: {{section.settings.mailing_list_label_color}}; {% endif%} font-weight: 400; font-size: 1.467em; letter-spacing: normal; line-height: 1.36em;}
+  #footer .mailing-list .form-wrap {display: inline-block; position: relative; width: 100%; max-width: 28em;}
+  #footer .mailing-list input[type="email"] {font-size: 0.933em; font-weight: 400;width: 100%; padding: 0.8em; padding-right: 3em; padding-left: 0; background: transparent; }
+
+  {%- if section.settings.text_color != 'rgba(0,0,0,0)' -%}
+  #footer .mailing-list input[type="email"] {color: {{section.settings.text_color}}; border: 0; border-bottom: 1px solid {{section.settings.text_color}}; }
+  #footer .mailing-list input[type="email"]::-webkit-input-placeholder {color: {{section.settings.text_color}};}
+  #footer .mailing-list input[type="email"]:-moz-placeholder {color: {{section.settings.text_color}};}
+  #footer .mailing-list input[type="email"]::-moz-placeholder {color: {{section.settings.text_color}};}
+  #footer .mailing-list input[type="email"]:-ms-input-placeholder {color: {{section.settings.text_color}};}
+  #footer .mailing-list .success-msg {color: {{section.settings.text_color}}; }
+  {%- endif -%}
+
+  #footer .mailing-list button {padding: 0 1em; font-size: 1.2em; position: absolute; right: -1em; top: 0; height: 100%;}
+  #footer .mailing-list .error-msg {font-size: 0.667em; text-transform: uppercase; letter-spacing: 0.05em; display: block;}
+  #footer .mailing-list .success-msg {font-size: 0.933em; letter-spacing: normal; }
+  
+  #footer #payment-methods {margin-top: 1em;}
+  #footer #payment-methods img {margin: 0 3px; max-width: 35px;}
+  
+  #footer .bottom {padding: {{section.settings.bottom_padding_desktop}}; {% if section.settings.bottom_text_color != 'rgba(0,0,0,0)'%}color: {{section.settings.bottom_text_color}}; {% endif%}background-color: {{ section.settings.bottom_bg_color }}; {% if section.settings.bottom_border_color != blank %}border-top: 1px solid {{ section.settings.bottom_border_color }};{% endif %}}
+  #footer .bottom .wrap {display: flex; justify-content: space-between; font-size: 0.8em;}
+  #footer .bottom .links-panel, #footer .bottom .links {display: inline;}
+  #footer .bottom .links a {display: inline-block; margin-right: 3em; letter-spacing: 0.02em;}
+  #footer .bottom .first-wrapper {display: flex; align-items: center;}
+  #footer .bottom .copyright {letter-spacing: 0.02em;}
+  
+  #cookies-disclaimer {display: none;position: fixed; bottom: 0; z-index: 999999; background: {{section.settings.cookies_disclaimer_bg}}; width: 100%;}
+  #cookies-disclaimer .wrapper {padding: 1.5rem 4rem ; font-size: 0.8em; margin: auto; max-width: 690px;}
+  #cookies-disclaimer .wrapper a {text-decoration: underline;}
+  #cookies-disclaimer .close {position: absolute; top: 0.5rem; right: 1rem; font-size: 1.4em; padding: 0.5rem; } 
+  #cookies-disclaimer .close svg path {fill: rgba(148, 97, 66, 0.67)}
+
+  .isNotMobile #footer a:hover, .isNotMobile #cookies-disclaimer a:hover {color: {{section.settings.link_color_hover}} !important;}
+  .isNotMobile #footer a:hover svg path {fill: {{section.settings.link_color_hover}} !important;}
+  
+  #footer .help-contact-item .phone-wrapper,
+  #footer .help-contact-item .phone-wrapper .label {width: 100%;}
+  @media (max-width: 1100px) and (min-width: 901px) {
+    #footer .logo {margin-right: 4vw;}
+    #footer .social-links a {margin-right: 1.2vw;}
+    #footer .bottom .links a { margin-right: 2.4vw;}
+  }
+
+  @media (max-width: 900px) {
+    #footer .top {padding-bottom: 0;}
+    #footer .top .links {margin-bottom: 0;}
+    #footer .grid.main > .grid__item {margin-bottom: 3em;}
+    #footer .grid.main > .grid__item:nth-child(1) {width: 100%;}
+    #footer .grid.main > .grid__item:nth-child(2) {width: 50%;}
+    #footer .grid.main > .grid__item:nth-child(3) {width: 50%;}
+    #footer .grid.main > .grid__item:nth-child(4) {width: 100%;}
+    #footer .bottom .first-wrapper {flex-flow: column;}
+
+  }
+
+  @media (max-width: 900px) and (min-width: 601px) {
+    #footer .grid.main {max-width: 430px; margin: auto;}
+    #footer .bottom .wrap {flex-flow: column; align-items: center; justify-content: center;}
+    #footer .logo, #footer .social-links {margin: auto; margin-bottom: 2em;}
+    #footer .social-links a:last-child {margin-right: 0;}
+  }
+  @media all and (min-width: 601px){
+    #footer .grid.main > .grid__item .links-panel {display: block !important;}
+  }
+  
+  @media all and (max-width: 600px){
+    #footer .top {padding: {{section.settings.section_padding_mobile}};}
+    #footer .bottom {padding: {{section.settings.bottom_padding_mobile}};}
+    #footer .top .container {padding: 0;}
+    #footer .grid.main {margin-left: 0;}
+    #footer .mailing-list .error-msg {min-height: 2.3em; margin-bottom: 0;}
+    #footer .grid.main > .grid__item {padding: 1.5em 1.5rem; margin-bottom: 0; }
+    #footer .grid.main > .grid__item:nth-child(n+3) {border-top: 1px solid #D4BAAA; padding: 1.3em 1.5rem;}
+    #footer .grid.main > .grid__item:nth-child(1) {background-color: #efd9ca; padding-bottom: 1em; padding-top:2em;}
+    #footer .grid.main > .grid__item:nth-child(2) {width: 100%;}
+    #footer .grid.main > .grid__item:nth-child(3) {width: 100%;}
+    #footer .grid.main > .grid__item .title {cursor:pointer; font-size: 0.867em; margin-bottom: 0; display: flex; justify-content: space-between; align-items: center;}
+    #footer .grid.main > .grid__item .title + * {padding-top: 1.5rem;}
+    #footer .grid.main > .grid__item .title button {display: block; font-size: 1.2em; transform: rotate(-90deg);}
+    #footer .grid.main > .grid__item .title button.open {transform: rotate(0deg);}
+    #footer .grid.main > .grid__item .title svg {display: block;}
+    #footer .grid.main > .grid__item .links-panel {display: none;}
+    #footer .section-contact .help-contact-item > * {min-height: 2.5em;}
+
+    #footer .top .links a, #footer .section-contact .item {font-size: 0.9em;}
+    #footer .section-contact .item svg {font-size: 1.6em;}
+    #footer .section-contact .svg-wrapper {margin-right: 1.5em;}
+    
+    #footer .mailing-list, #footer .mailing-list .form-wrap {max-width: 100%;}
+    #footer .bottom .first-wrapper {margin: auto; display: block; width: 100%;}
+    #footer .bottom .social-links {width: 100%;}
+    #footer .bottom .container {padding: 0;}
+    #footer .social-links a {margin: 0; padding: 1.5em 1em; border: 1px solid {{section.settings.text_color}}; border-radius: 0; border-left: 0; width: inherit; }
+    #footer .social-links svg {font-size: 1.75em;}
+    #footer .social-links a:last-child {border-right: 0;}
+    #footer .logo {margin-right: 0; padding: 4em 0;}
+
+    #footer .mailing-list label {font-size: 1.267em;}
+    #footer .mailing-list input[type="email"] {font-size: 1.067em;}
+    #cookies-disclaimer .wrapper {padding: 1.5rem 4rem 1.5rem 1.5rem;  font-size: 0.867em} 
+  }
+</style>
+<div id="footer" class="{% if template contains 'collection' and  settings.ss_enable %} hide {% endif %}">
+  <div class="top">
+    <div class="container">
+      <div class="grid main justify-content-between">
+
+        <div class="grid__item">
+          <div class="title body_font">Subscribe</div>
+          <div class="mailing-list">
+            <label class="heading_font" for="footer-signup-email">{{section.settings.mailing_list_label}}</label>
+            {%- if settings.use_mailchimp_form -%}
+            <form class="clearfix" method="post" action="//{{settings.mailchimp_domain}}/subscribe/post-json?u={{settings.mailchimp_user}}&id={{settings.mailchimp_id}}&c=?">
+              <div class="success-msg">{{section.settings.mailing_list_success}}</div>
+              <div class="error-msg"></div>
+              <div class="form-wrap">
+                <input id="footer-signup-email" type="email" placeholder="Enter email" name="EMAIL" class="required email" aria-required="true" aria-label="Email address" autocomplete="email" />
+                <button type="submit" class="anim-arrow-wrap" aria-label="Subscribe">{% include 'icons', icon: 'arrow-long-right-2' %}</button>
+              </div>
+            </form>
+            {%- elsif settings.use_klaviyo_form -%}
+            <form class="clearfix" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+                <div class="form-wrap" {% if form.posted_successfully? %}style="display: none"{% endif %}>
+                  <input type="hidden" name="g" value="{{settings.klaviyo_list_id}}">
+                  <input type="hidden" name="$fields" value="source">
+                  <input type="hidden" name="source" value="Shopify footer">
+                  <input type="email" placeholder="Enter email" id="footer-signup-email" name="email" class="required email" aria-label="Email address" aria-required="true" />
+                  <button type="submit" class="anim-arrow-wrap" aria-label="Subscribe">{% include 'icons', icon: 'arrow-long-right-2' %}</button>
+                </div>
+                <div class="success-msg">{{section.settings.mailing_list_success}}</div>
+                <div class="error-msg"></div>
+            </form>
+            {%- else -%}
+            {%- form 'customer' -%}
+              <div class="form-wrap" {% if form.posted_successfully? %}style="display: none"{% endif %}>
+                <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+                <input id="footer-signup-email" type="email" placeholder="Enter email" name="contact[email]" class="required email" aria-required="true" aria-label="Email Address" autocomplete="email" />
+                <button type="submit" class="anim-arrow-wrap" aria-label="Subscribe">{% include 'icons', icon: 'arrow-long-right-2' %}</button>
+              </div>
+              <div class="success-msg" {% if form.posted_successfully? %}style="display: block"{% endif %}>{{section.settings.mailing_list_success}}</div>
+              <div class="error-msg"></div>
+            {%- endform -%}
+            {%- endif -%}
+          </div>
+
+        </div>
+
+        <div class="grid__item">
+          <div class="title body_font">{{linklists[section.settings.section_linklist].title}} <button aria-expanded="false" aria-label="Expand {{linklists[section.settings.section_linklist].title}} panel">{% include 'icons', icon: 'arrow-down', classes:'animation' %}</button></div>
+          <div class="links-panel">
+            <div class="links {{ settings.menu_font}}" role="navigation">
+              {%- for link in linklists[section.settings.section_linklist].links -%}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid__item">
+          <div class="title body_font">{{linklists[section.settings.section_linklist_2].title}} <button aria-expanded="false" aria-label="Expand {{linklists[section.settings.section_linklist_2].title}} panel">{% include 'icons', icon: 'arrow-down', classes:'animation' %}</button></div>
+          <div class="links-panel">
+            <div class="links {{ settings.menu_font}}" role="navigation">
+              {%- for link in linklists[section.settings.section_linklist_2].links -%}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid__item">
+          <div class="section-contact">
+          <div class="title body_font">Contact</div>
+
+            <div class="item contact-text">
+            {{section.settings.section_contact_text}}
+            </div>
+          </div>
+        </div>
+
+        <div class="grid__item one-whole hide small--show last-menu">
+          <div class="title body_font">Legal <button aria-expanded="false" aria-label="Expand Legal panel">{% include 'icons', icon: 'arrow-down', classes:'animation' %}</button></div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="container">
+      <div class="wrap">
+        <span class="first-wrapper">
+          {%- if section.settings.logo != blank -%}
+          <div class="logo">
+            <a href="/">
+              <img alt="{{shop.name}}" class="lazyload" src="{{"placeholder.png" | asset_url}}" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.logo %}" />
+            </a>
+          </div>
+          {%- endif -%}
+
+          {%- if section.settings.show_social -%}
+          {%- include 'social_links' -%}
+          {%- endif -%}
+        </span>
+      
+        <span class="second-wrapper">
+          <div class="links-panel">
+            <div class="links" role="navigation">
+            {%- for link in linklists[section.settings.bottom_linklist].links -%}
+            <a href="{{link.url}}">{{link.title}}</a>
+            {%- endfor -%}
+            </div>
+          </div>
+          <span class="small--hide copyright">
+          © {{ 'now' | date: "%Y" }} {{ shop.name }}
+          </span>
+        </span>
+      </div>
+      {%- if section.settings.show_payment_methods -%}
+      {%- include 'credit_cards' -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<div id="cookies-disclaimer">
+  <div class="wrapper">
+    {{- section.settings.cookies_disclaimer_text -}}
+  </div>
+  <button class="close" aria-label="Close cookies disclaimer">
+    {%- include 'icons', icon: 'close' -%}
+  </button>
+</div>
+
+<script>
+  $(function(){
+    var cookiesDiv = $('#cookies-disclaimer');
+    try {
+      if (!localStorage.getItem('cookies_accepted')) cookiesDiv.show();
+    } catch (e) {
+      if (!Cookies.get('cookies_accepted')) cookiesDiv.show();
+    }
+    function cookiesAccept() {
+      try {
+        localStorage.setItem('cookies_accepted', '2');
+      } catch (e) {
+        Cookies.set('cookies_accepted', '2');
+      }
+      cookiesDiv.fadeOut({complete: function(){cookiesDiv.remove();} });
+    }
+    cookiesDiv.find('button').click(cookiesAccept);
+    setTimeout(cookiesAccept, 20000);
+    try {
+      if (isMobile.any){
+	    Simplistic.swipedetect(cookiesDiv[0], function(swipedir){
+          if (swipedir!='none') {
+            cookiesAccept();
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    $('.top-utils .help-contact-item').clone().insertAfter('#footer .section-contact .title');
+    
+    var phoneHtml = $('#footer .help-contact-item .phone-wrapper .label').html();
+    var phoneTextMobile = (phoneHtml ? phoneHtml.split(' +')[0].split('(')[0] : '');
+    if($(window).width() < 600){
+      $('#footer .help-contact-item .phone-wrapper .label').html(phoneTextMobile);
+    }
+
+  	$('#footer .mailing-list form').submit(function(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var form = $(this);
+      var error = false;
+      
+      form.find('.error-msg').hide();
+      form.find('.error').removeClass('error');
+
+      form.find('.required').each(function(){
+        if($(this).val()=="") {
+          error = true;
+          $(this).addClass('error');
+        }
+      });
+      if(error){
+          form.find('.error-msg').show().text('Please complete all the required fields.');
+      }else{
+        if(!Simplistic.validateEmail(form.find('.email').val())) {
+          error = true;
+          form.find('.email').addClass('error');
+          form.find('.error-msg').show().text('Oops! Looks like the email format is incorrect.');
+        }
+      }
+      if(!error) {
+        $.ajax({
+          data: form.serialize(),
+          {%- if settings.use_mailchimp_form -%}
+            url: form.attr('action'),
+            dataType: 'jsonp',
+          {%- elsif settings.use_klaviyo_form -%}
+          	url: form.data('ajax-submit'),
+          {%- else -%}
+          	url: form.attr('action'),
+          {%- endif -%}
+          type: 'POST'
+        }).done(function(){
+          form.find('.form-wrap').hide();
+          form.find('.success-msg').show();
+        }).error(function(){
+          form.unbind("submit");
+          form.submit();
+        });
+      }
+    });
+
+    var mobileMode = false;
+    var footer = $('#footer');
+    var firstWrapper = footer.find('.first-wrapper');
+    var secondWrapper = footer.find('.second-wrapper');
+    var logo = footer.find('.bottom .logo');
+    var bottomMenu = footer.find('.bottom .links-panel');
+    var gridMain = footer.find('.grid.main');
+    var menu1 = footer.find('.main .grid__item:eq(1)');
+    var lastMenuItem = footer.find('.main .grid__item.last-menu');
+    var contactMenu = footer.find('.section-contact').parent();
+    var socialLinks = footer.find('.social-links');
+
+    function layout() {
+      if (window.innerWidth<=600) {
+        if (!mobileMode) {
+          mobileMode = true;
+          contactMenu.insertBefore(menu1)
+          bottomMenu.appendTo(lastMenuItem);
+          socialLinks.insertBefore(logo);
+        }
+      } else {
+        if (mobileMode) {
+          mobileMode = false;
+          contactMenu.appendTo(gridMain);
+          bottomMenu.prependTo(secondWrapper);
+          socialLinks.insertAfter(logo);
+        }
+      }
+    }
+    $(window).resize($.throttle(50, layout));
+    layout();
+
+    $('#footer .grid.main .title button').parent().on('click', function() {
+      var button = $(this).find('button:visible');
+      if (button.length>0) {
+        var panelName = button.parent().text().trim();
+        button.toggleClass('open');
+        if (button.hasClass('open')) {
+          button.attr('aria-expanded', 'true');
+          button.attr('aria-label', 'Collapse '+panelName+' panel');
+        } else {
+          button.attr('aria-expanded', 'false');
+          button.attr('aria-label', 'Expand '+panelName+' panel');
+        }
+        $(this).next().slideToggle();
+      }
+
+    })
+
+  });
+
+  {% if settings.ss_enable %}
+
+    function nodeChanged (mutationRecord, mutationObserver) {
+      if ($(targetNode).hasClass('ss-targeted')) {
+        observer.disconnect();
+        setTimeout(function () {
+          $('#footer').removeClass('hide');
+        }, 1500)
+      }
+    }
+
+    const targetNode = document.getElementById('searchspring-content');
+    const observerOptions = {
+      childList: true,
+      attributes: true,
+      subtree: true
+    }
+
+    const observer = new MutationObserver(nodeChanged);
+    observer.observe(targetNode, observerOptions);
+
+  {% endif %}
+</script>
+
+{% schema %}
+  {
+    "name": "Footer V1",
+    "presets": [
+      {
+        "name": "Footer V1",
+        "category": "Footer"
+      }
+    ],
+    "settings": [
+	  {
+        "type": "header",
+        "content": "Top Part Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_padding_desktop",
+        "label": "Top - Padding (Desktop)",
+        "default": "4em 0"
+      },
+      {
+        "type": "text",
+        "id": "section_padding_mobile",
+        "label": "Top - Padding (Mobile)",
+        "default": "3em 0"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Top - Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Top - Border Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Top - Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "social_text_color",
+        "label": "Social Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "link_color_hover",
+        "label": "Links Color - Hover",
+        "default": "#cdb3a3"
+      },
+      {
+        "type": "link_list",
+        "id": "section_linklist",
+        "label": "Top - Linklist 1",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "section_linklist_2",
+        "label": "Top - Linklist 2",
+        "default": "footer"
+      },
+      {
+        "type": "textarea",
+        "id": "section_contact_text",
+        "label": "Contact Text",
+        "default": "<p>Monday - Thursday: 10am - 6pm EST</p><p>Friday: 10am - 12pm EST</p>"
+      },
+	  {
+        "type": "header",
+        "content": "Bottom Part Settings"
+      },
+	  {
+        "type": "text",
+        "id": "bottom_padding_desktop",
+        "label": "Bottom - Padding (Desktop)",
+        "default": "1em 0"
+      },
+      {
+        "type": "text",
+        "id": "bottom_padding_mobile",
+        "label": "Bottom - Padding (Mobile)",
+        "default": "1em 0"
+      },
+      {
+        "type": "color",
+        "id": "bottom_bg_color",
+        "label": "Bottom - Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "bottom_border_color",
+        "label": "Bottom - Border Color"
+      },
+      {
+        "type": "color",
+        "id": "bottom_text_color",
+        "label": "Bottom - Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "link_list",
+        "id": "bottom_linklist",
+        "label": "Bottom - Linklist"
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Logo max width (Desktop)",
+        "default": "12em"
+      },
+      {
+        "type": "header",
+        "content": "Cookies Disclaimer"
+      },
+      {
+        "type": "textarea",
+        "id": "cookies_disclaimer_text",
+        "label": "Text",
+        "default": "Loeffler Randall uses cookies on the loefflerrandall.com website. Our <a href=\"/\">Cookies Policy</a> explains what cookies are, how we use cookies, how third-parties we may partner with may use cookies on their service, your choices regarding cookies and further information about cookies."
+      },
+      {
+        "type": "color",
+        "id": "cookies_disclaimer_bg",
+        "label": "Background Color",
+        "default": "#ead9cf"
+      },
+      {
+        "type": "header",
+        "content": "Mailing List"
+      },
+      {
+        "type": "text",
+        "id": "mailing_list_label",
+        "label": "Label",
+        "default": "Join our mailing list"
+      },
+      {
+        "type": "text",
+        "id": "mailing_list_success",
+        "label": "Success Message",
+        "default": "Thank You!"
+      },
+      {
+        "type": "color",
+        "id": "mailing_list_label_color",
+        "label": "Label Color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Social Links"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social",
+        "label": "Show Social Icons?",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Payment Methods"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_methods",
+        "label": "Show payment methods in the footer?"
+      },
+      {
+        "type": "paragraph",
+        "content": "Select payment methods:"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_american_express",
+        "label": "American Express"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_diners_club",
+        "label": "Diners Club"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_discover",
+        "label": "Discover"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_jcb",
+        "label": "JCB"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_master",
+        "label": "Master Card"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_paypal",
+        "label": "Paypal"
+      },
+      {
+        "type": "checkbox",
+        "id": "plus_visa",
+        "label": "Visa"
+      }
+    ]
+  }
+{% endschema %}

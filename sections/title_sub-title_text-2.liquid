@@ -1,0 +1,48 @@
+{% schema %}
+  {
+    "name": "Title+Sub Title+Text-2",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Sub Title"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Longer Text",
+        "default": "Staying consistently hydrated throughout the day is key to everything we love to do each day: work, play, fitness, travel, sleep, margaritas – you name it. And yet most of us suffer from chronic dehydration without even realizing it. Dehydration disguises itself as a headache, or an afternoon lull, an urge to do nothing at the gym but sit at the machine and text. Water is a great solution - but on its own, it's often not enough. When you add Cure to your water, you're helping your body hydrate 3x more effectively than with water alone."
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} .text-container{text-align: center;max-width: 680px;margin: auto;}
+  #shopify-section-{{section.id}} h2{text-transform: unset;margin-bottom: 0;}
+  #shopify-section-{{section.id}} h3{font-size: 1em;letter-spacing: 1.8px;line-height: 22px;margin: 30px 0 0;}
+  #shopify-section-{{section.id}} p{text-align: left;font-weight: 600;line-height: 28px;color: rgba(0,0,0,0.58);margin: 45px 0 0;}
+  @media all and (max-width: 600px){
+	#shopify-section-{{section.id}} h2{font-size: 1.5em;}
+    #shopify-section-{{section.id}} h3{font-size: 0.8em;margin: 20px 0 0;}
+	#shopify-section-{{section.id}} p{font-size: 0.9em;margin: 20px 0 0;}
+  }
+</style>
+
+<div class="text-container">
+  {% if section.settings.title != blank %}
+    <h2>{{section.settings.title}}</h2>
+  {% endif %}
+  {% if section.settings.sub_title != blank %}
+    <h3>{{section.settings.sub_title}}</h3>
+  {% endif %}
+  {% if section.settings.text != blank %}
+    <p>{{section.settings.text}}</p>
+  {% endif %}
+</div>

@@ -1,0 +1,156 @@
+<style>
+/*Subscription Popup Start*/
+.tingle-modal-box {max-width: 60%!important;}
+.subscription-information-popup {padding: 0;{% if section.settings.background %} background-image: url({{section.settings.background | img_url: 'master'}});background-size: cover;background-position: center;background-repeat: no-repeat;{% endif %}}
+.subscription-information-popup .container-big{max-width: 750px; padding: 2em;}
+.subscription-information-popup .content{ padding: 2.5em 0 3em;max-width: 100%;margin: auto;}
+.subscription-information-popup .title {font-size: 3em; color: {{ section.settings.title_color }}; margin-bottom: 0; line-height: 40px;}
+.subscription-information-popup .description {font-size: 2em; font-weight: 400; color: {{ section.settings.title_color }}; margin-bottom: 0.5em;}
+.subscription-information-popup p{color: {{section.settings.text_color}};}
+.subscription-information-popup .icon-and-text {justify-content: center;align-items: start;margin-left: 2em;}
+.subscription-information-popup .icon-and-text:first-child{margin-left: 0;}
+.subscription-information-popup .text{align-items: center;}
+.subscription-information-popup h3{color: {{ section.settings.title_color }}; font-weight: bold; font-size: 1.1em; letter-spacing:normal; text-transform: none; margin-bottom: 0.3em;}
+.subscription-information-popup .text p{font-size: 2.2em;font-weight: 600;letter-spacing: -2px;margin-bottom: 10px;line-height: 55px;letter-spacing: 1.8px;font-size: 1em;}
+.subscription-information-popup .icon-and-text .image-container{margin: 0 auto 1em;}
+.subscription-information-popup .icon-and-text img {max-width: 90px;}
+.subscription-information-popup .icon-and-text p{font-size: 0.9em; font-weight: 500; line-height: 18px; padding: 0;}
+
+@media all and (min-width: 900px){
+.subscription-information-popup .text p{max-width: 400px;}
+}
+
+@media all and (max-width: 900px){
+.subscription-information-popup .icon-and-text {margin-left: 0;}
+.subscription-information-popup .text p br{display:none}
+.subscription-information-popup .title {font-size: 2.5em;}
+.subscription-information-popup .description {font-size: 1.5em;}
+
+
+}
+@media all and (max-width: 600px){
+.tingle-modal-box {max-width: 100%!important;}
+.subscription-information-popup .title {font-size: 2em;}
+.subscription-information-popup .description {font-size: 1.2em;}
+}
+@media all and (max-width: 397px){
+.subscription-information-popup .icon-and-text p{min-height: 3.5em;}
+}
+@media all and (max-width: 355px){
+.subscription-information-popup .icon-and-text img {max-width: 100%;}
+}
+/* Subscription Popup End*/
+</style>
+
+<div>
+{% include '_subscription_information' %}
+</div>
+
+{% comment %} <script>
+  $(function(){
+    // make all the <p> have the same height
+    var max_height = 0;
+    $('#subscription-information-popup .icon-and-text-container p').each(function() {
+      var elementHeight = $(this).height();
+      if (elementHeight > max_height) {
+        max_height = elementHeight;
+      }  
+    });
+    $('#subscription-information-popup .icon-and-text-container p').height(max_height);
+  });
+</script> {% endcomment %}
+
+{% schema %}
+  {
+    "name": "Subscription Info",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "image_picker",
+        "id": "background",
+        "label": "Background Image"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "JOIN THE CURE CLUB"
+      },
+      {
+        "type": "textarea",
+        "id": "main_text",
+        "label": "Main Text",
+        "default": "SUBSCRIBE TO SAVE"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title Color",
+        "default": "#6387FB"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_1",
+        "label": "Icon #1"
+      },
+      {
+        "type": "text",
+        "id": "icon_title1",
+        "label": "Icon #1 Title",
+        "default": "Customizable Subscription"
+      },
+      {
+        "type": "textarea",
+        "id": "icon_desc1",
+        "label": "Icon #1 Description",
+        "default": "Start by selecting your favorite favors and quantities."
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_2",
+        "label": "Icon #2"
+      },
+      {
+        "type": "text",
+        "id": "icon_title2",
+        "label": "Icon #2 Title",
+        "default": "Customizable Subscription"
+      },
+      {
+        "type": "textarea",
+        "id": "icon_desc2",
+        "label": "Icon #2 Description",
+        "default": "Start by selecting your favorite favors and quantities."
+      },{
+        "type": "image_picker",
+        "id": "icon_3",
+        "label": "Icon #3"
+      },
+      {
+        "type": "text",
+        "id": "icon_title3",
+        "label": "Icon #3 Title",
+        "default": "Customizable Subscription"
+      },
+      {
+        "type": "textarea",
+        "id": "icon_desc3",
+        "label": "Icon #3 Description",
+        "default": "Start by selecting your favorite favors and quantities."
+      }
+  ]
+  }
+{% endschema %}

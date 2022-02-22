@@ -1,0 +1,129 @@
+{% schema %}
+{
+  "name":"Image + Title + Text",
+  "settings":[
+    {
+      "type":"header",
+      "content":"Title"
+    },
+    {
+      "type":"select",
+      "id":"title_font",
+      "label":"Title Font",
+      "options":[
+        {
+          "value":"GT Pressura Mono, sans-serif",
+          "label":"GT Pressura Mono",
+          "group":"Custom Font"
+        },
+        {
+          "value":"Sofia Pro, sans-serif",
+          "label":"Sofia Pro",
+          "group":"Custom Font"
+        }
+      ],
+      "default":"GT Pressura Mono, sans-serif"
+    },
+    {
+      "type":"text",
+      "id":"title_font_size",
+      "label":" Title Font Size",
+      "default":"0.85em"
+    },
+    {
+      "type":"header",
+      "content":"Text"
+    },
+    {
+      "type":"select",
+      "id":"text_font",
+      "label":"Text Font",
+      "options":[
+        {
+          "value":"GT Pressura Mono, sans-serif",
+          "label":"GT Pressura Mono",
+          "group":"Custom Font"
+        },
+        {
+          "value":"Sofia Pro, sans-serif",
+          "label":"Sofia Pro",
+          "group":"Custom Font"
+        }
+      ],
+      "default":"GT Pressura Mono, sans-serif"
+    },
+    {
+      "type":"text",
+      "id":"text_font_size",
+      "label":"Text Font Size",
+      "default":"0.7em"
+    },
+    {
+      "type":"header",
+      "content":"Images"
+    },
+    {
+      "type":"text",
+      "id":"img_max_width",
+      "label":"Image Max Width",
+      "default":"96px"
+    },
+    {
+      "type":"text",
+      "id":"img_margin",
+      "label":"Image Margin",
+      "default":"0 1em"
+    }
+  ],
+  "blocks":[
+  {
+    "type": "image_text",
+    "name": "Image + Title + Text",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default":"Before Sodium-Glucose<br/>Co-Transport System"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text",
+        "default":"Electrolytes can’t get through the small intestine to hydrate the body."
+      }
+    ]
+  }
+]
+}
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} .item-container{margin: 4em auto 0;justify-content: space-between;}
+  #shopify-section-{{section.id}} .item-container .grid__item{text-align: center;}
+  #shopify-section-{{section.id}} .item-container img{max-width: {{ section.settings.img_max_width }};margin: {{ section.settings.img_margin }};}
+  #shopify-section-{{section.id}} .item-container h4{font-family: {{ section.settings.title_font }};font-size: {{ section.settings.title_font_size }};color: #3763EF;margin: 2em 0 0;text-transform: unset;font-weight: 400;letter-spacing: -0.54px;}
+  #shopify-section-{{section.id}} .item-container p{font-family: {{ section.settings.text_font }};font-size: {{ section.settings.text_font_size }};color: #3763EF;text-transform: unset;letter-spacing: -0.5px;line-height: 18px;max-width: 240px;margin: 1em auto 0;}
+  @media all and (max-width: 900px){
+	#shopify-section-{{section.id}} .item-container .grid__item{padding:0;}
+    #shopify-section-{{section.id}} .item-container .grid__item:nth-child(2){margin: 2em auto;}
+    #shopify-section-{{section.id}} .item-container {margin: 2.5em auto 0;}
+    #shopify-section-{{section.id}} .item-container h4{margin: 1em 0 0;}
+  }
+</style>
+
+<div class="item-container grid">
+  {% for block in section.blocks %}
+    <div class="grid__item three-tenths medium-down--one-whole">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.image %}" alt="icon">
+      <h4>{{block.settings.title}}</h4>
+      {% if block.settings.text != blank %}
+      <p>{{block.settings.text}}</p>
+      {% endif %}
+    </div>
+  {% endfor %}    
+</div>

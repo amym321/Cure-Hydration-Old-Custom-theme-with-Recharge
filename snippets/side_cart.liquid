@@ -1,0 +1,218 @@
+<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+
+<div id="side-cart" class="ease-animation-slow">
+
+  <div class="wrapper">
+    <div class="head clearfix">
+      <div class="title">Your Cart</div>
+      <div class="close">
+        <i class="lnr animation lnr-cross" onclick="hideSideCart();return false;"></i>
+      </div>
+    </div>
+    <div class="wrap">
+      {% if cart.items == empty %}
+      <div class="empty">Your cart is empty</div>
+      {% else %}
+      <div>
+        <form>
+          {% for item in cart.items %}
+          <div class="item" data-product-id="{{item.product.id}}" data-variant-id="{{item.variant.id}}">
+            <div class="grid">
+              <div class="grid__item one-third small--two-fifths">
+                <a href="{{ item.url }}">
+                  {% if item.variant.image %}
+                  {% assign variantImg = item.variant.image | img_url: "large" %}
+                  {% else %}
+                  {% assign variantImg = item.product.featured_image | img_url: "large" %}
+                  {% endif %}
+                  <img src="{{ variantImg }}"  alt="{{ item.product.title }}" />
+                </a>
+              </div>
+              <div class="grid__item two-thirds small--three-fifths">
+                <a href="{{ item.url }}">
+                  <div class="title">{{ item.product.title }}{% unless item.variant.title contains 'Default' %}: <span class="variant">{{ item.variant.title | replace: "Packs", "Packets" }}</span>{% endunless %}</div>
+                </a>
+                <div class="price">
+                  <div class="pri">{% if item.original_line_price and item.original_line_price != item.line_price %}<span style="text-decoration:line-through;">{{ item.original_line_price | money  }}</span><br>{% endif %}{{ item.line_price | money }}{% if item.message and item.message != "" %}<br><span>({{ item.message }})</span>{% endif %}</div>
+                </div>
+                <div class="grid-full align-items-center">
+                  {% comment %}
+                  {%- if item.product.tags contains 'packs' and item.variant.title contains '28' -%}
+                  <div class="grid__item one-half custom-packs-quantity-box">
+                    <div class="flex">
+                      <input type="button" value="-" class="minus animation" aria-label="Decrease the quantity" />
+                      <input type="number" step="1" value="{{ item.quantity | divided_by: 2 }}" size="4" min="0" max="" aria-label="Quantity"/>
+                      <input type="button" value="+" class="plus animation" aria-label="Increase the quantity" />
+                    </div>
+                  </div> 
+                  {%- endif -%}
+                  {% endcomment %}
+                  <div class="grid__item one-half quantity-box {% comment %}{% if item.product.tags contains 'packs' and item.variant.title contains '28' %}hide{% endif %}{% endcomment %}">
+                    <div class="flex">
+                      <input type="button" value="-" class="minus animation">
+                      {%- if item.product.tags contains 'packs' and item.variant.title contains '28' -%}
+                      <input type="number" step="2" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="0" max="" aria-label="Quantity"/>
+                      {%- else -%}
+                      <input type="number" step="1" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="0" max="">
+                      {%- endif -%}
+                      <input type="button" value="+" class="plus animation">
+                    </div>
+                  </div>
+                  <a class="grid__item one-half text-right remove"><span class="lnr lnr-cross animation"></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div data-rebuy-id="3339"></div>
+          {%- section 'queued_subscription' -%}
+        </form>
+      </div>
+      <div class="foot">
+        <div class="grid subtotal">
+          <div class="grid__item one-quarter">
+            Subtotal:
+          </div>
+          <div class="grid__item three-quarters text-right">
+            {{ cart.total_price | money }}
+          </div>
+        </div>
+      </div>
+      <div class="buttons-wrapper clearfix">
+        <div class="see-cart text-center">
+          <a href="/cart"><i class="fa fa-mail-forward"></i>Go to cart page</a>
+        </div>
+        <a href="/checkout">
+          <div class="btn btn-checkout animation">
+              CHECK OUT
+          </div>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+
+    //queued subscription
+    var prodIdSubscriptionTriggerString = $('#side-cart .item-queued-subscription').data('trigger-prod-id');
+    if (prodIdSubscriptionTriggerString) {
+      var prodIdSubscriptionTriggerArray = $.map(prodIdSubscriptionTriggerString.split(','), function(value){
+          return parseInt(value, 10);
+      });
+      var queuedSubsriptionFunctionality = prodIdSubscriptionTriggerArray.length;
+    }
+    if (queuedSubsriptionFunctionality > 0) {
+      var showQueuedSubscription = function(){
+        $('#side-cart .queued-subscription').removeClass('hide');
+        if ($('#cart').length > 0 && $('#cart .cart-page-item-queued-subscription').length < 1) {
+          //cart page queued subscription
+          $('#cart .items-container').append($('#side-cart .queued-subscription .cart-page-item-container').html());
+          $('#side-cart .cart-page-addtional-text').insertAfter( "#cart .main" );
+        }
+      };
+      var removeQueuedSubscription = function(){
+        $('#side-cart .queued-subscription').addClass('hide');
+        //cart page queued subscription
+        if ($('#cart').length > 0 && $('#cart .cart-page-item-queued-subscription').length > 0) {
+          $('#cart .cart-page-item-queued-subscription').remove();
+          $('#cart .cart-page-addtional-text').remove();
+        }
+      };
+      var checkProdInCartForQueuedSubs = function(){ 
+        jQuery.getJSON('/cart.js', function(cart) {
+          var flag = false;
+          for (var i=0; i < cart.items.length && flag === false; i++ ) {
+            if (prodIdSubscriptionTriggerArray.indexOf(cart.items[i].id)>-1) {
+              var cartItemWithSubscriptionId = cart.items[i].id;
+              showQueuedSubscription();
+              $('#side-cart #shopify-section-queued_subscription').insertAfter('#side-cart .item[data-variant-id="'+cartItemWithSubscriptionId+'"]');
+              $('#side-cart .item[data-variant-id="'+cartItemWithSubscriptionId+'"]').css('margin-bottom',0);
+              flag = true;
+            }
+          }
+          if (!flag) {
+            removeQueuedSubscription();
+          }
+        });
+      };
+      checkProdInCartForQueuedSubs();
+    }
+    //cart page queued subscription
+    if ($('#cart').length > 0 && $('#cart .cart-page-item-queued-subscription').length < 1) {
+      $('#cart .items-container').append($('#side-cart .queued-subscription .cart-page-item-container').html());
+      $('#side-cart .cart-page-addtional-text').insertAfter( "#cart .main" );
+    }
+
+    var itemsCount = 0;
+    $('#side-cart .quantity-box input[type=number]').each(function(){
+      itemsCount += parseInt($(this).val());
+    });
+    $('.header .cart-wrap span.count').html('(  '+itemsCount+'  )');
+    $('#menu-mobile span.count').html('(  '+itemsCount+'  )');
+
+    function updateCart(){
+      $('#loading-overlay').show();
+      $.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: $('#side-cart form').serialize(),
+        dataType: 'json'
+      }).fail(function(){
+        console.log('error');
+      })
+      .done(function(){
+        if (queuedSubsriptionFunctionality) {
+          checkProdInCartForQueuedSubs();
+        }
+        addToCartSuccess();$('#add-cart-overlay').fadeOut();
+      });
+    }
+    
+    $('#side-cart .remove').click(function(){
+      $(this).closest('.item').find('input[type=number]').val(0);
+      updateCart();
+    });
+
+    $('#side-cart input[type=number]').change(function(){
+      updateCart();
+    });
+
+    {% comment %}
+    //custom "2 box" qty
+    $('#side-cart .custom-packs-quantity-box .minus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      if (currentValue !== '0'){
+        wrapper.find('input[type=number]').val(--currentValue);
+      }
+      wrapper.closest('.item').find('.quantity-box .minus').trigger('click');
+    });
+    $('#side-cart .custom-packs-quantity-box .plus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      wrapper.find('input[type=number]').val(++currentValue);
+      wrapper.closest('.item').find('.quantity-box .plus').trigger('click');
+    });
+    {% endcomment %}
+
+    // remove "." at the end of product titles
+    $("#side-cart .item").each(function(){
+      var title = $(this).find('.title').html();
+      if (title && title.endsWith('.')) {
+        var newTitle = title.slice(0,-1);
+        $(this).find('.title').html(newTitle);
+      }
+    });
+
+  });
+</script>
+
+<script>
+  window.addEventListener('rebuy:cart.change', function(){
+   console.log('test ------------')
+  setTimeout(function(){ window.Rebuy.init() }, 750);
+})
+</script>

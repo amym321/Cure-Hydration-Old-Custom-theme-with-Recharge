@@ -1,0 +1,129 @@
+{% schema %}
+  {
+    "name": "Product Accordion",
+    "presets": [
+      { 
+        "name": "Product Accordion"
+      }
+    ],
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#F9F5F2"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Text",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question",
+            "default": "Lorem Ipsum?"
+          },
+          {
+            "type": "textarea",
+            "id": "answer",
+            "label": "Answer",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .product-accordion-section{background-color: {{section.settings.bg_color}};padding: 5.5em 0;}
+  .product-accordion-section .container{max-width: 895px;}
+
+  .product-accordion-section .accordion-item:first-child .accordion{border-top: 2px solid #D8D8D8;}
+  .product-accordion-section .accordion {cursor: pointer; padding: 1em 0; width: 100%; text-align: left; border-bottom: 2px solid #D8D8D8; outline: none;background: none;align-items: center;text-transform: uppercase;font-weight: 600;letter-spacing: 1.8px;color: #4A4A4A;}
+  .product-accordion-section .reviews-btn{border-top:none;}
+  .product-accordion-section .panel {text-align: left;padding: 1.2em 2.1em;display: none;}
+  .product-accordion-section .accordion .minus{display:none;}
+  .product-accordion-section .active{border-bottom:none;}
+  .product-accordion-section .active .minus{display:inline-block;}
+  .product-accordion-section .active .plus{display:none;}
+  .product-accordion-section .accordion span{font-size: 2.5em;font-weight: 300;position: relative;bottom: 6.5px;margin-right: 0.3em;}
+  .product-accordion-section .faq-question{color: #000000;font-size: 1em;letter-spacing: normal;text-transform: none;margin-bottom: 0.5em;}
+  .product-accordion-section .faq-answer{color: #72706F;line-height: 26px;margin-bottom: 1.8em;}
+  .product-accordion-section .faq-link{color: {{settings.content_main_color}};font-weight: 600;text-decoration: underline;}
+  .product-accordion-section img{max-width: 100%;}
+
+  .product-accordion-section #stamped-main-widget{margin: 0;}
+
+  @media all and (max-width: 600px) {
+    .product-accordion-section .panel {padding: 0;}
+  }
+</style>
+
+<section class="product-accordion-section">
+  <div class="container">
+    <div class="accordion-item">
+      <button class="accordion animation flex"><span class="plus">+</span><span class="minus">-</span> FAQ</button>
+      <div class="panel">
+        {% for block in section.blocks %}
+          <h4 class="faq-question">{{block.settings.question}}</h4>
+          <p class="faq-answer">{{block.settings.answer}}</p>
+        {% endfor %}
+        <a href="/pages/faq" class="faq-link">More FAQ</a>
+      </div>      
+    </div>
+    <div class="accordion-item">
+      <button class="accordion animation flex reviews-btn"><span class="plus">+</span><span class="minus">-</span> customer reviews</button>
+      <div class="panel reviews-panel">
+        {% if product.id == 5303730602146 %}
+          <style>
+            .templateProduct .stamped-summary-caption.stamped-summary-caption-1{display: inline-block!important;}
+          </style>
+          <div id="stamped-main-widget" class="stamped-main-widget stamped-style-borderless"
+             data-product-id="1836526108738" data-name="Sample Pack"
+             data-url="https://www.curehydration.com/products/cure-hydration-mix-sample-pack"
+             data-image-url="//cdn.shopify.com/s/files/1/0073/2371/3602/products/AAD09612-21B6-42AD-8AEB-8F3A5664392F_large.png%3Fv=1587907331"
+             data-description="{{ product.description | escape }}"
+             data-product-sku="cure-hydration-mix-sample-pack">
+            {{ product.metafields.stamped.reviews }}
+          </div>  
+        {% else %}
+          <div id="stamped-main-widget" class="stamped-main-widget stamped-style-borderless"
+             data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}"
+             data-url="{{ shop.url }}{{ product.url }}"
+             data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26' }}"
+             data-description="{{ product.description | escape }}"
+             data-product-sku="{{ product.handle }}">
+            {{ product.metafields.stamped.reviews }}
+          </div>  
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+$(function(){
+    $(document).on('click', '.accordion', function(){
+      var self = $(this);
+      if($(this).hasClass('active')){
+        $(this).parent().find('.panel').slideUp(300, function() {
+          self.removeClass('active');
+        });
+      }else{
+        $('.accordion').removeClass('active');
+        $('.panel').slideUp();
+        $(this).addClass('active');
+        $(this).parent().find('.panel').slideDown();
+      }
+    });
+    $(document).on('keydown', '.accordion:focus', function(e){
+      if (e.which == 13) { //Enter
+        $(this).click();
+      }
+    });
+  });
+</script>

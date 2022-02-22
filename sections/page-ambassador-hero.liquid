@@ -1,0 +1,95 @@
+<style>  
+  #shopify-section-{{section.id}} {text-align: center;position: relative;padding: {{section.settings.section_padding_dkp}}em 0;}
+  #shopify-section-{{section.id}} .bg-container{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-size: cover;background-position: center;background-repeat: no-repeat;}
+  #shopify-section-{{section.id}} .container{position: relative;z-index: 2;text-align: left;padding-left: {{section.settings.text_left_margin}}%;}
+  #shopify-section-{{section.id}} p{color: {{section.settings.text_color}};font-weight: 600;font-size: 2em;line-height: 1.2em;}
+  #shopify-section-{{section.id}} a{text-decoration: none;font-size: 1.5em;padding: 0.5em;font-weight: 600;letter-spacing: 0;word-spacing: 0.1em;}
+
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} {padding: 20px;min-height: {{section.settings.section_height_sm}}em;}
+    #shopify-section-{{section.id}} .container{min-height: {{section.settings.section_height_sm}}em;flex-direction: column;justify-content: space-between;padding: 0;}
+    #shopify-section-{{section.id}} p{font-weight: 500;font-size: 1.5em;line-height: 1.1em;}
+    #shopify-section-{{section.id}} a{font-size: 0.9em;}
+  }
+</style>
+
+<div class="bg-container big small--hide lazyload" style="background-image: url({{ 'placeholder.png' | asset_url }});" data-bgset="{% include 'lazy_src', image: section.settings.bg_dkp %}"  {% if section.settings.bg_dkp.alt != blank %} aria-label="{{section.settings.bg_dkp.alt}}"{% endif %}></div>
+<div class="bg-container small hide small--show lazyload" style="background-image: url({{ 'placeholder.png' | asset_url }});" data-bgset="{% include 'lazy_src', image: section.settings.bg_sm %}"  {% if section.settings.bg_sm.alt != blank %} aria-label="{{section.settings.bg_sm.alt}}"{% endif %}></div>
+<div class="container small--flex">
+  {{section.settings.text}}
+  {%- if section.settings.button_url -%}
+    <div class="button-container">
+  	  <a href="{{section.settings.button_url}}" class="btn" target="_blank">{{section.settings.button_label}}</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+   "name":"Hero",
+   "tag": "section",
+   "class": "page-ambassador-hero",
+   "settings":[
+      {
+         "type":"image_picker",
+         "id":"bg_dkp",
+         "label":"Background Image (Desktop)"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_dkp",
+        "label": "Height (Desktop)",
+        "min": 0,
+        "max": 15,
+        "step": 1,
+        "default": 3
+      },
+      {
+         "type":"image_picker",
+         "id":"bg_sm",
+         "label":"Background Image (Mobile)"
+      },
+      {
+        "type": "range",
+        "id": "section_height_sm",
+        "label": "Height (Mobile)",
+        "min": 0,
+        "max": 35,
+        "step": 1,
+        "default": 14
+      },
+      {
+	       "type":"richtext",
+	       "id":"text",
+	       "label":"Text"
+	    },
+	    {
+	      "type":"color",
+	      "id":"text_color",
+	      "label":"Text Color",
+	      "default":"#ffffff"
+	    },
+	    {
+        "type": "range",
+        "id": "text_left_margin",
+        "label": "Text Left Margin (Desktop)",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 17
+      },
+	    {
+	      "type":"url",
+	      "id":"button_url",
+	      "label":"Button Link",
+	      "info":"Paste or search."
+	    },
+	    {
+	      "type":"text",
+	      "id":"button_label",
+	      "label":"Button Label",
+	      "default":"BECOME AN AMBASSADOR"
+	    }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+<div class="price">
+  {% if currentProduct.price_min < currentProduct.compare_at_price_min and settings.show_sales_pricing %}
+  <div class="retail">
+    <span data-price="retail">{{ currentProduct.compare_at_price | money | replace: "$ ", "$" }}</span>
+  </div>
+  {% endif %}
+  <div class="deal">
+    <span data-price="deal" class="{% if currentProduct.price_min < currentProduct.compare_at_price_min and settings.show_sales_pricing %}with-retail{% endif %}">{{ currentProduct.price_min | money | replace: "$ ", "$" }}</span>
+  </div>
+</div>

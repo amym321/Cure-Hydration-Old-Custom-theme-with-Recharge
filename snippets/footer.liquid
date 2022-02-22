@@ -1,0 +1,112 @@
+<footer id="footer">
+  <div class="container">
+    <div class="grid">
+      <div class="grid__item one-third small--one-half">
+        <ul class="links">
+          {% for link in linklists.footer-2.links %}
+          <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          </li>
+          {% endfor %}
+          <li class="copyright-list-item">© {{ 'now' | date: "%Y" }} {{ shop.name }}</li>
+        </ul>
+        <p class="copyright">© {{ 'now' | date: "%Y" }} {{ shop.name }}</p>
+      </div>
+      <div class="grid__item one-third small--one-half contact-info">
+        <a href="mailto:{{settings.footer_mail | strip}}">{{settings.footer_mail | strip}}</a>
+        <a href="tel:+{{settings.footer_phone | remove: "." | strip }}">{{settings.footer_phone | strip}}</a>
+        <p>{{settings.footer_address | newline_to_br }}</p>
+        
+        {% comment %}
+        <a href="mailto:info@curehydration.com">info@curehydration.com</a>
+        <a href="tel:+3017855255">301.785.5255</a>
+        <p>10 Barclay St. 31 G</p>
+        <p>New York, NY 10007</p>
+        {% endcomment %}
+      </div>
+      <div class="grid__item one-third small--one-whole media">
+        <div class="mailing-list">
+          <div class="title">sign up to get 15% off your first order</div>
+          {% if settings.use_mailchimp_form %}
+            <form class="clearfix" method="post" action="//{{settings.mailchimp_domain}}/subscribe/post-json?u={{settings.mailchimp_user}}&id={{settings.mailchimp_id}}&c=?">
+              <input type="email" placeholder="Email address" id="email-input" name="EMAIL" class="required email" />
+              <input type='submit' class="btn" value=">" name="subscribe" id="email-submit" />
+            </form>
+          {% else %}
+          <form id="email_signup_footer" class="klaviyo_gdpr_embed_JJgCpw flex align-items-center" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+           <input type="hidden" name="contact[tags]" value="newsletter">
+           <input type="hidden" name="g" value="JJgCpw">
+           <input type="hidden" name="$fields" value="$consent">
+           <input type="hidden" name="$list_fields" value="$consent"> 
+           <div class="email-btn-wrapper">
+             <input class="required email" type="email" value="" name="email" id="k_id_email" placeholder="Email address" required />
+             <input type='submit' class="btn fa fa-angle-right klaviyo_submit_button" value="&#xf105" name="subscribe" id="email-submit" />
+            </div> 
+           <div class="klaviyo_messages">
+           <div class="success_message" style="display:none;"></div>
+           <div class="error_message" style="display:none;"></div>
+           </div>  
+          </form>
+
+          <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+          <script type="text/javascript">
+           KlaviyoSubscribe.attachToForms('#email_signup_footer', {
+             hide_form_on_success: true,
+             success_message: "Thank you for signing up!"
+           });
+          </script>
+          {% endif %}
+          <div class="success hide">Thank you!</div>
+        </div>
+        {% if settings.show_social_footer %}
+          {% include 'social_links' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% comment %}
+<script>
+  $('#footer .mailing-list form').submit(function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var form = $(this);
+
+    $(this).find('.error').removeClass('error');
+
+    var error = false;
+    $(this).find('.required').each(function(){
+      if($(this).val()=="") {
+        error = true;
+        $(this).addClass('error');
+      }
+    });
+    if(!error) {
+      if(!Simplistic.validateEmail($(this).find('.email').val())) {
+        error = true;
+        $(this).find('.email').addClass('error');
+      }
+    }
+
+    if(!error) {
+      var form = $(this);
+      $.ajax({
+        url: form.attr('action'),
+        data: form.serialize(),
+        {% if settings.use_mailchimp_form %}
+        dataType: 'jsonp',
+        {% endif %}
+        type: 'POST'
+      }).done(function(){
+        $('#footer .mailing-list form').fadeOut(function(){
+          $('#footer .mailing-list .success').fadeIn();
+        });
+      }).error(function(){
+        form.unbind("submit");
+        form.submit();
+      });
+    }
+  });
+</script>
+{% endcomment %}

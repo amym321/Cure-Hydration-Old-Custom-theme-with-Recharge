@@ -1,0 +1,11 @@
+<div class="collection-top container-big">
+  <div class="collection-hero">
+    {% if collection.title != blank %}
+      <h2>{{collection.title}}</h2>
+    {% endif %}
+    {% if collection.description != blank %}
+      <div class="collection-description">{{collection.description}}</div>
+    {% endif %}
+  </div>
+</div>
+{% include '_collection' %}

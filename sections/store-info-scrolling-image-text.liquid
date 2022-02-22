@@ -1,0 +1,299 @@
+<style>
+  .scrolling {position: relative;}
+  .scrolling .slide {position: relative;}
+  .scrolling .fixed-img {margin-{{section.settings.image_position}}: auto; width: 50%; height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)"; filter: alpha(opacity=1);-moz-opacity: 1;-khtml-opacity: 1; opacity: 1; -webkit-transition: opacity 0.6s ease-out; -moz-transition: opacity 0.6s ease-out; -o-transition: opacity 0.6s ease-out; -ms-transition: opacity 0.6s ease-out; transition: opacity 0.6s ease-out;}
+  #shopify-section-{{ section.id }} .scrolling .wrapper {position: absolute; top: 0; {{section.settings.image_position}}: 0; width: 50%; height: 100%; padding: {{section.settings.text_padding_desktop}};}
+  #shopify-section-{{ section.id }} .scrolling .wrap {max-width: {{section.settings.text_width}}; margin: auto;}
+  .scrolling .title {color: inherit; text-align: left; font-size: 2.8em; margin-bottom: 0.15em; line-height: 1.2em;}
+  .scrolling .text p {color: inherit; margin: 0; font-family: 'Louize'; font-size: 1.5em;}
+  .scrolling .next-slide-arrow {text-align: left; margin-top: 1em; font-size: 1.5em;}
+  .scrolling .featured-image {width: 100%; margin-top: 1em;}
+  .scrolling .btn {margin-top: 2em;}
+  .scrolling .link {margin-top: 1.5em; display: flex; display: inline-flex; align-items: center;}
+  .scrolling .link svg {font-size: 1.25em; margin-left: 0.8em; display: block;}
+  .isNotMobile .scrolling .link:hover {color: #CDB3A3;}
+  .isNotMobile .scrolling .link:hover svg {-webkit-transform: translateX(10px); transform: translateX(10px);}
+  .isNotMobile .scrolling .link:hover svg path {fill: #CDB3A3;}
+  
+  .scrolling .slide.prev .fixed-img {z-index: 1; transition-delay: 2s; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)"; filter: alpha(opacity=1);-moz-opacity: 1;-khtml-opacity: 1; opacity: 1; }  
+  .scrolling .slide.current .fixed-img {z-index: 5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; filter: alpha(opacity=100);-moz-opacity: 1;-khtml-opacity: 1; opacity: 1; } 
+  .scrolling .slide.current .wrapper {z-index: 1;}
+  .scrolling.fixed .wrapper {position: fixed !important; top: 0;}
+  .scrolling.end .wrapper {position: absolute; top: auto; bottom: 0;}
+  .scrolling.end .slide:last-child .fixed-img {-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; filter: alpha(opacity=100);-moz-opacity: 1;-khtml-opacity: 1; opacity: 1; }
+
+/*   .scrolling .nav {position: absolute; flex-direction: column; top: 0; {% if section.settings.image_position == 'left' %}right{% else %}left{% endif %}: 2em; height: 100vh;}
+  .scrolling .nav a {border-radius: 50%; margin: 0.5em 0; width: 10px; height: 10px; background: #000; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; filter: alpha(opacity=20);-moz-opacity: 0.2;-khtml-opacity: 0.2; opacity: 0.2;}
+  .scrolling .nav a.active {-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; filter: alpha(opacity=100);-moz-opacity: 1;-khtml-opacity: 1; opacity: 1;}
+  .scrolling.fixed .nav {position: fixed;}
+  .scrolling.end .nav {position: absolute; top: auto; bottom: 0;} */
+
+  @media all and (max-width: 600px){
+    .scrolling {position: static !important;}  
+    #shopify-section-{{ section.id }} .scrolling .fixed-img { position: static; width: 100%; height: auto; padding-top: {{section.settings.image_height_mobile}}; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; filter: alpha(opacity=100) !important;-moz-opacity: 1 !important;-khtml-opacity: 1 !important; opacity: 1 !important;}
+    #shopify-section-{{ section.id }} .scrolling .wrapper {padding: {{section.settings.text_padding_mobile}}; position: static; width: 100%; min-height: calc(100vh - 55px); height: auto;}
+    .scrolling .title {text-align: center;}
+    .scrolling .next-slide-arrow {display: none;}
+    .scrolling .slide {position: relative; text-align: center; display: flex; flex-flow: column-reverse;}
+    .scrolling .title {font-size: {{section.settings.section_title_font_size_mobile}};}
+    .scrolling .text p {font-size: {{section.settings.section_text_font_size_mobile}};}
+  }
+</style>
+<section class="scrolling">
+  <div class="content">
+  {%- for block in section.blocks -%}
+
+    <div class="slide {% if forloop.first %}current{% endif %}" id="scrolling-slide-{{forloop.index}}">
+      {% if block.settings.image != blank %}<div class="fixed-img lazyload" data-bgset="{% include 'lazy_src', image: block.settings.image %}" style=" background-position: {{block.settings.image_position_horizontal}}% {{block.settings.image_position_vertical}}%;"></div>{% endif %}
+      <div class="wrapper one-half small--one-whole flex align-items-center" style="background-color: {{block.settings.bg_color}}; color: {{block.settings.text_color}};">
+        <div class="wrap">
+          {%- if block.settings.title != "" -%}
+          <h2 class="title">{{block.settings.title}}</h2>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+          <div class="text">{{ block.settings.text }}</div>
+          {%- endif -%}
+          {%- if block.settings.featured_image != blank -%}
+          <img class="featured-image lazyload" src="{{"placeholder.png" | asset_url}}" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.featured_image %}" alt="{{block.settings.featured_image_alt}}" />
+          {%- endif -%}
+          {%- if block.settings.button != "" -%}
+          <a href="{{ block.settings.link }}" class="{% if block.settings.show_button_as_link %}link title-v1 anim-arrow-wrap{% else %}btn{% endif %}">
+            {{ block.settings.button }}
+            {% if block.settings.show_button_as_link %}
+            <svg aria-hidden="true" tabindex="-1" role="presentation" class=" icon icon-arrow-long-right-2" viewBox="0 0 32 32"><path fill="#946142" d="M21.1,5l10.6,10.4c0.4,0.4,0.4,1,0,1.3L21.1,27c-0.4,0.4-1,0.4-1.3,0c-0.4-0.4-0.4-1,0-1.3l9-8.8H1 c-0.5,0-1-0.4-1-0.9c0-0.5,0.4-0.9,1-0.9h27.8l-9-8.8c-0.2-0.2-0.3-0.4-0.3-0.7c0-0.2,0.1-0.5,0.3-0.7C20.1,4.6,20.7,4.6,21.1,5"></path></svg>
+            {% endif %}
+          </a>
+          {%- endif -%}
+          {% unless forloop.last %}
+          <div class="next-slide-arrow">
+            <a href="#scrolling-slide-{{forloop.index | plus: 1}}">↓</a>
+          </div>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+  </div>
+<script>
+  $(function(){
+    var beginEnd = function(){
+      var begin = $('#shopify-section-{{ section.id }} .scrolling').offset().top;
+      var end = $('#shopify-section-{{ section.id }} .scrolling').next().position().top - $(window).height();
+      if($(this).scrollTop() >= begin && $(this).scrollTop() <= end){
+        $('#shopify-section-{{ section.id }} .scrolling').addClass('fixed').removeClass('end');
+      }else{
+        if($(this).scrollTop() > end){
+          $('#shopify-section-{{ section.id }} .scrolling').addClass('end').removeClass('fixed');
+        }else{
+          $('#shopify-section-{{ section.id }} .scrolling').removeClass('fixed').removeClass('end');
+        }
+      }
+    }
+    
+    if(window.innerWidth > 600){
+      beginEnd();
+      $(window).scroll(function(){
+        beginEnd();
+      });
+      $(window).resize(function(){
+        beginEnd();
+      });
+    }
+    
+    var currentPrev = function(){
+      $('#shopify-section-{{ section.id }} .scrolling .slide').each(function(){
+        var currentSlide = $(this);
+        var lastScrollTop = 0;
+
+        var slideAppear = currentSlide.offset().top - ($(window).height()/3);
+        if($(window).scrollTop() > slideAppear){
+          $('#shopify-section-{{ section.id }} .scrolling .slide').removeClass('current prev');
+          currentSlide.addClass('current');
+          
+          var currentIndex = currentSlide.index();
+          $('#shopify-section-{{ section.id }} .scrolling .nav a').removeClass('active');
+          $('#shopify-section-{{ section.id }} .scrolling .nav a:eq(' + currentIndex + ')').addClass('active');
+          
+          var st = $(window).scrollTop();
+          if (st > lastScrollTop){
+          	/*  scroll up */
+            currentSlide.prev().addClass('prev');
+          } else {
+          	/*  scroll down */
+            currentSlide.next().addClass('prev');
+          }
+        }
+        lastScrollTop = st;
+      });
+    }
+
+    if(window.innerWidth > 600){
+      currentPrev();
+      $(window).scroll(function(){
+        currentPrev();
+      });
+      $(window).resize(function(){
+        currentPrev();
+      });
+    }
+        
+    $('#shopify-section-{{ section.id }} .scrolling .nav a').click(function(){
+      $.scrollTo($(this).attr('href'), 1000, {offset: 0});
+      $('#shopify-section-{{ section.id }} .scrolling .nav a').removeClass('active');
+      $(this).addClass('active');
+      return false;
+    });
+      
+    $('#shopify-section-{{ section.id }} .next-slide-arrow a').click(function(){
+      $.scrollTo($(this).attr('href'), 1000, {offset: 0});
+      $('#shopify-section-{{ section.id }} .scrolling .nav a').removeClass('active');
+      $(this).addClass('active');
+      return false;
+    });
+    
+  });
+</script>
+</section>
+<div class="auxiliar"></div>
+{% schema %}
+  {
+    "name": "Scrolling Image + Text",
+    "settings": [
+          {
+            "type": "select",
+            "id": "image_position",
+            "label": "Image Position",
+            "options": [
+              {"value": "right", "label": "Left"},
+              {"value": "left", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "text_width",
+            "label": "Text Width",
+            "default": "34em"
+          },
+          {
+            "type": "text",
+            "id": "text_padding_desktop",
+            "label": "Text Padding (Desktop)",
+            "default": "2em"
+          },
+          {
+            "type": "text",
+            "id": "text_padding_mobile",
+            "label": "Text Padding (Mobile)",
+            "default": "6em 1.5rem"
+          },
+          {
+            "type": "text",
+            "id": "image_height_mobile",
+            "label": "Image Height (Mobile)",
+            "default": "60%"
+          },
+          {
+            "type": "header",
+            "content": "Mobile Font Sizes"
+          },
+          {
+            "type": "text",
+            "id": "section_title_font_size_mobile",
+            "label": "Section Title",
+            "default": "2.8em"
+          },
+          {
+            "type": "text",
+            "id": "section_text_font_size_mobile",
+            "label": "Section Text",
+            "default": "1.5em"
+          }
+          
+    ],
+	"blocks": [
+      {
+        "type": "block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#f9f9f9"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000000"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "range",
+            "id": "image_position_horizontal",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Horizontal Position",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_position_vertical",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Vertical Position",
+            "default": 50
+          },
+          {
+            "type": "textarea",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem Ipsum"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit.</p>"
+          },
+          {
+            "type": "image_picker",
+            "id": "featured_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "fatured_image_alt",
+            "label": "Image Alt"
+          },
+          {
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+            "default": "Button"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_button_as_link",
+            "label": "Show Button as Link?",
+            "default": true
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

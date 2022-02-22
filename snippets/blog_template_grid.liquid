@@ -1,0 +1,55 @@
+<div id="blog" class="template-grid container clearfix">
+  
+  {% paginate blog.articles by 12 %}
+  
+  <div class="grid">
+  	
+    {% for article in blog.articles %}
+      <div class="article grid__item one-third medium--one-half small--one-whole">
+        <a href="{{ article.url }}">
+          <div class="pic-wrapper">
+            <div class="image">
+              {% if article.excerpt.size > 0 and article.excerpt contains "<img" %}
+                {% assign src = article.excerpt | split: 'src="' %}
+                {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+              {% else %}
+                {% if article.content contains "<img" %}
+                  {% assign src = article.content | split: 'src="' %}
+                  {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+                {% else %}
+                  {% assign src = "placeholder-image.jpg" | asset_url %}
+                {% endif %}
+              {% endif %}
+              <div class="img lazyload" {% if article.image %} data-bgset="{% include 'lazy_src', image: article.image.src %}" {% endif %} style="{% if article.image %}background-image: url('{{ article.image.src | img_url: 'master' }}'){% else %}background-image: url('{{ src }}'){% endif %}"></div>
+            </div>
+            <div class="layer animation">
+              <div class="title animation">
+                <h3>Continue reading</h3>
+              </div>
+            </div>
+          </div>
+          <div class="text-wrapper">
+            <h2 class="animation">{{ article.title }}</h2>
+
+              <div class="content">
+                {% if article.excerpt.size > 0 %}
+                <p>{{ article.excerpt | strip_html | truncatewords: 35 }}</p>
+                {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 35 }}</p>
+                {% endif %}
+              </div>
+
+            <p class="continue">Continue Reading <span class="fa fa-mail-forward"></span></p>
+
+          </div>
+		</a>
+      </div>
+    
+    {% endfor %}
+
+  </div>
+  
+  {% include 'pagination' %}
+  {% endpaginate %}  
+  
+</div> <!-- /#col-main -->

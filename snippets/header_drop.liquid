@@ -1,0 +1,16 @@
+<div class="header header-drop ease-animation-slow">
+  <div class="container">
+    <div class="main-content flex justify-content-between align-items-center medium-down--align-items-center">
+      <div class="logo">
+        <a href="/"><img src="{{ "logo.png" | asset_url }}" alt="{{shop.name}}" /></a>
+      </div>
+      <div class="main-menu flex-1 medium-down--hide">
+        {% include 'menu_main' %}
+      </div>
+      <div class="hide medium-down--show">
+        <a href="#menu-mobile" id="menu-mobile-button" class="fa fa-bars"></a>
+      </div>
+      {% include 'top_utils' %}
+    </div>
+  </div>
+</div>

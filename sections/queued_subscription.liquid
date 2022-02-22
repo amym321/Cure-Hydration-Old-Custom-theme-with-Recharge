@@ -1,0 +1,143 @@
+<style>
+  #shopify-section-{{section.id}} {background-color: #EDF0F9;width: calc(100% + 70px);margin-left: -35px;padding: 1.5em 2em 0;}
+  #shopify-section-{{section.id}} .queued-title,
+  .cart-page-item-queued-subscription .queued-title{color: {{settings.content_main_color}};font-size: 0.8em;}
+  #shopify-section-{{section.id}} p{margin-bottom: 0;}
+  #shopify-section-{{section.id}} .sub-title,
+  .cart-page-item-queued-subscription .sub-title,
+  #shopify-section-{{section.id}} .ship-frequency,
+  .cart-page-item-queued-subscription .ship-frequency,
+  .cart-page-item-queued-subscription .update-note{font-weight: 300;}
+
+  /*cart page*/
+  .cart-page-item-queued-subscription{background-color: #EDF0F9!important;}
+  .cart-page-item-queued-subscription img{max-width: 100%;}
+  .cart-page-item-queued-subscription p{margin-bottom: 0;}
+  .cart-page-item-queued-subscription .ship-frequency{line-height: 1.3em;}
+  .cart-page-addtional-text{background-color: #EDF0F9;padding-bottom: 1em;}
+  .cart-page-addtional-text p{margin:0 12.5% 0 10em;text-align: left;font-weight: 300;}
+
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}}{width: calc(100% + 45px);margin-left: -25px;}
+    .cart-page-addtional-text{padding: 0 20px 1em;}
+    .cart-page-addtional-text p{margin: 0;text-align: center;}
+    .cart-page-item-queued-subscription .sub-title{padding: 0 20px;}
+  }
+</style>
+
+{%- if section.settings.trigger_prod_id -%}
+  
+  {% comment %} side-cart item {% endcomment %}
+  <div class="item item-queued-subscription" data-trigger-prod-id="{{section.settings.trigger_prod_id}}">
+    <div class="grid">
+      <div class="grid__item one-third small--two-fifths">
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.image %}" alt="{{section.settings.image.alt}}">
+      </div>
+      <div class="grid__item two-thirds small--three-fifths">
+        <p class="queued-title">QUEUED SHIPMENT</p>
+        <div class="title">{{section.settings.subs_title}}</div>
+        <div class="sub-title">{{section.settings.subs_sub_title}}</div>
+        <div class="price">
+          <div class="pri">{{section.settings.price}}</div>
+        </div>
+        {%- if section.settings.ship-frequency -%}
+          <p class="ship-frequency">{{section.settings.ship-frequency}}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {% comment %} cart page item {% endcomment %}
+  <div class="hide">
+    <table>
+      <tbody class="cart-page-item-container">
+        <tr class="item cart-page-item-queued-subscription">
+          <td class="details">
+            <table>
+              <tr>
+                <td class="image three-tenths small--one-whole">
+                  <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.image %}" alt="{{section.settings.image.alt}}">
+                </td>
+                <td class="title text-left small--text-center animation seven-tenths small--one-whole">
+                  <p class="queued-title">QUEUED SHIPMENT</p>
+                  <p class="title">{{section.settings.subs_title}}</p>
+                  <p class="sub-title">{{section.settings.subs_sub_title}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="unit-price small--hide one-eighth small--one-whole">
+            {{section.settings.price}}
+          </td>
+          <td class="qtty one-eighth small--one-whole">
+            <div class="quantity">
+              <p class="ship-frequency">
+                {{section.settings.ship-frequency}}
+              </p>
+            </div>
+          </td>
+          <td class="total-price one-eighth small--one-whole">
+            {{section.settings.price}}
+          </td>
+          <td class="remove one-eighth small--one-whole">
+          </td>
+        </tr>
+       </tbody> 
+    </table>
+    <div class="cart-page-addtional-text">
+      <p>{{section.settings.cart_page_additonal_text}}</p>
+    </div>
+  </div>
+
+{%- endif -%}
+
+{% schema %}
+{
+   "name":"Queued Subscription",
+   "class": "queued-subscription hide",
+   "settings":[
+      {
+         "type":"text",
+         "id":"trigger_prod_id",
+         "label":"Product ID that will trigger the queued subscription",
+         "info":"Leave blank for not using this section. Use ',' for entering multiple IDs."
+      },
+      {
+         "type":"header",
+         "content":"Queued Subscription"
+      },
+      {
+         "type":"image_picker",
+         "id":"image",
+         "label":"Image"
+      },
+      {
+         "type":"text",
+         "id":"subs_title",
+         "label":"Title"
+      },
+      {
+         "type":"text",
+         "id":"subs_sub_title",
+         "label":"Sub Title"
+      },
+      {
+         "type":"text",
+         "id":"price",
+         "label":"Price"
+      },
+      {
+         "type":"text",
+         "id":"ship-frequency",
+         "label":"Ship Frequency",
+         "default":"ships in ~15 days"
+      },
+      {
+         "type":"textarea",
+         "id":"cart_page_additonal_text",
+         "label":"Cart Page Additional Text",
+         "default":"Update the frequency of future shipments, skip an order, switch flavors or cancel at any time!"
+      }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{% unless imageSize %}
+  {% assign imageSize = '400x500' %}
+{% endunless %}
+
+<a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">
+  <div class="image">
+    <div class="img lazyload" data-bgset="{% include 'lazy_src', image: currentProduct.featured_image %}"></div>
+    {% if settings.show_product_item_sale_badge and currentProduct.available and currentProduct.price_min < currentProduct.compare_at_price_min %}
+    <div class="sale">sale</div>
+    {% endif %}
+    {% unless currentProduct.available %}
+    <div class="sold-out">sold<br />out</div>
+    {% endunless %}
+  </div>
+</a>

@@ -1,0 +1,26 @@
+{% if currentProduct.images.size > 1 and settings.grid_product_image_behavior == "alternate_image" %}
+  {% unless currentProduct.images[1].alt contains 'ingredient' %}
+    {% assign showSecondImage = true %}
+  {% endunless %}
+{% else %}
+  {% assign showSecondImage = false %}
+{% endif %} 
+
+{% unless imageSize %}
+  {% assign imageSize = '400x500' %}
+{% endunless %}
+
+<a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">
+  <div class="image {% if showSecondImage %}show-second-image{% endif %}">
+    <div class="img animation lazyload" data-bgset="{% include 'lazy_src', image: currentProduct.featured_image %}"></div>
+    {% if showSecondImage %}
+      <div class="img second-img animation" style="background-image: url({{ currentProduct.images[1] | img_url: "master" }});"></div>
+    {% endif %}
+    {% if settings.show_product_item_sale_badge and currentProduct.available and currentProduct.price_min < currentProduct.compare_at_price_min %}
+      <div class="sale">sale</div>
+    {% endif %}
+    {% unless currentProduct.available %}
+      <div class="sold-out">sold<br />out</div>
+    {% endunless %}
+  </div>
+</a>

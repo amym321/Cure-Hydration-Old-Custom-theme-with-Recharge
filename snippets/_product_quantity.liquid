@@ -1,0 +1,11 @@
+{% if currentProduct.available %}
+	<div class="quantity-container">
+		<div class="original quantity-box" {% comment %}{% if packs %}style="display: none;"{% endif %}{% endcomment %}>
+		  <div class="flex">
+		    <input type="button" value="-" class="minus animation">
+		    <input type="number" step="1" name="quantity" id="quantity" value="1" title="Qty" size="4" min="1" max="{{ available }}">
+		    <input type="button" value="+" class="plus animation">
+		  </div>
+		</div>
+	</div>
+{% endif %}

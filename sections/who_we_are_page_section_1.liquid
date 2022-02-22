@@ -1,0 +1,225 @@
+{% schema %}
+  {
+    "name": "Who we are-Section 1",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "bg",
+        "label": "Background Image"
+      },
+      {
+        "type":"header",
+        "content":"First Article"
+      },
+      {
+        "type": "text",
+        "id": "first_title",
+        "label": "Title",
+        "default":"OUR STORY"
+      },
+      {
+        "type":"select",
+        "id":"first_title_alignment",
+        "label":"Title Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      },
+      {
+        "type": "image_picker",
+        "id": "img",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "first_sub_title",
+        "label": "Sub Title",
+        "default":"The sports drink we wanted didn't exist. So we created it."
+      },
+      {
+        "type":"select",
+        "id":"first_sub_title_alignment",
+        "label":"Sub Title Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      },
+      {
+        "type": "textarea",
+        "id": "first_text",
+        "label": "Text",
+        "default":"When we were training for a triathlon, we found that the recovery was the hardest part. We'd often feel dizzy or nauseous after long workouts. We were drinking plenty of water but avoiding sugary, artificial sports drinks. We don't eat or drink that stuff in our daily lives, so why should we have to make an exception for training?"
+      },
+      {
+        "type":"select",
+        "id":"first_text_alignment",
+        "label":"Text Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      },
+      {
+        "type":"header",
+        "content":"Second Article"
+      },
+      {
+        "type": "text",
+        "id": "second_title",
+        "label": "Title",
+        "default":"MISSION"
+      },
+      {
+        "type":"select",
+        "id":"second_title_alignment",
+        "label":"Title Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      },
+      {
+        "type": "image_picker",
+        "id": "second_img",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "second_sub_title",
+        "label": "Sub Title",
+        "default":"We exist to empower each others to achieve the full potential of their body, mind and spirit through natural, clean and effective products"
+      },
+      {
+        "type":"select",
+        "id":"second_sub_title_alignment",
+        "label":"Sub Title Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      },
+      {
+        "type": "textarea",
+        "id": "second_text",
+        "label": "Text",
+        "default":"When it comes to trying to take the best care of our bodies, the path forward isn’t always always clear. There’s a lot of noise out there - different perspectives on what works and an overwhelming number of products (most of them filled with junk) that proclaim to have the answer. We want to remove the complexity and uncertainty from the equation so people don’t have to wonder “is this good for me or not?”<br/><br/>We believe that there need not be a trade-off between “natural” and “effective” or “scientific” vs. “holistic.” Our pledge is to create products that are as natural and as minimally processed as possible and that are scientifically proven to be effective."
+      },
+      {
+        "type":"select",
+        "id":"second_text_alignment",
+        "label":"Text Alignment",
+        "options":[
+          {
+            "value":"left",
+            "label":"Left"
+          },
+          {
+            "value":"center",
+            "label":"Center"
+          },
+          {
+            "value":"right",
+            "label":"Right"
+          }
+        ],
+        "default":"center"
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} .section{background-image: url({{section.settings.bg | img_url: 'master'}});background-size: cover;background-repeat: no-repeat;padding: 60px 20px 95px;}
+  #shopify-section-{{section.id}} .content{max-width: 1030px; background: #fff; margin: auto;padding: 100px 20px;}
+  #shopify-section-{{section.id}} .article{max-width: 630px; margin: auto; text-align: center;}
+  #shopify-section-{{section.id}} .article h2{font-size: 1em;font-weight: bold;letter-spacing: 1.8px;line-height: 22px;text-transform: unset;margin-bottom: 1.3em;}
+  #shopify-section-{{section.id}} .article img{max-width: 100%;margin: auto;}
+  #shopify-section-{{section.id}} .article h3{color: #6387FB;font-size: 2.2em;font-weight: 600;letter-spacing: -2px;line-height: 55px;text-transform: unset;margin-bottom: 0.5em;}
+  #shopify-section-{{section.id}} .article p{font-weight: 600;line-height: 28px;color: rgba(0,0,0,0.58);margin-bottom: 0;}
+  #shopify-section-{{section.id}} .line{background: #979797;height: 1px;width: 80%;margin:70px auto;}
+  @media all and (max-width: 900px) {
+    #shopify-section-{{section.id}} .section{padding: 60px 20px;}
+    #shopify-section-{{section.id}} .content{padding: 50px 20px;}
+    #shopify-section-{{section.id}} .article h2{font-size:0.9em;}
+    #shopify-section-{{section.id}} .article h3{font-size: 1.2em;letter-spacing: unset;line-height: unset;}
+    #shopify-section-{{section.id}} .article p{font-size: 0.9em;line-height: 25px;margin-top: 1.4em;}
+    #shopify-section-{{section.id}} .line{width: 100%;margin: 40px auto;}
+  }
+</style>
+<div class="section">
+  <div class="content">
+    <div class="article">
+      <h2 style="text-align: {{section.settings.first_title_alignment}};">{{section.settings.first_title}}</h2>
+      {% if section.settings.img %}
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.img %}" alt="Our Story">
+      {% endif %}
+      <h3 style="text-align: {{section.settings.first_sub_title_alignment}};">{{section.settings.first_sub_title}}</h3>
+      <p style="text-align: {{section.settings.first_text_alignment}};">{{section.settings.first_text}}</p>
+    </div>
+    <div class="line"></div>
+    <div class="article">
+      <h2 style="text-align: {{section.settings.second_title_alignment}};">{{section.settings.second_title}}</h2>
+      {% if section.settings.second_img %}
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.second_img %}" alt="Our Story">
+      {% endif %}
+      <h3 style="text-align: {{section.settings.second_sub_title_alignment}};">{{section.settings.second_sub_title}}</h3>
+      <p style="text-align: {{section.settings.second_text_alignment}};">{{section.settings.second_text}}</p>
+    </div>
+  </div>
+</div>

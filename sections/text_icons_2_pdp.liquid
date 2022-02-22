@@ -1,0 +1,182 @@
+{% schema %}
+  {
+    "name": "Text + Icons 2 PDP",
+  "presets": [
+      { 
+        "name": "Text + Icons 2",
+        "category": "Home"
+      }
+  ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "image_picker",
+        "id": "background",
+        "label": "Background Image"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "textarea",
+        "id": "main_text",
+        "label": "Main Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula."
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "Icons"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_1",
+        "label": "First Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_1",
+        "label": "First Icon Title"
+      },
+      {
+        "type": "text",
+        "id": "text_1",
+        "label": "First Icon Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_2",
+        "label": "Second Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Second Icon Title"
+      },
+      {
+        "type": "text",
+        "id": "text_2",
+        "label": "Second Icon Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_3",
+        "label": "Third Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_3",
+        "label": "Third Icon Title"
+      },
+      {
+        "type": "text",
+        "id": "text_3",
+        "label": "Third Icon Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_4",
+        "label": "Fourth Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_4",
+        "label": "Fourth Icon Title"
+      },
+      {
+        "type": "text",
+        "id": "text_4",
+        "label": "Fourth Icon Text"
+      }
+  ]
+  }
+{% endschema %}
+
+<style>
+  #shopify-section-{{section.id}}{padding: 0;{% if section.settings.background %} background-image: url({{section.settings.background | img_url: 'master'}});background-size: cover;background-position: center;background-repeat: no-repeat;{% endif %}}
+  #shopify-section-{{section.id}} .container-big{max-width: 1100px;}
+  #shopify-section-{{section.id}} .content{ padding: 2.5em 0 3em;max-width: 100%;margin: auto;}
+  #shopify-section-{{section.id}} p{color: {{section.settings.text_color}};}
+  #shopify-section-{{section.id}} .icons{justify-content: center;}
+  #shopify-section-{{section.id}} .icon-and-text {justify-content: center;align-items: center;margin-left: 1em;}
+  #shopify-section-{{section.id}} .icon-and-text:first-child{margin-left: 0;}
+  #shopify-section-{{section.id}} .text{align-items: center;}
+  #shopify-section-{{section.id}} h3{color: {{ settings.content_main_color}};font-weight: 400;font-size: 1.3em;margin-bottom: 0.3em;}
+  #shopify-section-{{section.id}} .text p{font-size: 2.2em;font-weight: 600;letter-spacing: -2px;margin-bottom: 10px;line-height: 55px;letter-spacing: 1.8px;font-size: 1em;}
+  #shopify-section-{{section.id}} .icon-and-text .image-container{margin: 0 auto 1em;justify-content: center;align-items: center;}
+  #shopify-section-{{section.id}} .icon-and-text img {max-width: 145px;}
+  #shopify-section-{{section.id}} .icon-and-text p{font-family: 'GT Pressura Mono',sans-serif;line-height: 22px;}
+
+  @media all and (min-width: 900px){
+    #shopify-section-{{section.id}} .text p{max-width: 400px;}
+  }
+  @media all and (max-width: 1088px){
+    #shopify-section-{{section.id}} .icon-and-text{width: 50%;margin-left: 0;margin-bottom: 1em;}
+  } 
+  @media all and (max-width: 900px){
+    #shopify-section-{{section.id}} .text p br{display:none}
+  }
+  @media all and (max-width: 397px){
+    #shopify-section-{{section.id}} .icon-and-text p{min-height: 3.5em;}
+  }
+  @media all and (max-width: 355px){
+    #shopify-section-{{section.id}} .icon-and-text img {max-width: 100%;}
+  }
+</style>
+
+<section class="text-icons-section-pdp">
+  <div class="container-big">
+    <div class="content grid">
+      <div class="text grid__item three-tenths medium-down--one-whole flex">
+        <p>{{section.settings.main_text}}</p>
+      </div>
+      <div class="icons grid grid__item seven-tenths medium-down--one-whole">
+        <div class="grid__item icon-and-text text-center flex">
+          <div class="icon-and-text-container">
+            <div class="image-container flex">
+              <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_1 %}" alt="cure hydration icon">
+            </div>
+            <h3>{{section.settings.title_1}}</h3>
+            <p>{{section.settings.text_1}}</p>
+          </div>
+        </div>
+        <div class="grid__item icon-and-text text-center flex">
+          <div class="icon-and-text-container">
+            <div class="image-container flex">
+              <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_2 %}" alt="cure hydration icon">
+            </div>
+            <h3>{{section.settings.title_2}}</h3>
+            <p>{{section.settings.text_2}}</p>
+          </div>
+        </div>
+        <div class="grid__item icon-and-text text-center flex">
+          <div class="icon-and-text-container">
+            <div class="image-container flex">
+              <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_3 %}" alt="cure hydration icon">
+            </div>
+            <h3>{{section.settings.title_3}}</h3>
+            <p>{{section.settings.text_3}}</p>
+          </div>
+        </div>
+        <div class="grid__item icon-and-text text-center flex">
+          <div class="icon-and-text-container">
+            <div class="image-container flex">
+              <img class="lazyload" src="{{section.settings.icon_4| img_url: 'master'}}" alt="cure hydration icon">
+            </div>
+            <h3>{{section.settings.title_4}}</h3>
+            <p>{{section.settings.text_4}}</p>
+          </div>
+        </div>
+      </div>    
+    </div>  
+  </div>
+</section>

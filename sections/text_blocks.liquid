@@ -1,0 +1,107 @@
+{% schema %}
+  {
+    "name": "Text Blocks",
+    "presets": [
+      { 
+        "name": "Text Blocks"
+      }
+  ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#F9F5F2"
+      },
+      {
+        "type": "header",
+        "content": "Text Blocks"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_1",
+        "label": "First Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_1",
+        "label": "First Title",
+        "default": "Lorem Ipsum"
+      },
+      {
+        "type": "textarea",
+        "id": "text_1",
+        "label": "First Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula."
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_2",
+        "label": "Second Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Second Title",
+        "default": "Lorem Ipsum"
+      },
+      {
+        "type": "textarea",
+        "id": "text_2",
+        "label": "Second Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula."
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_3",
+        "label": "Third Icon"
+      },
+      {
+        "type": "text",
+        "id": "title_3",
+        "label": "Third Title",
+        "default": "Lorem Ipsum"
+      },
+      {
+        "type": "textarea",
+        "id": "text_3",
+        "label": "Third Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula."
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .text-blocks-section{background-color: {{section.settings.bg_color}}}
+  .text-blocks-section .content{padding: 5em 3em;margin:auto;}
+  .text-blocks-section .block img{max-width: 50px;margin-bottom: 0.5em;}
+  .text-blocks-section .block h3{letter-spacing: 1.8px;font-size: 1em;margin-bottom: 1.8em;}
+  .text-blocks-section .block p{color: #696766;font-weight: 600;line-height: 28px;max-width: 75%;}
+</style>
+
+<section class="text-blocks-section">
+  <div class="container-big">
+    <div class="content grid">
+      <div class="block grid__item one-third medium-down--one-whole">
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_1 %}" alt="decoration icon">
+        <h3>{{section.settings.title_1}}</h3>
+        <p>{{section.settings.text_1}}</p>
+      </div>
+      <div class="block grid__item one-third medium-down--one-whole">
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_2 %}" alt="decoration icon">
+        <h3>{{section.settings.title_2}}</h3>
+        <p>{{section.settings.text_2}}</p>
+      </div>
+      <div class="block grid__item one-third medium-down--one-whole">
+        <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_3 %}" alt="decoration icon">
+        <h3>{{section.settings.title_3}}</h3>
+        <p>{{section.settings.text_3}}</p>
+      </div>
+    </div>  
+  </div>
+</section>

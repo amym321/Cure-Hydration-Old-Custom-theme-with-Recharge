@@ -1,0 +1,31 @@
+{% schema %}
+  {
+    "name": "Separator",
+    "settings": [
+      {
+        "type":"color",
+        "id":"bg_color",
+        "label":"Background Color",
+        "default":"#6387fb"
+      },
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title",
+        "default":"company values"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  #shopify-section-{{section.id}} .separator {text-align: center;background-color: {{section.settings.bg_color}};padding: 75px 20px;}
+  #shopify-section-{{section.id}} .separator h2{color:#fff;font-size: 1em;letter-spacing: 1.8px;margin-bottom: 0;}
+  @media all and (max-width: 900px) {
+    #shopify-section-{{section.id}} .separator{padding: 45px 20px;}
+  }
+</style>
+
+<div class="separator">
+  <h2>{{section.settings.title}}</h2>
+</div>

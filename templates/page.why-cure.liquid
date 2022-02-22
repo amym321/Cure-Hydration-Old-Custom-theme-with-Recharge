@@ -1,0 +1,38 @@
+<style>
+  .page-why-cure{background-image: url({{'bg_blue_waves-V3.jpg' | asset_img_url: 'master'}});background-size: contain;padding: 60px 20px 130px;}
+  .page-why-cure .container{max-width: 1030px;margin: auto;padding: 0;}
+  .page-why-cure section{padding: 70px 20px;}
+  .page-why-cure section:nth-child(1){background-color: #D6DEF9;}
+  .page-why-cure section:nth-child(2){background-color: #E1E8FE;}
+  .page-why-cure section:nth-child(3){background-color: #F1F4FF;}
+  
+  .page-why-cure #shopify-section-us_vs_them{background-image: none;background-color: #6387fb;}
+
+  .page-why-cure #shopify-section-us_vs_them_img {
+    background: transparent !important;
+  }
+  
+  @media all and (max-width: 600px){
+    .page-why-cure section{padding: 50px 20px;}
+  }
+</style>
+<div class="page-why-cure">
+  <div class="container">
+    <section>
+      {% section 'title_sub-title_text' %}
+      {% section 'text_icons_square' %}
+    </section>
+    <section>
+      {% section 'title_sub-title_text-2' %}
+      {% section 'img_title_text' %}
+    </section>
+    <section>
+      {% section 'title_sub-title_text-3' %}
+      {% section 'img_title_text-2' %}
+    </section>
+    {% section 'us_vs_them_img' %}
+    
+    {% section 'featured_products_why_cure_page' %}
+
+  </div>
+</div>

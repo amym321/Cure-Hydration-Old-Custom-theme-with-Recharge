@@ -1,0 +1,37 @@
+<style>
+  #shopify-section-{{section.id}} {margin-top: 2em;}
+  #shopify-section-{{section.id}} p:last-child{margin-bottom: 0;}
+
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} {margin-top: 0.5em;padding: 0 10px;}
+  }
+</style>
+
+<div class="{% if section.settings.text_sm != '' %}small--hide{% endif %}">
+  {{section.settings.text_dkp}}
+</div>
+{%- if section.settings.text_sm != "" -%}
+  <div class="hide small--show">
+    {{section.settings.text_sm}}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+   "name":"Main Text",
+   "tag": "section",
+   "class": "page-ambassador-main-text",
+   "settings":[
+      {
+         "type":"richtext",
+         "id":"text_dkp",
+         "label":"Text (Desktop)"
+      },
+      {
+         "type":"richtext",
+         "id":"text_sm",
+         "label":"Text (Mobile)"
+      }
+   ]
+}
+{% endschema %}

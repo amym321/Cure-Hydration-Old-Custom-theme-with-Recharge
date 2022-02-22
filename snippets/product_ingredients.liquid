@@ -1,0 +1,47 @@
+<style>
+  .product-ingredients-section{margin: 6em auto;}
+  .product-ingredients-section .text{flex-direction: column;justify-content: center;}
+  .product-ingredients-section .text h3{font-size: 1em;letter-spacing: 1.8px;margin-bottom: 1.8em;}
+  .product-ingredients-section .text p{color: #696766;font-weight: 600;max-width: 90%;}
+  .product-ingredients-section .images{flex-wrap: wrap;justify-content: center;}
+  .product-ingredients-section .image{align-items: center;width: calc(100% / 3);justify-content: center;align-items: center;}
+  .product-ingredients-section .image img{max-width: 100%;margin: auto;}
+</style>
+
+{% for image in product.images %}
+  {% if image.alt contains 'ingredient' %}
+    <section class="product-ingredients-section">
+      <div class="container">
+        <div class="content grid">
+          <div class="text grid__item four-tenths medium-down--one-whole flex">
+            
+            {% if currentProduct.metafields['c_f'].description_extra_title != "" %}
+            <h3>{{currentProduct.metafields['c_f'].description_extra_title}}</h3>
+            {% endif %}
+            
+            {% if currentProduct.metafields['c_f'].description_extra_text != "" %}
+            <p class="ingredients">
+              {{currentProduct.metafields['c_f'].description_extra_text}}
+            </p>
+            {% endif %}
+            
+          </div>
+          <div class="images grid__item six-tenths medium-down--one-whole flex">
+          {% for image in product.images %}
+            {% if image.alt contains 'ingredient' %}
+              <div class="image flex">
+                {{ image | img_url: '250x250' | img_tag }}
+              </div>
+            {% endif %}
+          {% endfor %}
+          </div>
+        </div>  
+      </div>
+    </section>
+  {% break %}
+  {% endif %}
+{% endfor %}
+
+<script>
+  $('.ingredients').html($('.description-ingredients').html());
+</script>

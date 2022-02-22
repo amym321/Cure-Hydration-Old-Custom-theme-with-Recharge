@@ -1,0 +1,158 @@
+{% if settings.variants_layout == 'checkbox' %}
+<style>
+.variants-checkbox {}
+.variant-item {}
+.variants-checkbox-item h6 {letter-spacing: normal;}
+.save-pack {margin-bottom: 0.8em; font-size: 0.8em; font-weight: 700;}
+.save-pack span {font-weight: normal;}
+.variant-item input {display:none!important; width: 1.3em; height: 1.3em; background-color: white; border-radius: 50%; vertical-align: middle; border: 1px solid #000; -webkit-appearance: none; outline: none; cursor: pointer;}
+.variant-item input:checked { background-color: #6387fb; border: 1px solid #FFF;}
+.variant-item label {margin-left: 0.5em;}
+.variant-item .price {margin-left: 0.5em;}
+
+.crossed {text-decoration: line-through;}
+.discount-price {margin-left: 0.5em; font-weight: 600;}
+
+.subscription-information {text-align: left; margin-bottom: 1em;}
+.subscription-information a {text-decoration: underline; font-size: 0.9em; font-weight: 600;}
+
+#product-wrap div#rc_container {display:none!important;}
+#product-wrap .options .selector-wrapper {display:none;}
+
+.custom-checkbox {width: 1em; height: 1em; background-color: white; border-radius: 50%; vertical-align: middle; border: 1px solid #000; -webkit-appearance: none; outline: none; cursor: pointer; position: relative; display: flex; justify-content: center; align-items: center; text-align: center; padding: 10px;}
+.custom-checkbox .custom-checkbox-inside {display:none; background-color: #6387fb; border: none; position: absolute; width: 0.6115em; height: 0.6115em; border-radius: 50%;}
+
+@media only screen and (max-width: 600px){
+    .variants-checkbox {flex-direction: column; align-items: flex-start}
+    .variants-checkbox h6 {text-align:left;}
+}
+
+</style>
+{% endif %}
+
+{% assign hide_default_title = false %}
+{% if currentProduct.variants.size == 1 and currentProduct.variants.first.title contains 'Default' %}
+	{% assign hide_default_title = true %}
+{% endif %}
+<div class="options animation clearfix {% if hide_default_title %}visuallyhidden{% endif %}">
+
+    {% if settings.variants_layout == 'swatches' %}
+    {% for option in currentProduct.options %}
+        {% if packs %}
+        {% include 'swatch' with option, packs: true %}  
+        {% else %}
+        {% include 'swatch' with option, packs: false %}
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if settings.variants_layout == 'checkbox' %}
+    <div class="variants-checkbox flex justify-content-between align-items-start">
+        <div class="variants-checkbox-item" id="onetime-options">
+            <h6>ONE-TIME PURCHASE</h6>
+            {% for variant in currentProduct.variants %}
+                {% assign value = variant.title %}
+                {% assign voPrice = variant.price | divided_by: 100.00 %}
+                {% assign vPrice = variant.metafields.subscriptions.discount_variant_price | plus: 0 %}
+                {% assign vPack = variant.title | split: ' ' | first | plus: 0 %}
+                {% assign vdiscount = vPrice | times: 100 | divided_by: voPrice | round: 1 %}
+                {% assign vdiscountPrice = 100 | minus: vdiscount %}
+                <div class="variant-item flex align-items-center justify-content-start">
+                    <div class="custom-checkbox">
+                        <div class="custom-checkbox-inside"></div>
+                    </div>
+                    <input type="checkbox" value="{{ variant.id }}" />
+                    {% if variant.compare_at_price %}
+                        <label for="product-{{ currentProduct.id }}-variant">{{ variant.title | append: " " | escape }}<span class="regular-price crossed">{{ variant.compare_at_price | money }}</span>{% if variant.metafields.subscriptions.discount_variant_price != blank %}<span class="discount-price">{{ variant.price | money }}</span>{% endif %}</label>
+                    {% else %}
+                        <label for="product-{{ currentProduct.id }}-variant">{{ variant.title | append: " " | escape }}<span><b>{{ variant.price | money }}</b></span></label>
+                    {% endif %}
+                </div>
+                {% assign vPrice = variant.price %}
+                {% assign vPack = variant.title | split: ' ' | first %}
+                <p class="save-pack save-pack-{{ variant.id }}">{% if variant.compare_at_price %}Save 10% per packet {% endif %}<span>(${{ voPrice | divided_by: vPack | round: 2 }} per packet)</span></p>
+                <script>$(function(){$("#onetime-options .save-pack-{{ variant.id }} span").text($("#onetime-options .save-pack-{{ variant.id }} span").text().replace("$1.5 per packet", "$1.50 per packet"));});</script>
+            {% endfor %}
+        </div>
+        <div class="variants-checkbox-item" id="subscription-options">
+            <h6>SUBSCRIBE TO SAVE</h6>
+            {% for variant in currentProduct.variants %}
+                {% assign value = variant.title %}
+                {% assign voPrice = variant.price | divided_by: 100.00 %}
+                {% assign vPrice = variant.metafields.subscriptions.discount_variant_price | plus: 0 %}
+                {% assign vPack = variant.title | split: ' ' | first | plus: 0 %}
+                {% assign vdiscount = vPrice | times: 100 | divided_by: voPrice | round: 1 %}
+                {% assign vdiscountPrice = 100 | minus: vdiscount %}
+                <div class="variant-item flex align-items-center justify-content-start" {% if forloop.first %}id="first-sub"{% endif %}>
+                    <div class="custom-checkbox">
+                        <div class="custom-checkbox-inside"></div>
+                    </div>
+                    <input type="checkbox" value="{{ variant.id }}" {% if packs %}data-pack-qty="{{ value | escape | split: ' ' | first }}"{% endif %} />
+                    <label for="product-{{ currentProduct.id }}-variant">{{ variant.title | append: " " | escape }} 
+                        <span class="regular-price {% if variant.metafields.subscriptions.discount_variant_price != blank %} crossed{% endif %}">{% if variant.compare_at_price %}{{ variant.compare_at_price | money }}{% else %}{{ variant.price | money }}{% endif %}</span>
+                        {% if variant.metafields.subscriptions.discount_variant_price != blank %}
+                            <span class="discount-price">${{ variant.metafields.subscriptions.discount_variant_price }}</span>
+                        {% endif %}
+                    </label>
+                </div>
+                <p class="save-pack save-pack-{{ variant.id }}">{% if variant.compare_at_price %}Save 28% per packet {% else %}Save {{ vdiscountPrice | round }}% per packet {% endif %}
+                    <span>(${{ vPrice | divided_by: vPack | round: 2 }} per packet)</span>
+                </p>
+                <script>console.log("{{ vPrice }} Not Rounded: {{ vPrice | divided_by: vPack }} // Discount Price: {{ vPrice | divided_by: vPack | round: 2 }}");</script>
+                <script>$(function(){$("#subscription-options .save-pack-{{ variant.id }} span").text($("#subscription-options .save-pack-{{ variant.id }} span").text().replace("$1.2 per packet", "$1.20 per packet"));});</script>
+            {% endfor %}
+            <div class="subscription-information"><a href="#" onclick="Simplistic.openModal($('#subscription-information-popup')); return false;">View Subscription Details</a></div>
+        </div>
+    </div>
+
+    {% comment %} {%- if packs -%}
+    <div class="price-per-pack">
+        <div class="heading">PRICE PER PACK</div>
+        <p class="pack-price">$<span></span> per pack</p>
+    </div>
+    {%- endif -%} {% endcomment %}
+
+    {% endif %}
+
+    {% if currentProduct.options.size == 1 and settings.variants_layout == 'dropdown' %}
+        <label class="single">{{ currentProduct.options }}</label>
+    {% endif %}
+    <select class="select-variant" id="product-select-{{ currentProduct.id }}">
+        {% for variant in currentProduct.variants %}
+            <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+        {% endfor %}
+    </select>
+    <input type="hidden" name="id" data-productid="{{ product.id }}" id="product-{{ currentProduct.id }}-variant" value="" />
+</div>
+
+<script>
+$(function(){
+    $(".variant-item label").click(function(e) {
+        $(".custom-checkbox-inside").hide();
+        $(this).parent().find($('.custom-checkbox')).find($(".custom-checkbox-inside")).show();
+        $(this).parent().find("input[type='checkbox']").click();
+    });
+
+    $('.variant-item input[type="checkbox"]').on('change', function() {
+        $('.variant-item input[type="checkbox"]').not(this).prop('checked', false);
+        $("#product-{{ currentProduct.id }}-variant").val($(this).val());
+    });
+
+    $("#subscription-options .variant-item input[type='checkbox']").click(function () {
+        $(".rc_block__type__autodeliver label")[0].click();
+    })
+
+    $("#onetime-options .variant-item input[type='checkbox']").click(function () {
+        $(".rc_block__type__onetime  label")[0].click();
+    })
+
+    $(".custom-checkbox").click(function(){
+        $(".custom-checkbox-inside").hide();
+        $(this).parent().find($(".variant-item label")).click();
+        $(this).find($(".custom-checkbox-inside")).show();
+    });
+
+    $("#first-sub").find($(".custom-checkbox")).click();
+
+});
+</script>

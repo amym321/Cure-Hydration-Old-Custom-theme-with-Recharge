@@ -1,0 +1,111 @@
+<style>
+#header .menu-side {
+  width: calc(50% - (120px / 2));
+}
+
+#header .main-menu li {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+#header .main-menu ul:not(.submenu) {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#header .logo + .menu-side > ul:not(.submenu), #header .logo + .menu-side > ul:not(.submenu) + .top-utils {
+  width: 50%;
+}
+
+@media only screen and (min-width: 901px) {
+  #header .logo {
+    width: 120px;
+    margin: 0 1em;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #header .logo {
+    position: absolute;
+    left: calc(50% - 45px);
+  }
+
+  #header .top-utils {
+    padding-top: 0;
+    padding-right: 0;
+  }
+
+  #menu-mobile-button {
+    left: 0;
+    right: initial;
+  }
+}
+
+</style>
+
+<header id="header" class="header {% if settings.over_carousel and template == "index" %}over-carousel{% endif %}">
+  {% include 'utility_bar' %}
+  <div class="container">
+    <!-- <div class="main-content flex justify-content-between align-items-center medium-down--align-items-center">
+      <div class="logo">
+        <a href="/"><img src="{{ "logo.png" | asset_url }}" alt="{{shop.name}}" /></a>
+      </div>
+      <nav class="main-menu  medium-down--hide">
+        {% include 'menu_main' %}
+      </nav>
+      <div class="top-utils medium-down--hide">
+        {% include 'top_utils' %}
+      </div>
+      <div class="hide medium-down--show">
+        <a href="#menu-mobile" id="menu-mobile-button" class="fa fa-bars"></a>
+        {% include 'top_utils' %}
+      </div>
+    </div> -->
+    <div class="main-content flex justify-content-between align-items-center">
+      <div class="hide medium-down--show">
+        <a href="#menu-mobile" id="menu-mobile-button" class="fa fa-bars"></a>
+      </div>
+      <div class="main-menu menu-side flex justify-content-around align-items-center medium-down--hide">
+        {% include 'menu_main', menu_side: 'left-side', extra_items: 2 %}
+      </div>
+      <div class="logo">
+        <a href="/"><img src="{{ "logo.png" | asset_url }}" alt="{{shop.name}}" /></a>
+      </div>
+      <div class="menu-side main-menu flex justify-content-around align-items-center medium-down--hide">
+        {% include 'menu_main', menu_side: 'right-side', extra_items: 2 %}
+        {% include 'top_utils' %}
+      </div>
+      <div class="hide medium-down--show">
+        {% include 'top_utils' %}
+      </div>
+    </div>
+  </div>
+</header>
+
+{% if settings.drop_header %}
+  {% include 'header_drop' %}
+{% endif %}
+
+{% include 'menu_mobile' %}
+
+{% include 'fullscreen_search' %}
+{% include 'fullscreen_mailing' %}
+
+<script>
+  $(function(){
+    function contentPaddingTop(){
+      setTimeout(function(){
+        $('.content-wrapper').css('padding-top', $('#header').height());
+        $(window).resize(function(){
+          $('.content-wrapper').css('padding-top', $('#header').height());
+        });
+      }, 200);
+    }
+    {% if settings.header_behavior == "fixed" or settings.header_behavior_mobile == "fixed" %}
+      contentPaddingTop();
+    {% endif %}
+
+  });
+</script>

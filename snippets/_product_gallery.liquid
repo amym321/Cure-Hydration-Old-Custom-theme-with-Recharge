@@ -1,0 +1,55 @@
+<div class="product-gallery clearfix {% if currentProduct.images.size > 0 %}{% if settings.main_image_display == 'Zoom-in' or settings.main_image_display == 'Both' %}zoom-in{% endif %}{% endif %}">
+  <div class="main-images slick-pending {% if settings.product_thumbs_slide == 'vertical' and currentProduct.images.size > 1 %}float-right five-sixths medium-down--one-whole{% endif %}">
+    {%- for media in currentProduct.media -%}
+      {%- capture groupingData -%}
+          {%- render '_product_gallery_grouping_data', media: media, index: forloop.index -%}
+        {%- endcapture -%}
+
+      <div class="active-wrapper slide" {{ groupingData }} data-media-id="{{media.id}}">
+          {%- case media.media_type -%}
+              {% when 'video' %}
+                   <div class="video-wrap" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+                      {{ media | video_tag: controls: true, image_size: "1024x" }}
+                   </div>
+              {% when 'external_video' %}
+                  <div class="video-wrap" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;">
+                    {{ media | external_video_tag }}
+                  </div>
+              {% when 'image' %}
+                  {%- if quickView != true -%}
+                      {%- if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' -%}
+                          <a href="{{ media | product_img_url: 'master' }}" class="productImage">
+                      {%- endif -%}
+                  {%- endif -%}
+                  <div>
+                      <img src="{% render 'image_placeholder', image: media %}" data-srcset="{% include 'lazy_src', image: media %}" data-sizes="auto" data-file="{{media | product_img_url: 'master'}}" class="large-thumb {%if forloop.index == 1 %}lazyload{% endif %}" itemprop="image" alt="{%- unless settings.product_thumbs_group_by != blank and media.alt contains ':' -%}{{media.alt}}{%- endunless -%}" />
+                  </div>
+                  {%- if quickView != true -%}
+                      {%- if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' -%}
+                          </a>
+                      {%- endif -%}
+                  {%- endif -%}
+          {%- endcase -%}
+        </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if currentProduct.images.size > 1 -%}
+    <div class="thumbs-wrapper">
+      <div class="thumbs slick-pending switch">
+        {%- for media in currentProduct.media -%}
+          {%- capture groupingData -%}
+            {%- render '_product_gallery_grouping_data', media: media, index: forloop.index -%}
+          {%- endcapture -%}
+          {%- assign image = media.preview_image -%}
+
+          <div class="slide" {{ groupingData }}>
+            <a class="gallery" href="{{ image | img_url: 'master' }}" data-media-id="{{media.id}}" variant-id="{{ media.variants.first.id }}">
+              <img src="{% render 'image_placeholder', image: image %}" data-srcset="{% include 'lazy_src', image: image %}" class="lazyload" data-sizes="auto" alt="{%- unless settings.product_thumbs_group_by != blank and media.alt contains ':' -%}{{media.alt}}{%- endunless -%}" />
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>

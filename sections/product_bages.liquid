@@ -1,0 +1,50 @@
+{% schema %}
+  {
+    "name": "Product Badges",
+    "presets": [
+      { 
+        "name": "Product Badges"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Badge",
+        "name": "Badge",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Lorem<br/>Ipsum"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .product-badges-section{margin-top: 1em;}
+  .product-badges-section .badges-container{flex-wrap: wrap;}
+  .product-badges-section .badge img{max-width: 45px;margin: auto;}
+  .product-badges-section .badge p{font-family: "GT Pressura Mono",sans-serif;color: #6E6D6E;line-height: 12px;font-size: 0.6em;text-align: center;}
+   @media all and (max-width: 600px){
+     .product-badges-section .badge:first-child{margin-bottom: 1em;}
+   }
+</style>
+
+<section class="product-badges-section">
+  <div class="badges-container flex">
+    {% for block in section.blocks %}
+    <div class="badge one-sixth small--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.icon %}" alt="product badge icon">
+      <p>{{block.settings.text}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,202 @@
+{% schema %}
+  {
+    "name": "Dynamic Collections",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Dynamic Collections"
+      },
+	  {
+        "type": "color",
+        "id": "section_bg",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+	  {
+        "type": "select",
+        "id": "items_per_row",
+        "label": "Items per row",
+        "options": [
+          {
+            "value": "3",
+            "label": "3 items per row"
+          },
+          {
+            "value": "4",
+            "label": "4 items per row"
+          },
+          {
+            "value": "5",
+            "label": "5 items per row"
+          },
+          {
+            "value": "6",
+            "label": "6 items per row"
+          }
+        ],
+		"default": "5"
+      },
+	  {
+        "type": "select",
+        "id": "items_per_row_medium",
+        "label": "Items per row",
+        "options": [
+          {
+            "value": "3",
+            "label": "3 items per row"
+          },
+          {
+            "value": "4",
+            "label": "4 items per row"
+          },
+          {
+            "value": "5",
+            "label": "5 items per row"
+          },
+          {
+            "value": "6",
+            "label": "6 items per row"
+          }
+        ],
+		"default": "3"
+      },
+	  {
+        "type": "select",
+        "id": "items_per_row_small",
+        "label": "Items per row",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 items per row"
+          },
+          {
+            "value": "2",
+            "label": "2 items per row"
+          },
+          {
+            "value": "3",
+            "label": "3 items per row"
+          }
+        ],
+		"default": "2"
+      }
+	],
+	"blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Dynamic Collections",
+        "category": "Home"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .dynamic-collections {text-align: center;}
+  .dynamic-collections .container {padding: 0 30px;}
+  .dynamic-collections .slick-slider .slick-arrow {top: 39%;}
+  .dynamic-collections .index {margin-bottom: 2em;}
+  .dynamic-collections .collections {position: relative;}
+  .dynamic-collections .dynamic-wrapper {width: 100%; visibility: hidden; position: absolute; top: 0; left: 0;}
+  .dynamic-collections .dynamic-wrapper.first {visibility: visible; position: static;}
+  .dynamic-collections ul {list-style-type: none;}
+  .dynamic-collections ul li {display: inline-block; }
+  .dynamic-collections ul li a {display: block; padding: 0.5em 2em; margin: 0; border: 1px solid #bbb; color: #999;} 
+  .isNotMobile .dynamic-collections ul li a:hover {color: #000; border-color: #000; }
+  .dynamic-collections ul li.active a {color: {{settings.content_main_color}} !important; border-color: {{settings.content_main_color}} !important; }
+  
+  .loading {display: none; position: absolute; text-align: center; z-index: 5; top: 0; bottom: -2em; left: 0; margin-left: 0; padding: 0; width: 100%; background: #fff; background: transparent; }
+  .loading .icon {display: inline-block; position: relative; top: 35%; border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid #000; border-radius: 50%; width: 40px; height: 40px; animation: spin 0.5s linear infinite;}
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<section class="dynamic-collections" style="background: {{section.settings.section_bg}};">
+  <div class="container">
+    {% if section.settings.title != "" %}<h2>{{section.settings.title}}</h2>{% endif %}
+    <div class="index">
+      <ul>
+        {% for block in section.blocks %}
+        {% assign col = collections[block.settings.collection] %}
+        <li {% if forloop.first %}class="active"{% endif %}><a class="col-target" href="{{col.url}}" data-handle="{{col.handle}}">{{col.title}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="collections">
+      <div class="loading" style="background: {{section.settings.section_bg}};"><div class="icon"></div></div>
+      {% for block in section.blocks %}
+      {% assign col = collections[block.settings.collection] %}
+      <div class="dynamic-wrapper {% if forloop.first %}first{% endif %}" style="background: {{section.settings.section_bg}};" data-handle="{{col.handle}}">
+        <div class="carousel slick-pending" style="background: {{section.settings.section_bg}};" >
+          {% for prod in col.products limit:10 %}
+          {% include 'product_item', currentProduct: prod, quickview: settings.allow_quick_view, isCarousel: true  %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  $(function(){
+    $('.dynamic-collections ul li a.col-target').click(function(){
+      var colHandle = $(this).data('handle');
+      $('.dynamic-collections .loading').show();
+      $('.dynamic-collections ul li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      $(".dynamic-collections .dynamic-wrapper").css({'visibility':'hidden','position':'absolute'});
+      $(".dynamic-collections .dynamic-wrapper[data-handle='"+colHandle+"']").css({'visibility':'visible','position':'static'});
+      setTimeout(function(){
+      	$('.dynamic-collections .loading').hide();
+      },1000);
+      $(".dynamic-collections .brands-listing").slideUp();
+      $('.dynamic-collections ul li a.brands-target i').addClass('fa-angle-down');
+      return false;
+    });
+    $('.dynamic-collections .carousel').each(function(){
+   	  $(this).slick({
+        autoplay: false,
+        speed: 700,
+        pauseOnHover: false,
+        slidesToShow: {{section.settings.items_per_row}},
+        slidesToScroll: {{section.settings.items_per_row}},
+        prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+        nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+        responsive: [
+          {
+              breakpoint: 600,
+              settings: {
+        		slidesToShow: {{section.settings.items_per_row_small}},
+                slidesToScroll: {{section.settings.items_per_row_small}},
+              }
+          },
+          {
+              breakpoint: 1000,
+              settings: {
+                slidesToShow: {{section.settings.items_per_row_medium}},
+                slidesToScroll: {{section.settings.items_per_row_medium}},
+              }
+          }
+        ]
+      });
+    })
+  });  
+
+</script>

@@ -1,0 +1,193 @@
+<style type="text/css">
+  body, html {width: 100%; height: 100vh; background: {{section.settings.bg_color}};}
+  
+  #shopify-section-{{ section.id }} {width: 100%; height: 100%;}
+
+  .splash-page {width: 100%; text-align: center; height: 100%; color: #fff; background-size: cover; background-position: center; background-repeat: no-repeat;}
+  .splash-page:before {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2);}
+  .splash-page .logo {display: block; width: 100%; max-width: {{section.settings.logo_width}}; margin: auto;}
+  .splash-page * {color: inherit;}
+  .isNotMobile .splash-page a:hover {color: #EAD9CF;}
+  .isNotMobile .splash-page a:hover svg path {fill: #EAD9CF;}
+  
+  .splash-page header {position: relative; padding: 7vh 1.5rem 0;}
+  .splash-page main {position: relative; padding: 1vh 1.5rem;}
+  .splash-page footer {position: relative; padding: 0 1.5rem 7vh;}
+
+  .splash-page h1 {margin: 0; font-size: 2em;}
+  .splash-page .subtitle {font-size: 2em; line-height: 120%;}
+  .splash-page .countdown {font-size: 2em; line-height: 120%;}
+
+  .fullheight {height: 100%;}
+
+  .countdown span {display: inline-block; padding: 0.3em; }
+
+  #custom_login_form {position: fixed; bottom: 0; left: 0; z-index: 999;}
+  #custom_login_form input[type="text"] {background: transparent; font-size: 16px; border:none; padding: 1em; color: #fff;}
+
+  #preview-bar-iframe {z-index: 2 !important;}
+  
+  .help-section .help-items {font-size: 0.9em; padding-right: 2em;}
+  .help-section .title {margin-bottom: 1.5em;}
+  .help-section .item {padding: 0.5em 1em;}
+  .help-section .item > * {display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-align: center;-ms-flex-align: center;align-items: center;}
+  .help-section .item svg {font-size: 1.3em; display: block; margin: 0 0.5em 0;}
+  .help-section .item svg path {fill: #fff;}
+  .help-section .item .phone-wrapper svg {-webkit-transform: scale(1.1); transform: scale(1.1);}
+
+  @media all and (max-width: 600px){
+    .splash-page .logo {max-width: {{section.settings.logo_width_mobile}};}
+    .splash-page h1, .splash-page .subtitle, .splash-page .countdown {font-size: 1.6em;}
+    .splash-page header {padding-top: 4.5vh;}
+    .splash-page footer {padding-bottom: 4.5vh;}
+    #custom_login_form input[type="text"] {padding: 0; width: 80px}
+  }
+
+</style>
+<div class="splash-page flex direction-column lazyload" data-bgset="{% include 'lazy_src', image: section.settings.image %}">
+  <header role="banner">
+    <img class="logo" src="{{section.settings.logo | img_url: '600x600'}}" />
+  </header>
+  <main class="content flex-1" role="main">
+    <div class="flex fullheight align-items-center justify-content-center">
+      <div class="wrap">
+        <h1>{{section.settings.title}}</h1>
+        {%- if section.settings.countdown -%}
+        <div class="countdown heading_font">
+          <div id="demo"></div>
+          <script>
+            // Set the date we're counting down to:
+            var countDownDate = new Date("Feb 3, 2020 0:0:01").getTime();
+            var x = setInterval(function() {
+              var now = new Date().getTime();
+              var distance = countDownDate - now;
+              // Time calculations for days, hours, minutes and seconds
+              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+              document.getElementById("demo").innerHTML = "<span>" + days + "d</span><span>" + hours + "h</span><span>" + minutes + "m</span><span>" + seconds + "s </span>";
+              if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "{{section.settings.subtitle}}";
+              }
+            }, 1000);
+          </script>
+        </div>
+        {%- else -%}
+        <div class="subtitle heading_font">{{section.settings.subtitle}}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </main>
+  <footer class="help-section" role="contentinfo">
+    <h2 class="title body_font title-v1">{{section.settings.help_title}}</h2>
+    <div class="help-items flex justify-content-center align-items-center">
+      <div class="item help-contact-item">
+        <a href="facetime-audio:{{section.settings.phone}}"><span class="flex align-items-center phone-wrapper"><span class="svg-wrapper">{% include 'icons', icon: 'phone' %}</span> <span class="label">Call or Text</span></span></a>
+      </div>
+      <div class="item help-contact-item">
+        <a href="mailto:{{section.settings.email}}"><span class="svg-wrapper">{% include 'icons', icon: 'email' %}</span> <span class="label">Email</span></a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<form id="custom_login_form" method="post">
+  <input type="text" name="password" id="password">
+  <input type="submit" aria-label="Store Password" class="visuallyhidden" />
+</form>
+
+{% schema %}
+  {
+    "name": "Splash Page",
+	"presets": [
+      {
+        "name": "Splash Page",
+        "category": "Splash Page"
+      }
+    ],
+    "settings": [
+	  {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ead9cf"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+	  {
+        "type": "text",
+        "id": "logo_width",
+        "label": "Logo Width",
+	    "default": "19.33em"
+      },
+	  {
+        "type": "text",
+        "id": "logo_width_mobile",
+        "label": "Logo Width (Mobile)",
+	    "default": "15.33em"
+      },
+	  {
+        "type": "textarea",
+        "id": "title",
+        "label": "Title",
+        "default": "Our new wesbite is almost ready!"
+      },
+	  {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Check back in a few minutes."
+      },
+	  {
+        "type": "header",
+        "content": "Countdown"
+      },
+	  {
+        "type": "checkbox",
+        "id": "countdown",
+        "label": "Show countdown?",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "time",
+        "label": "Date/Time",
+        "default": "Feb 3, 2020 0:0:01"
+      },
+	  {
+        "type": "header",
+        "content": "Help"
+      },
+	  {
+        "type": "text",
+        "id": "help_title",
+        "label": "Title",
+        "default": "Need Help?"
+      },
+	  {
+        "type": "text",
+        "id": "phone",
+        "label": "Phone",
+        "default": "18222432143"
+      },
+	  {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default": "service@loefflerrandall.com"
+      }
+    ],
+    "blocks": [
+    ]
+  }
+{% endschema %}

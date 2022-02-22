@@ -1,0 +1,38 @@
+{%- include '_product' -%}
+
+{% unless product.tags contains 'bottle' %}
+
+{%- section 'when_to_take' -%}
+
+{%- section 'line' -%}
+
+{%- section 'how_to_take' -%}
+
+{%- section 'value_props' -%}
+
+{%- section 'social_impact_pdp' -%}
+
+{%- include 'product_ingredients' -%}
+
+{% endunless %}
+
+{% if product.metafields.custom_fields["us_vs_them_chart_image_url"] != blank %}
+  {%- section 'us_vs_them_img' -%}
+{% endif %}
+
+{%- section 'product_accordion_metafield_faq' -%}
+
+{%- if settings.show_related_products -%}
+  {%- include 'related_products' -%}
+{%- endif -%}
+
+{%- if settings.show_recently_viewed -%}
+    <script>
+        $(function(){
+            Shopify.Products.recordRecentlyViewed();
+        });
+    </script>
+  {%- include 'recently_viewed' -%}
+{%- endif -%}
+
+{%- section 'advisory_board' -%}

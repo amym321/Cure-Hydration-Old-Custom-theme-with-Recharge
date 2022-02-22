@@ -1,0 +1,505 @@
+{%- if product.tags contains 'subscription-only' -%}
+  <style>
+    .templateProduct #product-wrap div#rc_container{display: none!important;}
+  </style>
+{%- endif -%}
+
+{% if product.tags contains 'no-packs' %}
+  {% assign notPacks = true %}
+  <style>
+    #product-wrap .tabs, #product-wrap .price {margin-bottom: 1em;}
+    #product-wrap .price {color: #6387fb;}
+    #product-wrap .price .retail {color: #6387fb; margin:0; margin-right: 0.5em;}
+    #product-wrap div.retail span {color: #6387fb;}
+    #product-wrap .price span.with-retail {color: #6387fb!important;}
+  </style>
+{% endif %}
+
+{% assign currentProduct = product %}
+{% for tag in currentProduct.tags %}
+  {% if tag contains 'background' %}
+    {% assign bg_color = tag | split: '-' | last %}
+  {% endif %}
+  {% break %}
+{% endfor %}
+
+{% if packs %}
+  {% assign packs = true  %}
+ {% else %} 
+  {% assign packs = false  %}
+{% endif %}
+
+<script>
+  $(function(){
+    var product = {{ currentProduct | json }};
+    window.productJs = new ProductJs($('#product-item-{{ currentProduct.id }}'), product);
+
+    if(window.location.hash.indexOf('search') >= 0) {
+      $('.collection-nav .return_search').removeClass('hide');
+    }
+  });
+</script>
+
+<div class="product-bg" style="background-color: #F8F5F1;">
+  <div id="product-wrap" class="container">
+    <div id="product-item-{{ currentProduct.id }}" class="flex">
+      <div class="sm-title-price container">
+        {% if currentProduct.metafields['c_f'].custom_title != blank %}
+          <h1 class="title">{{currentProduct.metafields['c_f'].custom_title}}</h1>
+        {% else %}
+          <h1 class="title">{{ currentProduct.title }}</h1>
+        {% endif %}
+      </div>
+
+      <div class="gallery_and_badges">
+        {%- include '_product_gallery' -%}
+        {%- unless product.handle == '16oz-glass-water-bottle' -%}
+          {%- include 'product_badges' -%}
+        {%- endunless -%}
+      </div>
+
+      <div class="product-info">
+        <form action="{% unless settings.allow_ajax_cart %}/cart/add{% endunless %}" method="post" class="variants add-to-cart-form" enctype="multipart/form-data" data-productid="{{product.id}}">
+             
+          <span class="validation-msg hide"></span>
+          <div class="bg-title-price flex justify-content-between align-items-center">
+            {% if currentProduct.metafields['c_f'].custom_title != blank %}
+              <h1 class="title">{{currentProduct.metafields['c_f'].custom_title}}</h1>
+            {% else %}
+              <h1 class="title">{{ currentProduct.title }}</h1>
+            {% endif %}
+            <a href="#shopify-section-product_accordion_metafield_faq" class="scroll-to-reviews">
+              <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{% if product.id == 5303730602146 %}1836526108738{% else %}{{ product.id }}{% endif %}" style="display: block;">{{ product.metafields.stamped.badge }}</span>
+            </a>
+          </div>          
+
+          <div class="tabs">
+
+            <div class="tabs-selector flex">
+              <button class="tab active" data-value="description">Description</button>
+              {%- if product.metafields.custom_fields.ingredients != blank -%}
+                <button class="tab" data-value="ingredients">Ingredients</button>
+              {%- endif -%}
+              {% unless product.tags contains 'bottle' %}
+              {%- if product.metafields.custom_fields["how_to_take_step_1_image_url"] != blank -%}
+                <button class="tab" data-value="how-to-take">How To Take</button>
+              {%- endif -%}
+              <button class="tab" data-value="when-to-take">When To Take</button>
+              {% endunless %}
+            </div>
+
+            <div class="tabs-content">
+
+              <div class="description">
+                {{ currentProduct.description }}
+              </div>
+
+              {%- if product.metafields.custom_fields.ingredients != blank -%}
+                <div class="ingredients hide">
+                  {{product.metafields.custom_fields.ingredients}}
+                  <p style="display:none">test 1</p>
+                </div>
+              {%- endif -%}
+
+              {% unless product.tags contains 'bottle' %}
+              {%- if product.metafields.custom_fields["how_to_take_step_1_image_url"] != blank -%}
+                <div class="how-to-take hide">
+                  <div class=" icons grid">
+                    {% if product.metafields.custom_fields["how_to_take_step_1_image_url"] != blank %}
+                      <div class="grid__item one-quarter icon-and-text text-center flex">
+                        <div class="icon-and-text-container">
+                          <div class="image-container flex">
+                            <img src="{{ product.metafields.custom_fields['how_to_take_step_1_image_url'] }}" alt="cure hydration icon">
+                          </div>
+                          <h3>1</h3>
+                          <p>{{ product.metafields.custom_fields["how_to_take_step_1_text"] }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if product.metafields.custom_fields["how_to_take_step_2_image_url"] != blank %}
+                      <div class="grid__item one-quarter icon-and-text text-center flex">
+                        <div class="icon-and-text-container">
+                          <div class="image-container flex">
+                            <img src="{{ product.metafields.custom_fields['how_to_take_step_2_image_url'] }}" alt="cure hydration icon">
+                          </div>
+                          <h3>2</h3>
+                          <p>{{ product.metafields.custom_fields["how_to_take_step_2_text"] }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if product.metafields.custom_fields["how_to_take_step_3_image_url"] != blank %}
+                      <div class="grid__item one-quarter icon-and-text text-center flex">
+                        <div class="icon-and-text-container">
+                          <div class="image-container flex">
+                            <img src="{{ product.metafields.custom_fields['how_to_take_step_3_image_url'] }}" alt="cure hydration icon">
+                          </div>
+                          <h3>3</h3>
+                          <p>{{ product.metafields.custom_fields["how_to_take_step_3_text"] }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if product.metafields.custom_fields["how_to_take_step_4_image_url"] != blank %}
+                      <div class="grid__item one-quarter icon-and-text text-center flex">
+                        <div class="icon-and-text-container">
+                          <div class="image-container flex">
+                            <img src="{{ product.metafields.custom_fields['how_to_take_step_4_image_url'] }}" alt="cure hydration icon">
+                          </div>
+                          <h3>4</h3>
+                          <p>{{ product.metafields.custom_fields["how_to_take_step_4_text"] }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {%- endif -%}
+
+              <div class="when-to-take hide">
+                <div class="icons grid">
+                  {%- if product.metafields.custom_fields["wtt_wake-up"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_wake-up.png' | file_img_url: 'master'}}" alt="alarm clock">
+                        </div>
+                        <p>Early morning<br>wake-up call</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom_fields["wtt_before-start"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_before-start.png' | file_img_url: 'master'}}" alt="alarm clock">
+                        </div>
+                        <p>Before you start<br>your day</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom_fields["wtt_workout"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_workout.png' | file_img_url: 'master'}}" alt="dumbell">
+                        </div>
+                        <p>Workout boost</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom_fields["wtt_late-afternoon"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_late-afternoon.png' | file_img_url: 'master'}}" alt="late afternoon">
+                        </div>
+                        <p>Late afternoon<br>haze</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom_fields["wtt_staying-up"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_staying-up.png' | file_img_url: 'master'}}" alt="dancing">
+                        </div>
+                        <p>Staying up<br>past curfew</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {%- if product.metafields.custom_fields["wtt_after-party"] == 1 -%}
+                    <div class="grid__item one-quarter icon-and-text text-center flex">
+                      <div class="icon-and-text-container">
+                        <div class="image-container flex">
+                          <img src="{{'wtt_after-party.png' | file_img_url: 'master'}}" alt="dancing">
+                        </div>
+                        <p>After the<br>after-party</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+              {% endunless %}
+            </div>
+
+          </div>
+
+          
+          {%- if product.available -%}
+            {%- include 'subscription-product' with packs -%}
+          {%- endif -%}
+          
+          {% if notPacks %}
+            <script>console.log("No Pack");</script>
+            {%- include '_product_variants' -%}
+            {%- include '_product_price' -%}
+          {% else %}
+            {%- include '_product_variants_new' with packs -%}
+          {% endif %}
+          
+          {% if currentProduct.tags contains 'dual' %}
+          {% include '_product_dualoption' %}
+          {% endif %}
+
+          <div class="flex medium-down--flex-wrap">
+            {% include '_product_quantity' with packs %}
+            {% include '_product_buttons' %}
+          </div>
+          <p class="free-shipping-text">{{settings.product_free_shipping_text}}</p>
+          {% if additional_checkout_buttons %}
+          {% comment %} <div class="additional-checkout-buttons">
+            <p>Check out using:</p>
+            <div>
+              {{ content_for_additional_checkout_buttons }}
+            </div>
+          </div> {% endcomment %}
+          {% endif %}
+        </form>
+        {% include 'social_sharing' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hide">
+{% section 'subscription-info-popup' %}
+</div>
+
+<script>
+  $(function(){
+
+    //MacOS detector
+    if (navigator.appVersion.indexOf("Mac")!=-1){
+      $('#add-to-cart-button').addClass('mac-os');
+    };
+
+    //scroll to reviews section and triger click on accordion
+    $('.scroll-to-reviews').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var section = $(this).attr('href');
+        $('html, body').animate({
+            scrollTop: $(section).offset().top + 30
+        });
+        setTimeout(function() { 
+          if (!$('.reviews-btn').hasClass('active')) {
+            $('.reviews-btn').click();
+          }    
+        }, 600);    
+    });
+
+    // product tabs
+    $('.product-info .tabs-selector .tab').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var sectionContent = $(this).data('value');
+      $('.product-info .tabs-selector .tab').removeClass('active');
+      $(this).addClass('active');
+      $('.product-info .tabs .tabs-content>div').addClass('hide');
+      $('.product-info .tabs .tabs-content>div.'+sectionContent).removeClass('hide');
+    });
+    $(document).on('keydown', '.product-info .tabs-selector .tab:focus', function(e){
+      if (e.which == 13) { //Enter
+        $(this).click();
+      }
+    });
+
+    {%- if packs -%}
+    
+    var updatePrice = function(){
+      var productQuantity = $('#product-wrap .quantity-box #quantity').val();
+      var packQuantity = parseInt($('#product-wrap .variant-item input:checked').attr('data-pack-qty'));
+      var pricePerPack;
+      var price;
+
+      setTimeout(function() {
+        if($('#product-wrap input[value=autodeliver]').prop('checked')) {
+          price = parseFloat($('#product-wrap #rc_price_autodeliver').html().replace('$','')) * productQuantity;
+        }else{
+          if ($('#product-wrap #rc_price_onetime').length > 0) {
+            price = parseFloat($('#product-wrap #rc_price_onetime').html().replace('$','')) * productQuantity;
+          }else{
+            var productPrice = {{ currentProduct.price_min | money_without_currency }};
+            price = productPrice * productQuantity;
+          }
+        }
+        if(isNaN(price)) {
+          updatePrice();
+        } else {
+          $('#product-wrap #add-to-cart-button .price').html('$ '+price.toFixed(2));
+            pricePerPack = price / productQuantity / packQuantity;
+          $('#product-wrap .pack-price span').html(pricePerPack.toFixed(2));
+        }
+      }, 100);
+    };
+
+    updatePrice();
+    
+    $('#product-wrap .swatch-element input').on('click', function() {
+      updatePrice();
+    });
+    
+    $('#product-wrap .rc_block input').on('click', function() {
+      updatePrice();
+    });
+
+    // fix reseted price after adding to cart
+    document.querySelector("#product-wrap .add-to-cart-form").addEventListener("submit", function(e){
+      updatePrice();
+    });
+    
+    $('#product-wrap .quantity-box .minus').on('click',function(){
+      setTimeout(function() {
+      updatePrice();
+      }, 500);
+      
+    });
+    $('#product-wrap .quantity-box .plus').on('click',function(){
+       setTimeout(function() {
+      updatePrice();
+      }, 500);
+    });
+
+    // Change ATC Button Text
+    if ($("#rc_container .rc_block__type__autodeliver").hasClass("rc_block__type--active")) {
+        $("#add-to-cart-button span").text("ADD TO SUBSCRIPTION");
+        $("#subscription-options .variant-item input[type='checkbox']")[0].checked=true;
+    }
+
+    $("#rc_container .rc_block__type__autodeliver").click(function() {
+        $("#add-to-cart-button span").text("ADD TO SUBSCRIPTION");
+    })
+
+    $("#rc_container .rc_block__type__onetime").click(function() {
+        $("#add-to-cart-button span").text("ADD TO CART");
+    })
+    
+    {% comment %}
+    //update price on "28 pack" variant
+    var updatePrice = function(){
+      var productQuantity = $('#product-wrap .quantity-box #quantity').val();
+      var packQuantity = parseInt($('#product-wrap .swatch-element input:checked').attr('data-pack-qty'));
+      var pricePerPack;
+      var price;
+
+      setTimeout(function() { 
+        if($('#product-wrap input[value=autodeliver]').prop('checked')) {
+          price = parseFloat($('#product-wrap #rc_price_autodeliver').html().replace('$','')) * productQuantity;
+        }else{
+          if ($('#product-wrap #rc_price_onetime').length > 0) {
+            price = parseFloat($('#product-wrap #rc_price_onetime').html().replace('$','')) * productQuantity;
+          }else{
+            var productPrice = {{ currentProduct.price_min | divided_by: 100 }};
+            price = productPrice * productQuantity;
+          }
+        }
+        if(isNaN(price)) {
+          updatePrice();
+        } else {
+          $('#product-wrap #add-to-cart-button .price').html('$ '+price.toFixed(2));
+          if ($('#product-wrap .swatch-element input[data-pack-qty="28"]').prop('checked')) {
+            pricePerPack = price / productQuantity / packQuantity * 2;
+          }else{
+            pricePerPack = price / productQuantity / packQuantity;
+          }
+          $('#product-wrap .pack-price span').html(pricePerPack.toFixed(2));
+        }
+      }, 100);
+    };
+    updatePrice();
+    
+    //swatches
+    $('#product-wrap .swatch-element input').on('click',function(){
+      var currentQty = parseInt($('#product-wrap .custom-packs-quantity-box .quantity').val());
+      if ($(this).attr('data-pack-qty') === '28') {
+        $('#product-wrap .quantity-box.original #quantity').val(currentQty * 2);
+        $('#product-wrap .quantity-box.original #quantity').attr({
+          value: currentQty * 2,
+          step: '2',
+          min: '2'
+        });
+      }else{
+        $('#product-wrap .quantity-box.original #quantity').val(currentQty);
+        $('#product-wrap .quantity-box.original #quantity').attr({
+          value: currentQty,
+          step: '1',
+          min: '1'
+        });
+      }
+      updatePrice();
+    });
+
+    $('#product-wrap .swatch-element input[data-pack-qty="28"]').on('click', function() {
+      updatePrice();
+    });
+
+    $('#product-wrap .swatch-element input').on('click', function() {
+      updatePrice();
+    });
+
+    $('#product-wrap .rc_block input').on('click', function() {
+      updatePrice();
+    });
+
+    // fix reseted price after adding to cart
+    document.querySelector("#product-wrap .add-to-cart-form").addEventListener("submit", function(e){
+      updatePrice();
+    });
+
+    //custom packs qty sleector
+    $('#product-wrap .custom-packs-quantity-box .minus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      if (currentValue !== '1' ){
+        wrapper.find('input[type=number]').val(--currentValue);
+      }
+      $('#product-wrap .quantity-box.original .minus').trigger('click');
+      updatePrice();
+    });
+    $('#product-wrap .custom-packs-quantity-box .plus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      wrapper.find('input[type=number]').val(++currentValue);
+      $('#product-wrap .quantity-box.original .plus').trigger('click');
+      updatePrice();
+    });
+    
+    {% endcomment %}
+    
+    {%- else -%}
+    
+    var updatePrice = function(){
+      var productQuantity = $('#product-wrap .quantity-box #quantity').val();
+
+      setTimeout(function() { 
+        if($('#product-wrap input[value=autodeliver]').prop('checked')) {
+          console.log("Autodeliver");
+          var price = parseFloat($('#product-wrap #rc_price_autodeliver').html().replace('$',''));
+        }else{
+          console.log("One Option");
+          var price = {{ currentProduct.price | money_without_currency }};
+        }
+        if(isNaN(price)) {
+          updatePrice();
+        } else {
+          var totalPrice = price * productQuantity;
+          if ($('#product-wrap #add-to-cart-button .price span').length >0) {
+            $('#product-wrap #add-to-cart-button .price span.with-retail').html('$ '+totalPrice.toFixed(2));
+          }else{
+            $('#product-wrap #add-to-cart-button .price').html('$ '+totalPrice.toFixed(2));
+          }
+        }
+      }, 100);
+    };
+    updatePrice();
+    $('#product-wrap .quantity-box #quantity').on('change', function() {
+      updatePrice();
+    });
+
+    $('#product-wrap #add-to-cart-button').on('click', function() {
+      updatePrice();
+    });
+    
+    {%- endif -%}
+
+  });
+
+</script>

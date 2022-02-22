@@ -1,0 +1,58 @@
+<style>
+  #shopify-section-{{section.id}} {border-top: 3px solid #c5c5c5;border-bottom: 3px solid #c5c5c5;padding: 1.5em 0;margin-top: 2em;}
+  #shopify-section-{{section.id}} .container{max-width: 1000px;}
+  #shopify-section-{{section.id}} h2{margin-bottom: 0;font-size: 1.2em;letter-spacing: normal;text-align: center;}
+  #shopify-section-{{section.id}} ul{margin-bottom: 0;}
+  #shopify-section-{{section.id}} li{list-style-position: outside;font-weight: 600;line-height: 1.3em;}
+
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} h2,
+    #shopify-section-{{section.id}} li{font-size: 0.8em;}
+  }
+</style>
+
+<div class="container">
+  <div class="grid">
+    <div class="grid__item one-half small--four-tenths flex justify-content-center align-items-center">
+      <h2>{{section.settings.title}}</h2>
+    </div>
+    <div class="grid__item one-half small--six-tenths">
+      <ul>
+        {%- for block in section.blocks -%}
+          <li class="item" {{ block.shopify_attributes }}>
+            {{block.settings.title}}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+   "name":"Who Should Apply?",
+   "tag": "section",
+   "class": "page-ambassador-who-should-apply",
+   "settings":[
+      {
+         "type":"text",
+         "id":"title",
+         "label":"Title",
+         "default":"Who Should Apply?"
+      }
+   ],
+   "blocks":[
+      {
+         "type":"item",
+         "name":"Item",
+         "settings":[
+            {
+               "type":"text",
+               "id":"title",
+               "label":"Title"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

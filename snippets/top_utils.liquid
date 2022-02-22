@@ -1,0 +1,46 @@
+<div class="top-utils">
+  <ul class="flex">
+    {% if settings.show_newsletter_header %}
+    <li class="newsletter-target small--hide">
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span>Newsletter</span>
+      </a>
+    </li>
+    {% endif %}
+    {% if settings.show_search_header %}
+    <li class="search-target">
+      <a href="#">
+        <img src="{{ "search-icon.png" | asset_url }}" alt="search" class="search-icon">
+      </a>
+    </li>
+  {% endif %}
+    {% if shop.customer_accounts_enabled %}
+    <li class="user medium-down--hide">
+      {% if customer %}
+      <a href="/account" class="my-account animation" style="margin-right: .6em;">
+        <i class="fa fa-user" style="margin-right: 0;"></i>
+        <span>Account</span>
+      </a>
+      {%- comment -%}
+        <span style="font-weight: 300;">&nbsp;&nbsp;|</span>
+        <a href="/account/logout" class="my-account animation">
+          <span>&nbsp;&nbsp;Logout</span>
+        </a>
+      {%- endcomment -%}
+      {% else %}
+      <a href="/account/login" class="my-account animation">
+        <i class="fa fa-user" style="margin-right: 0;"></i>
+        <span>Login</span>
+      </a>
+      {% endif %}
+    </li>
+    {% endif %}
+    <li class="cart-wrap">
+      <a href="/cart">
+        <span class="text">Cart </span>
+        <span class="count">({{ cart.item_count }})</span>
+      </a>
+    </li>
+  </ul>
+</div>

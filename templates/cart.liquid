@@ -1,0 +1,48 @@
+{% include 'subscription-cart-footer' %}
+<script>
+  $(function(){
+    var checkInstructionsNote = function() {
+      if($('#chk-is-instructions').is(':checked')) {
+        $('#is-instructions').val('Yes');
+        $('#instructions-note').show();
+      } else {
+        $('#is-instructions').val('No');
+        $('#instructions-note').hide();
+        $('#instructions-note').find('textarea').val("");
+      }
+    }
+    $('#chk-is-instructions').click(function(){
+      checkInstructionsNote();
+    });
+    checkInstructionsNote();
+  });
+</script>
+
+{% if settings.cart_template == "one-column" %}
+	{% include 'cart_template_one' %}
+{% else %}
+	{% include 'cart_template_two' %}
+{% endif %}
+
+
+<script>
+  $(function(){
+
+    //custom "2 box" brownie qty
+    $('#cart .custom-packs-quantity-box .minus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      if (currentValue !== '0'){
+        wrapper.find('input[type=number]').val(--currentValue);
+      }
+      wrapper.closest('.item').find('.quantity-box .minus').trigger('click');
+    });
+    $('#cart .custom-packs-quantity-box .plus').on('click',function(){
+      var wrapper = $(this).parent();
+      var currentValue =  wrapper.find('input[type=number]').val();
+      wrapper.find('input[type=number]').val(++currentValue);
+      wrapper.closest('.item').find('.quantity-box .plus').trigger('click');
+    });
+
+  });
+</script>

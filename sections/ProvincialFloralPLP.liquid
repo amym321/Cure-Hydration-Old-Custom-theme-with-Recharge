@@ -1,0 +1,777 @@
+<style>
+  #shopify-section-{{ section.id }} section .bg {background-repeat: no-repeat; background-size: cover;}
+  #shopify-section-{{ section.id }} section img {width: 100%;}
+  #shopify-section-{{ section.id }} .money {padding-left: 1.5em;font-family:'Centra';font-size:1rem}
+
+  #shopify-section-{{ section.id }} section.banner {position: relative;}
+  #shopify-section-{{ section.id }} section.banner .info {position: absolute; top: 0; bottom: 0; left: 0; right: 0; padding: 2rem;display: flex;align-items: center;}
+  #shopify-section-{{ section.id }} section.banner .info > .container {display: flex; justify-content: center; align-items: center; width:100%}
+  #shopify-section-{{ section.id }} section.banner .item {width: 50%;}
+  #shopify-section-{{ section.id }} section.banner .title {font-size: 4.667em; line-height: 1.23; font-weight: 400; letter-spacing: normal; padding:0.5em}
+  #shopify-section-{{ section.id }} section.banner .text {font-size: 1.15em; line-height: 180%; font-weight: 400; letter-spacing: normal;max-width:580px}
+  #shopify-section-{{ section.id }} section.banner .text-center .text {margin: auto;}
+  #shopify-section-{{ section.id }} section.banner .text-right .text {margin-left: auto; margin-right: 0;}
+  #shopify-section-{{ section.id }} section.banner .cta.link {font-size: 0.8em; line-height: 1.82; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; display: inline-block; margin-top: 2.5em; padding-bottom: 2px; border-bottom: 1px solid;}
+  #shopify-section-{{ section.id }} section.banner .cta.btn {margin-top: 2.5em;}
+  #shopify-section-{{ section.id }} section.banner .bottom-line {position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; display: flex; justify-content: space-between; align-items: flex-end;}
+  #shopify-section-{{ section.id }} section.banner .bottom-line .product-title {padding-right: 1.5em; font-family:'Louize'; font-variant-numeric: {{settings.heading_font_variant_numeric}}; font-size:1.267em;}
+
+  #shopify-section-{{ section.id }} .title {font-size:1.267em;padding:0.8em 1.2em}
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} section.banner .title {font-size: 2.667em; margin-bottom: 0.5em;}
+    #shopify-section-{{ section.id }} section.banner .info > .container,
+    #shopify-section-{{ section.id }} section.banner .info {flex-flow: column; width: 100%; /*max-width: 39em;*/;box-sizing:border-box;justify-content:center}
+    #shopify-section-{{ section.id }} section.banner .info > .container {padding:0;margin:0}
+    #shopify-section-{{ section.id }} section.banner .item {width: 100%;}
+  }
+  @media (max-width: 600px) {
+    #shopify-section-{{ section.id }} section.banner .title {margin-bottom: 1em;padding:0}
+    #shopify-section-{{ section.id }} section.banner .cta.link {margin-top: 3.5em;}
+    #shopify-section-{{ section.id }} section.banner .cta.btn {margin-top: 4.5em;}
+    #shopify-section-{{ section.id }} section.banner .featured-product {display: flex; flex-flow: column;}
+  }
+
+#shopify-section-{{ section.id }} section.column_content img, #shopify-section-{{ section.id }} section.column_content video {width: 100%;}
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'banner' -%}
+    #shopify-section-{{ section.id }} .block-{{block.id}} .bg {background-position: {{block.settings.image_position_horizontal}}% {{block.settings.image_position_vertical}}%; padding-top: {% if block.settings.full_height %}calc(100vh - 5em){% else %}{{block.settings.image_height}}{% endif %}; }
+    #shopify-section-{{ section.id }} .block-{{block.id}} .info {background-color: {{block.settings.overlay}}; }
+    #shopify-section-{{ section.id }} .block-{{block.id}} .title, 
+    #shopify-section-{{ section.id }} .block-{{block.id}} .text, 
+    #shopify-section-{{ section.id }} .block-{{block.id}} .cta,
+    #shopify-section-{{ section.id }} .block-{{block.id}} .bottom-line .featured-product {color: {{block.settings.text_color}}; }
+    #shopify-section-{{ section.id }} .block-{{block.id}} .logo { {% if block.settings.logo_max_width != blank %}max-width: {{block.settings.logo_max_width}};{% endif %} {% if block.settings.logo_max_height != blank %}max-height: {{block.settings.logo_max_height}};{% endif %} }
+
+    @media (max-width: 900px) {
+      {%- if block.settings.image_height_medium != blank -%}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .bg {padding-top: {{block.settings.image_height_medium}} !important; background-position: {{block.settings.image_tablet_position_horizontal}}% {{block.settings.image_tablet_position_vertical}}%;}
+      {%- endif -%}
+    } 
+
+    @media (max-width: 600px) {
+      {%- if block.settings.image_height_mobile != blank -%}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .bg {padding-top: {{block.settings.image_height_mobile}} !important; background-position: {{block.settings.image_tablet_position_horizontal}}% {{block.settings.image_tablet_position_vertical}}%;}
+      {%- endif -%}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .logo { max-width: 6em; }
+    }
+    
+    
+    {%- when 'two_products' -%}
+      {%- if block.settings.product_1 == blank and block.settings.product_2 == blank -%}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .grid__item {padding-top: {{block.settings.image_height}};}
+      {%- endif -%}
+
+      {%- for index in (1..2) -%}
+        {%- assign width_i = 'width_' | append: index -%}
+        {%- assign bg_css_i = 'bg_css_' | append: index -%}
+        {%- assign bg_image_i = 'bg_image_' | append: index -%}
+        {%- assign content_padding_i = 'content_padding_' | append: index -%}
+        {%- assign text_bg_color_mobile_i = 'text_bg_color_mobile_' | append: index -%}
+        #shopify-section-{{ section.id }} .block-{{block.id}} .wrapper {width: {{block.settings[width_i]}}%; {% if block.settings[bg_css_i] != blank %}background: {{block.settings[bg_css_i]}};{% endif %} padding: {{block.settings[content_padding_i]}};}
+        @media (max-width: 600px) {
+          {%- if block.settings[bg_image_i] != blank -%}
+          #shopify-section-{{ section.id }} .block-{{block.id}} .grid__item:nth-child({{index}}) {padding-top: {{ 100 | divided_by: block.settings[bg_image_i].aspect_ratio}}%;}
+          {%- endif -%}
+          #shopify-section-{{ section.id }} .block-{{block.id}} .wrapper {padding: 0;}
+          #shopify-section-{{ section.id }} .block-{{block.id}} .title {background: {{block.settings[text_bg_color_mobile_i]}}; }
+        }
+      {%- endfor -%}
+      @media (max-width: 600px) {
+        #shopify-section-{{ section.id }} .block-{{block.id}} .grid__item {width: 100%;}
+        #shopify-section-{{ section.id }} .block-{{block.id}} .money {padding-left: 0em;}
+        #shopify-section-{{ section.id }} .block-{{block.id}} .title {display: flex; flex-flow: column; padding: 1em 1.5rem 3em;}
+      }
+
+  {%- endcase -%}
+{%- endfor -%}
+</style>
+
+{% assign isGridOpen = false %}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'column_content' and isGridOpen == false -%}
+    {% assign isGridOpen = true %}
+    <div class="grid-full align-items-start">
+  {% endif %}
+  {%- if block.type != 'column_content' and isGridOpen == true -%}
+    {% assign isGridOpen = false %}
+    </div>
+  {% endif %}
+  <section class="block-{{block.id}} {{block.type}}">
+  {%- case block.type -%}
+  {%- when 'banner' -%}
+    <div class="bg lazyload" style="background-image: url({{ block.settings.image | img_url: '300x' }});" data-bgset="{% include 'lazy_src', image: block.settings.image %}" >
+    </div>
+    <div class="info">
+      <div class="container small--text-{{block.settings.text_align_mobile}}">
+        {%- if block.settings.text != blank -%}
+          {%- assign htag = 'h2' -%}
+          {%- if block.settings.is_main_banner -%}
+            {%- assign htag = 'h1' -%}
+          {%- endif -%}
+          <{{htag}} class="item title heading_font">{{block.settings.title}}</{{htag}}>
+        {%- endif -%}
+        <div class="item text-wrapper text-{{block.settings.text_align_desktop}} small--text-{{block.settings.text_align_mobile}}">
+          {%- if block.settings.text != blank -%}
+          <div class="text">{{block.settings.text}}</div>
+          {%- endif -%}
+          {%- if block.settings.cta_text != blank -%}
+          <a href="{{block.settings.cta_link}}" class="cta {{block.settings.cta_class}}">{{block.settings.cta_text}}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="bottom-line">
+      {%- if block.settings.featured_product != blank -%}
+      <div class="featured-product">
+        {% assign currentProduct = all_products[block.settings.featured_product] %}
+        <span class="product-title"><a href="{{currentProduct.url}}">{{currentProduct.title}}</a></span>
+        <span class="product-price">{{currentProduct.price | money | replace: '.00', ''}}</span>
+      </div>
+      {%- endif -%}
+      {%- if block.settings.logo != blank -%}
+        <img src="{{ 'placeholder.png' | asset_url }}" class="logo lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.logo %}" alt="" />
+      {%- endif -%}
+    </div>
+    {%- if block.settings.full_height -%}
+    <script>
+    $(function(){
+      function setFullHeight() {
+        var hasUtilityBar = $('#header .utility-bar').length>0;
+        var height = 'calc(var(--vh, 1vh) * 100 - '+( ( $('#header .main-content').outerHeight()/1) {% if block.settings.is_main_banner %} + $('.utility-bar').outerHeight()/1{% endif %} ) +'px)';
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', vh+'px');
+        $('#shopify-section-{{ section.id }} .block-{{block.id}} .bg').css('padding-top', height);
+      }
+      $(window).on('resize', setFullHeight);
+      setFullHeight();
+    })
+    </script>
+    {%- endif -%}
+
+
+
+  {%- when 'two_products' -%}
+    <div class="grid-full">
+      {%- for index in (1..2) -%}
+        {%- assign title_i = 'title_' | append: index -%}
+        {%- assign product_i = 'product_' | append: index -%}
+        {%- assign currentProduct = all_products[block.settings[product_i]] -%}
+        {%- assign bg_image_i = 'bg_image_' | append: index -%}
+        {%- assign image_i = 'image_' | append: index -%}
+        {%- if block.settings[image_i] != blank -%}
+          {%- assign currentImage = block.settings[image_i] -%}
+        {%- else -%}
+          {%- assign currentImage = currentProduct.images | first -%}
+        {%- endif -%}
+        <div class="grid__item one-half bg lazyload" style="{% if block.settings[bg_image_i] != blank %}background-image: url({{ block.settings[bg_image_i] | img_url: '300x' }});" data-bgset="{% include 'lazy_src', image: block.settings[bg_image_i] %}{% endif %}">
+          {%- if currentProduct != blank -%}
+          <div class="wrapper">
+            <a href="{{currentProduct.url}}" aria-label="Go to {{currentProduct.title}}">
+              <img src="{{ 'placeholder.png' | asset_url }}" class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: currentImage %}" alt="" />
+              <div class="title heading_font">{{currentProduct.title}}<span class="money">{{currentProduct.price | money | replace: '.00', ''}}</span></div>
+            </a>
+          </div>
+          {%- endif -%}
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+
+  {%- when 'column_content' -%}
+    <style>
+    #shopify-section-{{ section.id }} > .grid-full {max-width: 1200px;margin: 0 auto;}
+    #shopify-section-{{ section.id }} .block-{{block.id}} {width: {{block.settings.width}}%; padding: {{block.settings.padding}}; position: relative; margin-top: {{block.settings.position_top}}; }
+    #shopify-section-{{ section.id }} .block-{{block.id}} .text-wrapper .text {font-family: 'Louize'; font-variant-numeric: {{settings.heading_font_variant_numeric}}; font-size:1.467em;line-height:1.36}
+    #shopify-section-{{ section.id }} .block-{{block.id}} .eyebrow {margin-bottom:1em;}
+    @media (min-width: 601px) {
+      #shopify-section-{{ section.id }} .block-{{block.id}} {display: flex; flex-wrap: wrap; flex-direction: column;align-items: {{block.settings.alignment}}; }
+      #shopify-section-{{ section.id }} .block-{{block.id}} .text-wrapper-1 {max-width: {{block.settings.text_max_width_1}}; padding: {{block.settings.text_padding_1}};}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .product-wrapper-1 {max-width: {{block.settings.product_max_width_1}}; padding: {{block.settings.product_padding_1}};}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .product-wrapper-2 {max-width: {{block.settings.product_max_width_2}}; padding: {{block.settings.product_padding_2}};}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .product-wrapper-3 {max-width: {{block.settings.product_max_width_3}}; padding: {{block.settings.product_padding_3}};}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .video-wrapper-1 {max-width: {{block.settings.video_max_width_1}}; padding: {{block.settings.video_padding_1}};}
+    }
+    @media (max-width: 600px) {
+      #shopify-section-{{ section.id }} .block-{{block.id}} {width: 100%; padding:0}
+      #shopify-section-{{ section.id }} .block-{{block.id}} > div {padding:3em 1em 0;}
+      #shopify-section-{{ section.id }} .block-{{block.id}} > div.product-wrapper {padding:1em 3em}
+      #shopify-section-{{ section.id }} .column_content:last-child > div.product-wrapper:last-child {padding-bottom: 3em}
+      #shopify-section-{{ section.id }} .block-{{block.id}} > div.video-wrapper {padding:2em 0}
+      #shopify-section-{{ section.id }} .block-{{block.id}} .product-wrapper-1 {padding-top:3em!important;}
+    }
+    </style>
+
+    {%- if block.settings.eyebrow_1 != blank or block.settings.text_1 != blank -%}
+      <div class="text-wrapper text-wrapper-1 text-{{block.settings.text_align_desktop}} small--text-{{block.settings.text_align_mobile}}">
+        <div class="eyebrow title-v1">{{block.settings.eyebrow_1}}</div>
+        <div class="text">{{block.settings.text_1}}</div>
+      </div>
+    {%- endif -%}
+
+    {%- for index in (1..3) -%}
+      {%- assign image_i = 'image_' | append: index -%}
+      {%- assign product_i = 'product_' | append: index -%}
+      {%- assign currentProduct = all_products[block.settings[product_i]] -%}
+      {%- if block.settings[image_i] != blank -%}
+        {%- assign currentImage = block.settings[image_i] -%}
+      {%- else -%}
+        {%- assign currentImage = currentProduct.images | first -%}
+      {%- endif -%}
+
+      {%- if currentImage != blank or currentProduct != blank -%}
+        <div class="product-wrapper product-wrapper-{{index}}">
+          <a href="{{currentProduct.url}}" aria-label="Go to {{currentProduct.title}}">
+            {%- if currentImage != blank -%}
+            <img src="{{ 'placeholder.png' | asset_url }}" class="img lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: currentImage %}" alt="" />
+            {%- endif -%}
+            {%- if currentProduct != blank -%}
+            <div class="title heading_font">{{currentProduct.title}}<span class="money">{{currentProduct.price | money | replace: '.00', ''}}</span></div>
+            {%- endif -%}
+          </a>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if block.settings.video_url_1 != blank -%}
+    <div class="video-wrapper video-wrapper-1">
+      <video class="video" autoplay="autoplay" muted="muted" controls="true" playsinline="" >
+        <source src="{{block.settings.video_url_1}}" />
+      </video>
+    </div>
+    {%- endif -%}
+
+
+
+  {%- endcase -%}
+  </section>
+{%- endfor -%}
+{%- if isGridOpen == true -%}
+  {% assign isGridOpen = false %}
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Dedicated PLP 1",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General Settings"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "banner",
+        "name": "Banner",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "is_main_banner",
+            "label": "Is Main Banner",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "image_position_horizontal",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Horizontal Position",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_position_vertical",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Vertical Position",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_tablet_position_horizontal",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Horizontal Position (Tablet)",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_tablet_position_vertical",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Vertical Position (Tablet)",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_mobile_position_horizontal",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Horizontal Position (Mobile)",
+            "default": 50
+          },
+          {
+            "type": "range",
+            "id": "image_mobile_position_vertical",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Pin Image Vertical Position (Mobile)",
+            "default": 50
+          },
+          {
+            "type": "checkbox",
+            "id": "full_height",
+            "label": "Full Height - Dekstop",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "image_height",
+            "label": "Image Height - Dekstop",
+            "default": "60%",
+            "info": "In % relative to the width of the element, 100% being squared. Ignored on Full Height"
+          },
+          {
+            "type": "text",
+            "id": "image_height_medium",
+            "label": "Image Height - Tablet",
+            "default": "70%",
+            "info": "Leave empty to inherit desktop config"
+          },
+          {
+            "type": "text",
+            "id": "image_height_mobile",
+            "label": "Image Height - Mobile",
+            "default": "120%",
+            "info": "Leave empty to inherit desktop config"
+          },
+          {
+            "type": "text",
+            "id": "overlay",
+            "label": "Overlay",
+            "default": "rgba(0,0,0,0.2)"
+          },
+          {
+            "type": "select",
+            "id": "text_align_desktop",
+            "label": "Text Align (Desktop)",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "text_align_mobile",
+            "label": "Text Align (Mobile)",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "title"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+          },
+          {
+            "type": "select",
+            "id": "cta_class",
+            "label": "CTA Class",
+            "options": [
+              {"value": "btn", "label": "Button"},
+              {"value": "link", "label": "Link"}
+            ],
+            "default": "link"
+          },
+          {
+            "type": "product",
+            "id": "featured_product",
+            "label": "Featured Product"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+          },
+          {
+            "type": "text",
+            "id": "logo_max_width",
+            "label": "Logo Max Width",
+            "default": "10em"
+          },
+          {
+            "type": "text",
+            "id": "logo_max_height",
+            "label": "Logo Max Height"
+          }
+        ]
+      },
+      {
+        "type": "two_products",
+        "name": "Two Products",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Show two images or products. The image covers 50% the width of the page, the product size is customizable"
+          },
+          {
+            "type": "text",
+            "id": "image_height",
+            "label": "Image Height - Dekstop",
+            "default": "40%",
+            "info": "Only when none of the sides has a selected product"
+          },
+          {
+            "type": "header",
+            "content": "Content 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image_1",
+            "label": "Background Image"
+          },
+          {
+            "type": "text",
+            "id": "bg_css_1",
+            "label": "Background CSS"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image"
+          },
+          {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "content_padding_1",
+            "label": "Content Padding - Dekstop",
+            "default": "2em 2.5em"
+          },
+          {
+            "type": "color",
+            "id": "text_bg_color_mobile_1",
+            "label": "Text Background Color - Mobile"
+          },
+          {
+            "type": "range",
+            "id": "width_1",
+            "min": 40,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Width",
+            "default": 100
+          },
+          {
+            "type": "header",
+            "content": "Content 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image_2",
+            "label": "Background Image"
+          },
+          {
+            "type": "text",
+            "id": "bg_css_2",
+            "label": "Background CSS"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image"
+          },
+          {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "content_padding_2",
+            "label": "Content Padding - Dekstop",
+            "default": "2em 2.5em"
+          },
+          {
+            "type": "color",
+            "id": "text_bg_color_mobile_2",
+            "label": "Text Background Color - Mobile"
+          },
+          {
+            "type": "range",
+            "id": "width_2",
+            "min": 40,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Width",
+            "default": 100
+          }
+        ]
+      },
+      {
+        "type": "column_content",
+        "name": "Column Content",
+        "settings": [
+          {
+            "type": "text",
+            "id": "padding",
+            "label": "Column Padding",
+            "default": "4em 3.7em"
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "min": 30,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Column Width",
+            "default": 50
+          },
+          {
+            "type": "text",
+            "id": "position_top",
+            "label": "Offset Top",
+            "default": "0",
+            "info": "Can use a formula with absolute and relative measures, for example: calc(-7.7em - 7vw)"
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": "Content Alignment",
+            "options": [
+              {"value": "flex-start", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "flex-end", "label": "Right"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_align_desktop",
+            "label": "Text Align (Desktop)",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "text_align_mobile",
+            "label": "Text Align (Mobile)",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "eyebrow_1",
+            "label": "Eyebrow",
+            "default": "Lorem Ipsum"
+          },
+          {
+            "type": "text",
+            "id": "text_1",
+            "label": "Text",
+            "default": "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec volutpat odio, sit amet tristique mi. Quisque auctor, diam ac sodales placerat, lectus orci feugiat eros, eu vulputate ante enim at ante. Nulla ut sodales lacus, nec tempus mi. Sed gravida sapien eu libero cursus, nec placerat est sollicitudin”."
+          },
+          {
+            "type": "text",
+            "id": "text_padding_1",
+            "label": "Text Padding",
+            "default": "0em 0em 3em"
+          },
+          {
+            "type": "text",
+            "id": "text_max_width_1",
+            "label": "Text Max Width"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product 1"
+          },
+          {
+            "type": "text",
+            "id": "product_padding_1",
+            "label": "Product Padding 1",
+            "default": "0em 0em 3em"
+          },
+          {
+            "type": "text",
+            "id": "product_max_width_1",
+            "label": "Product Max Width 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          },
+          {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product 2"
+          },
+          {
+            "type": "text",
+            "id": "product_padding_2",
+            "label": "Product Padding 2",
+            "default": "0em 0em 3em"
+          },
+          {
+            "type": "text",
+            "id": "product_max_width_2",
+            "label": "Product Max Width 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image 3"
+          },
+          {
+            "type": "product",
+            "id": "product_3",
+            "label": "Product 3"
+          },
+          {
+            "type": "text",
+            "id": "product_padding_3",
+            "label": "Product Padding 3",
+            "default": "0em 0em 3em"
+          },
+          {
+            "type": "text",
+            "id": "product_max_width_3",
+            "label": "Product Max Width 3"
+          },
+          {
+            "type": "text",
+            "id": "video_url_1",
+            "label": "Video Url"
+          },
+          {
+            "type": "text",
+            "id": "video_max_width_1",
+            "label": "Video Max Width"
+          },
+          {
+            "type": "text",
+            "id": "video_padding_1",
+            "label": "Video Padding",
+            "default": "0em 0em 3em"
+          }
+
+        ]
+      }     
+    ],
+    "presets": [
+      {
+        "name": "Dedicated PLP 1",
+        "category": "PLP",
+        "blocks": [
+          {
+            "type": "banner"
+          },
+          {
+            "type": "column_content",
+            "settings": {
+                "product_1": "emi-block-heel-sandal"
+            }
+          },
+          {
+            "type": "column_content",
+            "settings": {
+              "product_1": "straw-circle-tote"
+            }
+          },
+          {
+            "type": "column_content",
+            "settings": {
+              "product_1": "straw-tassel-pouch"
+            }
+          },
+          {
+            "type": "two_products",
+            "settings": {
+              "product_2": "straw-tassel-pouch"
+            }
+          },
+          {
+            "type": "column_content",
+            "settings": {
+              "product_1": "emi-block-heel-sandal",
+              "product_2": "lilla-thong-wrap-sandal",
+              "product_3": "libby-knotted-wrap-sandal"
+            }
+          },
+          {
+            "type": "banner",
+            "settings": {
+              "featured_product": "straw-tassel-pouch"
+            }
+          }
+
+        ]
+      }
+    ]
+  }
+{% endschema %}

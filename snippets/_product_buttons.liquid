@@ -1,0 +1,10 @@
+{% assign buttonLabel = 'ADD TO CART'%}
+{% if currentProduct.tags contains 'pre-order'%}
+  {% assign buttonLabel = 'Pre-Order'%}
+{% endif %}
+<div class="content-available">
+   <button type="submit" name="add" id="add-to-cart-button" class="btn flex"><span>{{buttonLabel}}</span>{% comment %}<i class="dash">-</i>{% include '_product_price' %}{% endcomment %}</button>
+</div>
+<div class="content-soldout hide">
+  This product is SOLD OUT.
+</div>

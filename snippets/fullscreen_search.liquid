@@ -1,0 +1,40 @@
+{% if settings.show_search_header %}
+<div id="search-fullscreen" class="search-mailing animated">
+  <i class='icon-close lnr lnr-cross'></i>
+  <div class='form animated'>
+    <form action="/search" method="get" class="search-form">
+      <div class="clearfix">
+        <input type="text" class="input-search animation" name="q" value="" accesskey="4" autocomplete="off" placeholder="Start Typing">
+        <input type='submit' class="lnr animation input-icon" value="&#xe86f;" />
+        <input type="hidden" name="type" value="product" />
+      </div>
+    </form>
+  </div>
+</div>
+{% include 'search_autocomplete' %}
+<script>
+  $(function(){
+    $('.search-target').click( function(){
+      $('body').css({'overflow': 'hidden'});
+      $('#search-fullscreen').fadeIn();
+      $('#search-fullscreen .form').show().addClass('{{settings.search_mailing_effect}}');
+      $('#search-fullscreen i.lnr-cross').fadeIn();
+      $('#search-fullscreen .input-search').focus();
+      return false;
+    });
+    $('#search-fullscreen i.lnr-cross').click( function(){
+      $('body').css({'overflow': 'auto'});
+      $('#search-fullscreen .form').fadeOut().removeClass('{{settings.search_mailing_effect}}');
+      $('#search-fullscreen i.fa-close').fadeOut();
+      $('#search-fullscreen').fadeOut();
+      return false;
+    });
+    $('.search-form').on('submit', function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var query = $(this).serialize();
+      window.location = '/search?'+query;
+    });
+  });
+</script>
+{% endif %}

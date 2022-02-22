@@ -1,0 +1,142 @@
+{% schema %}
+  {
+   "name":"Icons",
+   "presets":[
+      {
+         "name":"Icons",
+         "category":"Home"
+      }
+   ],
+   "settings":[
+      {
+         "type":"header",
+         "content":"Settings"
+      },
+      {
+         "type":"text",
+         "id":"icons_width_lg",
+         "label":"Icons Width Desktop",
+         "default":"80px"
+      },
+      {
+         "type":"text",
+         "id":"icons_width_sm",
+         "label":"Icons Width Mobile",
+         "default":"60px"
+      },
+      {
+         "type":"text",
+         "id":"icons_fz_sm",
+         "label":"Text Mobile Font Size",
+         "default":"0.8em"
+      },
+      {
+         "type":"header",
+         "content":"Icons"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_1",
+         "label":"First Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_1",
+         "label":"First Icon Text"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_2",
+         "label":"Second Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_2",
+         "label":"Second Icon Text"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_3",
+         "label":"Third Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_3",
+         "label":"Third Icon Text"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_4",
+         "label":"Fourth Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_4",
+         "label":"Fourth Icon Text"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_5",
+         "label":"Fifth Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_5",
+         "label":"Fifth Icon Text"
+      },
+      {
+         "type":"image_picker",
+         "id":"icon_6",
+         "label":"Sixth Icon"
+      },
+      {
+         "type":"text",
+         "id":"text_6",
+         "label":"Sixth Icon Text"
+      }
+   ]
+}
+{% endschema %}
+
+<style>
+   #shopify-section-{{section.id}} .icon-and-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+   }
+   #shopify-section-{{section.id}} .icon-and-text img{max-width: {{section.settings.icons_width_lg}}; margin-bottom: 1em;}
+   #shopify-section-{{section.id}} .icon-and-text p{font-family: 'GT Pressura Mono',sans-serif;color: {{settings.content_main_color}};line-height: 22px}
+   @media all and (max-width: 600px){
+      #shopify-section-{{section.id}} .icon-and-text img{max-width: {{section.settings.icons_width_sm}};}
+      #shopify-section-{{section.id}} .icon-and-text p{font-size: {{section.settings.icons_fz_sm}};}
+   }
+</style>
+<section>
+  <div class="container flex flex-wrap">
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_1 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_1}}</p>
+    </div>
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_2 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_2}}</p>
+    </div>
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_3 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_3}}</p>
+    </div>
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_4 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_4}}</p>
+    </div>
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_5 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_5}}</p>
+    </div>
+    <div class="icon-and-text one-sixth medium-down--one-third text-center">
+      <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_6 %}" alt="cure hydration icon">
+      <p>{{section.settings.text_6}}</p>
+    </div>
+  </div>
+</section>

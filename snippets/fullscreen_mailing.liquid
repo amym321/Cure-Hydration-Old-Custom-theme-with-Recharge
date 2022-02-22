@@ -1,0 +1,62 @@
+{% if settings.show_newsletter_header %}
+<div id="mailing-fullscreen" class="search-mailing clearfix hide">
+  <i class='icon-close lnr lnr-cross'></i>
+  <div class='form animated'>
+    {% if settings.use_mailchimp_form %}
+      <form method="post" action="//{{settings.mailchimp_domain}}/subscribe/post-json?u={{settings.mailchimp_user}}&id={{settings.mailchimp_id}}&c=?">
+        <div class="clearfix">
+          <input type="email" placeholder="Email address" name="EMAIL" class="required input-text email-input email" />
+          <input type='submit' class="lnr animation input-icon email-submit" value="&#xe876;" name="subscribe" />
+        </div>
+      </form>
+    {% else %}
+      <form method="post" action="/contact">
+        <div class="clearfix">
+          <input type="hidden" value="customer" name="form_type">
+          <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+          <input type="email" class="input-text email-input" placeholder="Email address" name="contact[email]"/>
+          <input type='submit' class="lnr animation input-icon email-submit" value="&#xe876;" name="subscribe" />
+        </div>
+      </form>
+    {% endif %}
+    <div class="success hide">Thank you!</div>
+  </div>
+</div>
+<script>
+  $(function(){
+    $('.newsletter-target').click( function(){
+      $('body').css({'overflow': 'hidden'});
+      $('#mailing-fullscreen').fadeIn();
+      $('#mailing-fullscreen .form').show().addClass('{{settings.search_mailing_effect}}');
+      $('#mailing-fullscreen i.lnr-cross').fadeIn();
+      $('#mailing-fullscreen .input-text').focus();
+      return false;
+    });
+    $('#mailing-fullscreen i.lnr-cross').click( function(){
+      $('body').css({'overflow': 'auto'});
+      $('#mailing-fullscreen .form').fadeOut().removeClass('{{settings.search_mailing_effect}}');
+      $('#mailing-fullscreen i.fa-close').fadeOut();
+      $('#mailing-fullscreen').fadeOut();
+      return false;
+    });
+    $('#mailing-fullscreen form').submit(function(e){
+    	e.preventDefault();
+      	e.stopImmediatePropagation();
+
+      	var form = $(this);
+      	$.ajax({
+          	url: form.attr('action'),
+          	data: form.serialize(),
+            {% if settings.use_mailchimp_form %}
+            dataType: 'jsonp',
+            {% endif %}
+          	type: 'POST'
+        }).done(function(){
+            $('#mailing-fullscreen form').fadeOut(function(){
+            	$('#mailing-fullscreen .success').fadeIn();
+            });
+        });
+    });
+  });
+</script>
+{% endif %}

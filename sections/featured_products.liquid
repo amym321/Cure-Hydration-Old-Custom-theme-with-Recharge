@@ -1,0 +1,127 @@
+{% schema %}
+  {
+    "name": "Featured Products",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Featured Products"
+      },
+	  {
+        "type": "color",
+        "id": "section_bg",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select The Collection"
+      },
+      {
+        "type": "select",
+        "id": "featured_products_row",
+        "label": "Items per row",
+        "options": [
+          {
+            "value": "2",
+            "label": "2 items per row"
+          },
+          {
+            "value": "3",
+            "label": "3 items per row"
+          },
+          {
+            "value": "4",
+            "label": "4 items per row"
+          },
+          {
+            "value": "5",
+            "label": "5 items per row"
+          },
+          {
+            "value": "6",
+            "label": "6 items per row"
+          }
+        ],
+		    "default": "4"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay slides?",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Products",
+        "category": "Home"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .section-featured {text-align: center;}
+  .section-featured .container {padding: 0 30px;}
+  .section-featured h2 {text-align: left;text-transform: capitalize;}
+  .section-featured .slick-arrow {top: 39%;}
+
+  .section-featured .lnr-chevron-right:before, .section-featured .lnr-chevron-left:before {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
+</style>
+
+{% assign col = collections[section.settings.collection] %}
+<section class="section-featured" style="background: {{section.settings.section_bg}};">
+  <div class="container">
+    {% if section.settings.title != "" %}<h2><a href="{{col.url}}">{{section.settings.title}}</a></h2>{% endif %}
+    {% if col.products.size > 0 %}
+      <div class="product-carousel slick-pending">
+        {% for prod in col.products %}
+          {%- unless prod.tags contains 'hide' -%}
+            {% include 'product_item', currentProduct: prod, quickview: settings.allow_quick_view, hoverButtons: true isCarousel: true, imageSize: '323x400'  %}
+          {%- endunless -%}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No products found</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  $(function(){
+  	var runSlick = function(){
+      $('#shopify-section-{{ section.id }} .section-featured .product-carousel').slick({
+          autoplay: {{ section.settings.autoplay }},
+          speed: 700,
+          pauseOnHover: false,
+          slidesToShow: {{section.settings.featured_products_row}},
+          slidesToScroll: {{section.settings.featured_products_row}},
+          prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+          nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+          responsive: [
+            {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 900,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                }
+            }
+          ]
+        });
+  		};
+    runSlick();
+  });
+</script>

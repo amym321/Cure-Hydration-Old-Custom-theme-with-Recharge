@@ -1,0 +1,318 @@
+<style>
+  .blog {padding: 3em 0 5em; background: #fbf8f4;}
+  .blog .container {max-width: 100%; padding: 0 1.5rem; position: relative;}
+  #article h1 {text-align: center;}
+  #article img {display: block; max-width: 100%; max-height: calc(100vh - 55px); margin: auto;}
+  #article hr {border: none; border-bottom: 1px solid #999; width: 10%; margin: 2em auto;}
+  #article .author {text-align: center; opacity: 0.5; font-size: 0.85em; margin-bottom: 2em;}
+  #article .content {margin-top: 2em;}
+  #article .content a {text-decoration: underline;}
+  #article .featured-image {margin-top: 2em;}
+  #article .heading .sharing {text-align: center; border: 0; padding: 0;}
+  #article .heading .sharing .social-meta {float: none; text-align: center;}
+  #article-comments h3 {margin-top: 2em; padding-top: 2em; border-top: 1px solid rgba(0,0,0,0.1);}
+  #article-comments .sharing {border: 0; padding-top: 1em;}
+  #article-comments .comment {margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #eee;}
+  #article-comments .comment.last {margin: 0; padding: 0; border: none;}
+  #article-comments .comment .comment_author {font-weight: 700;}
+  #article-comments .new-comment input, #article-comments .new-comment textarea {margin-bottom: 20px;}
+  #article-comments .form-success {margin-bottom: 40px; color: green;}
+  @media all and (max-width: 600px){
+    #article .wrapper {width: 100%}
+  }
+  
+  
+  .blog-content {background: #fbf8f4;}
+  #page .blog-content .shogun-heading-component h1 {font-size: 3.2em;}
+  .blog-content .back-to-blog {position: relative; z-index: 5;}
+  .blog-content .link-back-to-blog {display: inline-flex; align-items: center; }
+  .blog-content .link-back-to-blog span {font-size: 0.8em;}
+  .blog-content .link-back-to-blog svg {margin-right: 0.5em;}
+  .blog-content .article-header {padding: 3em 1.5rem 6em;}
+  .blog-content .article-header .eyebrow {font-size: 0.7333em; letter-spacing: 0.12em; margin-bottom: 2em; margin-left: auto; margin-right: auto;}
+  .blog-content .article-header .title {margin-bottom: 1em; line-height: 1.21; max-width: 28em; margin-left: auto; margin-right: auto;}
+  .blog-content .article-header .text {font-size: 1.0667em; line-height: 1.61; max-width: 28.125em; margin-left: auto; margin-right: auto;}
+  .blog-content .article-header p {margin-bottom: 0; letter-spacing: inherit;}
+  .blog-content .article-header .vertical-image-text {margin-bottom: 0;}
+  .blog-content .article-header .vertical-image-text .title {margin-bottom: 0;}
+  .blog-content .article-header > .shg-box-content > .shg-box-vertical-align-wrapper {display: block} /* IE11 workaround*/
+  .blog-content .image-text .shg-box > .shg-box-content {position: static;}
+  .blog-content .image-text .wrap {background-color: #f7f2ec; padding: 0 1.5rem; position: relative;}
+  .blog-content .image-text .title {line-height: 1.33; font-size: 2.4em; text-align: center;}
+  .blog-content .image-text .text {font-size: 1.0667em; max-width: 23.1875em; margin-left: auto; margin-right: auto; }
+  .blog-content .image-text .wrap .footer {position: absolute; bottom: 0; color: #bd9d89; font-size: 0.9333em;}
+  .blog-content .image-text .text-first .wrap .footer {right: 1.5rem;}
+  .blog-content .image-text .wrap .footer a { color: {{settings.content_text_color}}; }
+  .blog-content p {font-family: inherit; text-align: center; letter-spacing: inherit;}
+  .blog-content .image-text .wrap .title p {margin-bottom: 0.75em;}
+  .blog-content svg path, .blog-content .slick-arrow path {fill: {{settings.content_text_color}};}
+  .blog-content .ui-note {display: flex; align-items: center; margin-bottom: 1.2em; justify-content: flex-end; margin-right: 1em;}
+  .blog-content .ui-note span {margin-left: 0.5em;}
+  .blog-content .ui-note svg {margin-left: 0.5em;}
+  .blog-content .image-text > .shg-box-content .slick-slide {margin: 0;}
+  .blog-content .slick-arrow {font-size: 1.5em; }
+  .blog-content .slick-arrow.left-arrow {left: -2em;}
+  .blog-content .slick-arrow.right-arrow {right: -2em;}
+  .blog-content .slick-slider .slick-track {display: flex; justify-content: center;}
+  .blog-content .img-text {text-align: right; color: #bd9d89; margin-top: 0.9em; font-size: 0.933em;}
+  .blog-content .img-text p {text-align: inherit;}
+  .blog-content .img-text a {color: {{settings.content_text_color}}; }
+  .blog-content .quick-tips {padding: 7em 0 5em; overflow: hidden;}
+  .blog-content .quick-tips .quick-tips-items {max-width: 100%;}
+  .blog-content .quick-tips .title {font-size: 1.6em;}
+  .blog-content .quick-tips .title p {margin-bottom: 0.75em;}
+  .blog-content .quick-tips .shg-row > div {padding: 0 1rem;}
+  .blog-content .quick-tips .slick-slide {margin: 0 2rem;}
+  .blog-content .quick-tips .left-arrow {left: 1em;}
+  .blog-content .quick-tips .right-arrow {right: 1em;}
+  .blog-content .signature {max-width: 140px;}
+  .blog-content .signature {margin: 2em auto 0;}
+  .blog-content .image-columns {max-width: 100%;}
+  /* need high specificity */
+  #page .shg-product-item > .shg-c > .shg-row {padding: 1em; justify-content: flex-start;}
+  #page .shg-product-item > .shg-c > .shg-row > * {display: inline; width: auto;}
+  #page .blog-content .shg-product-title-component > *,
+  #page .blog-content .shg-product-price,
+  #page .blog-content .shg-product-compare-price {display: inline !important; color: inherit;}
+  #page .blog-content .shg-product-sold-out {display: none !important;}
+  #page .blog-content .shg-product-title-component > * {font-size: 1.2em;}
+  #page .blog-content .shg-product-price {font-size: 0.933em;}
+  #page .blog-content .shg-product-compare-price {opacity: 0.5; filter: alpha(opacity=50); padding-left: 0; padding-right: 0.75em; font-size: 0.933em;}
+  #page .blog-content .shg-product-title-component {margin-right: 2em;}
+  .blog-content .price-wrapper {display: flex; flex-flow: row-reverse;}
+  .blog-content .story-products {background: #ffffff; padding: 4em 0 4em; opacity: 1; filter: alpha(opacity=100); -webkit-transition: opacity .4s ease-out; transition: opacity .4s ease-out; max-width: 100%;}
+  .blog-content .story-products .story-product-items {width: 1080px; margin: 0 auto; max-width: 100%;}
+  .blog-content .story-products.pending {opacity: 0.01; filter: alpha(opacity=1);}
+  .blog-content .story-products.pending .shg-product-item {position: absolute; top: 0;}
+  .blog-content .story-products .eyebrow {margin-bottom: 2em;}
+  .blog-content .story-products .slick-slider .slick-slide {margin: 0 1px 0 0;}
+  .blog-content .story-products .slick-slider .slick-arrow {top: calc(50% - 1.2em);}
+
+  .blog-content .vertical-image-text {max-width: 34.667em; margin: 0 auto 3em;}
+  .blog-content .vertical-image-text.wider {max-width: 52.67em;}
+  .blog-content .vertical-image-text.wider img.shogun-image,
+  .blog-content .vertical-image-text.wider .img-text {width: 75.95%; margin-left: auto; margin-right: auto;}
+  .blog-content .vertical-image-text .text a {color: {{settings.content_text_color}}; }
+  .blog-content .vertical-image-text .title {font-size: 2.133em; line-height: 1.28; margin-top: 2em; max-width: 15.2em; margin-left: auto; margin-right: auto; padding: 0 1.538em;}
+  .blog-content .vertical-image-text.wider .title {max-width: 100%; padding: 0;}
+  .blog-content .vertical-image-text .title.highlight {font-size: 3.4em; font-weight: 600; margin-bottom: 0; margin-top: 0.4em; line-height: 1;}
+  .blog-content .vertical-image-text .title.highlight * {margin-bottom: 0;}
+  .blog-content .vertical-image-text .title.highlight + .title {margin-top: 0.2em;}
+  .blog-content .vertical-image-text .text {font-size: 1.067em;}
+  .blog-content .vertical-image-text p {line-height: inherit;}
+  
+  .blog-content .image-text .text a,
+  .blog-content .image-text .wrap .footer a,
+  .blog-content .banner-2-columns .vertical-align-wrapper a,
+  .blog-content .img-text a,
+  .blog-content .vertical-image-text .text a,
+  .social-share-ddl .ui-selectmenu-text { position: relative; text-decoration: none; border-bottom: 1px solid;}
+  .isNotMobile .blog-content .image-text .text a:hover,
+  .isNotMobile .blog-content .image-text .wrap .footer a:hover,
+  .isNotMobile .blog-content .banner-2-columns .vertical-align-wrapper a:hover,
+  .isNotMobile .blog-content .img-text a:hover,
+  .isNotMobile .blog-content .vertical-image-text .text a:hover,
+  .social-share-ddl .ui-selectmenu-text { position: relative; text-decoration: none; border-bottom: 1px solid;}
+  /*
+  .blog-content .image-text .text a:after,
+  .blog-content .image-text .wrap .footer a:after,
+  .blog-content .banner-2-columns a:after,
+  .blog-content .img-text a:after,
+  .blog-content .vertical-image-text .text a:after,
+  .social-share-ddl .ui-selectmenu-text:after {content: ''; border-bottom: 1px solid; width: 100%; height: 0px; display: block; position: absolute; left: 0; bottom: -0.185em;}
+  .social-share-ddl .ui-selectmenu-button .ui-selectmenu-text {text-decoration: none !important; overflow: initial; overflow: unset;}*/
+
+
+  .blog-content .text-blocks-1 {background-color: #f5f0e8; padding: 3em 1.5rem 2em;}
+  .blog-content .text-blocks-1-item {max-width: 36.667em; margin: 2em auto;}
+  .blog-content .text-blocks-1 .eyebrow {margin-bottom: 1em; }
+  .blog-content .text-blocks-1 .text {font-size: 1.067em; }
+  .blog-content .text-blocks-1 .text a {color: {{settings.content_text_color}}; }
+  .blog-content .text-blocks-1 .title {font-size: 1.6em; line-height: 1.71; margin-left: auto; margin-right: auto;}
+
+  .blog-content .image-columns-right, .blog-content .image-columns-left {margin-bottom: 6.5em;}
+  .blog-content .image-columns-wrapper > .shg-row > div:first-child {padding: 0 3.6715% 0 7.343%;}
+  .blog-content .image-columns-wrapper > .shg-row > div:last-child {padding: 0 7.343% 0 3.6715%;}
+  .blog-content .image-columns-right .image-columns-wrapper > .shg-row > div:first-child,
+  .blog-content .image-columns-left .image-columns-wrapper > .shg-row > div:last-child {width: 61.76489%;}
+  .blog-content .image-columns-right .image-columns-wrapper > .shg-row > div:last-child, 
+  .blog-content .image-columns-left .image-columns-wrapper > .shg-row > div:first-child {width: 38.23511%;}
+  .blog-content .image-columns img.shogun-image {width: 100%;}
+  .blog-content .image-columns .title {font-size: 3.2em; margin: 0.5em auto 0.17em;}
+  .blog-content .image-columns .title p {margin-bottom: 0;}
+  .blog-content .image-columns .text {font-size: 1.733em; max-width: 17.7em; margin: 2em auto 1em;}
+  .blog-content .image-columns .text p {text-align: left;}
+  .blog-content .image-column-heading .image-text-wrapper {margin-top: 3em;}
+  .blog-content .image-columns-right .text {margin-right: 0;}
+  .blog-content .image-columns-left .text {margin-right: 0;}
+  .blog-content .image-columns .carousel-layout .text {margin-left: auto; margin-right: auto; padding: 0 1.5rem;}
+  .blog-content .image-columns .carousel-layout .text p {text-align: center;}
+  .blog-content .image-columns .carousel-layout .slick-slider .slick-slide {margin: 0 1px 0 0;}
+  .blog-content .image-columns.carousel-on > .shg-box-overlay, .blog-content .image-columns.carousel-on > .shg-box-content {display: none;}
+  .blog-content .image-columns .carousel-layout .title {margin-top: 0;}
+  .blog-content .image-columns .carousel-layout .text {margin-top: 1em;}
+  .blog-content .image-columns .carousel-layout .img-text {text-align: left; max-width: 100%;}
+  .blog-content .image-columns-right.carousel-on, .blog-content .image-columns-left.carousel-on {margin-bottom: 2.5em;}
+  .min-height-full, .min-height-full-top  {min-height: calc(100vh - {{settings.header_height}}); }
+
+  .article-nav {display: flex; align-items: center; justify-content: space-between; padding: 1em 1em; background-color: #f4e1d6; margin-bottom: 1px;}
+  .isNotMobile .article-nav {padding-left: 2.5em; padding-right: 2.5em;}
+  .article-nav .wrap svg {z-index: 2;}
+  .article-nav .wrap .text {overflow: hidden; text-overflow: ellipsis; max-width: 20em; white-space: nowrap;}
+  .article-nav .wrap .text, .article-nav .wrap .text-ddl {font-size: 0.933em; letter-spacing: 0.0078em; z-index: 2; }
+  .article-nav .wrap:first-child .text {padding-left: 1em;}
+  .article-nav .wrap:last-child .text {padding-right: 1em;}
+  .article-nav .wrap {width: calc(50% - 4.25em);}
+  .article-nav .wrap:nth-child(2) {width: 8.5em; text-align: center;}
+  .article-nav .item {display: inline-flex; align-items: center; padding: 0.5em; position: relative;}
+  .article-nav .item .img-wrapper {display: none; padding: 5em; position: absolute; width: 400px; z-index: 1; background: #fff; bottom: -3em; }
+  .article-nav .wrap:last-child {text-align: right;}
+  .article-nav .wrap:first-child .item .img-wrapper {left: -2.5em;}
+  .article-nav .wrap:last-child .item .img-wrapper {right: -2.5em;}
+  .article-nav .item img {width: 100%;} 
+
+  @media (min-width: 901px) {
+    .blog-content .back-to-blog {position: absolute; top: 1em; left: 1.5rem;}
+    .blog-content .article-header .link-back-to-blog {position: absolute; top: -0.25em; left: 0em;}
+    .blog-content .quick-tips, .blog-content .story-products {padding-left: 4em; padding-right: 4em;} /*space for desktop arrows*/
+    .blog-content .quick-tips .eyebrow {margin-bottom: 2.5em;}
+    .story-product-items > .shg-box-content:not(.slick-slider) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .story-product-items > .shg-box-content:not(.slick-slider) > div {
+        max-width: 25%;
+    }  
+  }
+  @media (max-width: 900px) {
+    #page .blog-content .shogun-heading-component h1 {font-size: 2.2667em;}
+    .blog-content .back-to-blog {top: -1em; left: 0;}
+    .blog-content .slick-arrow {font-size: 1.2em;}
+    .blog-content .article-header .link-back-to-blog {top: -2em; left: 1.5rem; position: absolute;}
+    .blog-content .article-header {padding-left: 0; padding-right: 0;}
+    .blog-content .article-header .shogun-heading-component, .blog-content .article-header .shg-rich-text {padding-left: 1.5rem; padding-right: 1.5rem;}
+    .blog-content .article-header .vertical-image-text.wider img.shogun-image,
+    .blog-content .article-header .vertical-image-text.wider .img-text {width: 100%;}
+    .blog-content .article-header {padding-top: 3em;}
+    .blog-content .quick-tips {padding: 5em 0;}
+    .blog-content .quick-tips .signature {display: none;}
+    .blog-content .quick-tips .slick-slide {margin: 0 3.4rem;}
+    .blog-content .quick-tips .slick-list {max-width: 38em; margin: auto;}
+    .blog-content .story-products {padding: 3em 0 4em;}
+    .blog-content .image-columns .text {font-size: 1.6em;}
+    .blog-content .image-columns .carousel-layout .img-text {padding: 0 1.5rem;}
+    .blog-content .image-text .slick-arrow.right-arrow {right: 0em; display: block; padding: .5em; background: rgba(0,0,0,0.1); top: auto; bottom: 0em; transform: translateY(0);}
+    .blog-content .image-text .slick-arrow.right-arrow svg {display: block;}
+    .blog-content .image-text .slick-arrow.right-arrow svg path {fill: white; stroke: white;}
+    .article-nav {margin-bottom: 0;}
+    .article-nav .wrap {width: auto;}
+    .article-nav .wrap:first-child .item {max-width: calc(100vw - 9em);}
+    .article-nav .wrap .text, .article-nav .wrap .text-ddl {text-align: right;}
+  }
+  @media (min-width: 768px) {
+    .blog-content .ui-note-swipe {display: none;}
+    .blog-content .image-text .text-first, .blog-content .image-text .image-first {max-width: 68.667em; margin-left: auto; margin-right: auto;}
+    .blog-content .image-text .wrap { padding: 2em 1.5rem;}
+    .blog-content .banner-2-columns .img-text {position: absolute; bottom: 0; left: 1.5rem;}
+  }
+  @media (max-width: 767px) {
+    .blog-content .image-text {max-width: 100%;}
+    .blog-content .image-text .shg-row > div {width: 100%;}
+    .blog-content .image-text .text-first .shg-row {flex-flow: column-reverse;}
+    .blog-content .image-text .title {font-size: 1.7333em; }
+    .blog-content .image-text .text {font-size: 1.0667em;}
+    .blog-content .image-text .wrap {padding: 1.5em 1.5rem 2.5em;}
+    .blog-content .image-text .image-first .wrap {background-color: #eee7db;}
+    .blog-content .image-text .wrap .footer {display: none;}
+    .blog-content .banner-2-columns .min-height-full-top {min-height: 65vh !important;}
+    .blog-content .banner-2-columns .img-text {padding: 0 1.5rem; text-align: center; max-width: 18.5em; margin-left: auto; margin-right: auto;}
+  }
+  @media (max-width: 600px) {
+    .blog-content .back-to-blog {display: none;}
+    .blog-content .img-text {padding: 0 1.5rem; text-align: center; max-width: 18.5em; margin-left: auto; margin-right: auto;}
+    .blog-content .quick-tips {padding: 3em 0;}
+    #page .shogun-image-container.img-banner {left: 0; text-align: left; overflow: hidden;}
+    #page .shogun-image-container.img-banner img {height: 35vh; width: auto; max-width: initial; max-width: unset; position: relative; left: 50%; transform: translateX(-50%); margin-left: 0; margin-right: auto;}
+    .blog-content .vertical-image-text .title {font-size: 1.733em; }
+    .blog-content .vertical-image-text .title.highlight {font-size: 2.72em;}
+  }
+
+  @media (max-width: 350px) {
+    .article-nav {padding: 1em 0.5em; }
+    .article-nav .wrap:first-child .text {padding-left: 0.5em;}
+    .article-nav .wrap:last-child .text {padding-right: 0.5em;}
+  }
+</style>
+
+<div class="blog blog-content">
+  <div class="container">
+    <div class="back-to-blog">
+      <a href="/blogs/lr-stories" class="link-back-to-blog">
+        <svg focusable="false" role="presentation" class="icon icon-arrow-long-left-2" viewBox="0 0 32 32" style="transform: rotateZ(180deg); display: inline;" aria-disabled="false"><path d="M21.1,5l10.6,10.4c0.4,0.4,0.4,1,0,1.3L21.1,27c-0.4,0.4-1,0.4-1.3,0c-0.4-0.4-0.4-1,0-1.3l9-8.8H1 c-0.5,0-1-0.4-1-0.9c0-0.5,0.4-0.9,1-0.9h27.8l-9-8.8c-0.2-0.2-0.3-0.4-0.3-0.7c0-0.2,0.1-0.5,0.3-0.7C20.1,4.6,20.7,4.6,21.1,5"></path></svg>
+        <span>Back to LR Stories</span></a>
+    </div>
+    <div class="flex justify-content-center">
+      <div id="article" class="blog-content three-quarters small--one-whole">
+        <article class="post clearfix">
+          <div class="heading">
+            <h1 id="page-title">{{ article.title }}</h1> 
+            <p class="author">Written on {{ article.published_at | date: "%B %d, %Y" }}</p>
+          </div>
+          {% if article.image %}
+          <img class="featured-image" src="{{ 'placeholder.png' | asset_url }}"  alt="{{ article.title }}" data-srcset="{% include 'lazy_src', image: article.image %}" />
+          {% endif %}
+          <div class="content">
+            {{ article.content }}
+          </div>
+          {%- if blog.comments_enabled? -%}
+          {%- include 'blog_comments' -%}
+          {%- endif -%}
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="article-nav">
+  <div class="wrap">
+    {%- if blog.previous_article != blank -%}
+    <a class="item has-image medium-down--hide" href="{{blog.previous_article.url}}">
+      {%- include 'icons', icon: 'arrow-long-left-2' -%}
+      <span class="text large--hide">Prev</span><span class="text medium-down--hide">Previous Story: {{blog.previous_article.title}}</span>
+      <div class="img-wrapper">
+        <img class="img" src="{{blog.previous_article.image | img_url: '100x100'}}" data-srcset="{% include 'lazy_src', image: blog.previous_article.image  %}"  alt="" />
+      </div>
+    </a>
+    {%- endif -%}
+    <a class="item large--hide" href="{{blog.url}}">
+      {%- include 'icons', icon: 'arrow-long-left-2' -%}
+      <span class="text">Back to {{blog.title}}</span>
+    </a>
+  </div>
+  <div class="wrap">
+    <span class="text-ddl" style="display: block;">
+      {%- include 'social_sharing_article', currentArticle: article, isDropdown: true -%}
+    </span>
+  </div>
+  <div class="wrap medium-down--hide">
+    {%- if blog.next_article != blank -%}
+    <a class="item has-image" href="{{blog.next_article.url}}">
+      <span class="text large--hide">Next</span><span class="text medium-down--hide">Next Story: {{blog.next_article.title}}</span>
+      {%- include 'icons', icon: 'arrow-long-right-2' -%}
+      <div class="img-wrapper">
+        <img class="img" src="{{blog.next_article.image | img_url: '100x100'}}" data-srcset="{% include 'lazy_src', image: blog.next_article.image  %}"  alt="" />
+      </div>
+    </a>
+    {%- endif -%}
+  </div>
+</div>
+<script>
+  var articleData = {
+    blog: {
+      url: {{blog.url | json}},
+      title: {{blog.title | json}}
+    }
+  }
+  $(function() {
+    sJS(function() {article_scripts(articleData);});
+  })
+</script>

@@ -1,0 +1,95 @@
+{% if section.settings.enable_card %}
+<style>
+.section-{{ section.id }} .item-background {
+    background-position: center;
+    background-size: cover;
+    text-transform: uppercase;
+    color: #fff;
+    padding-top: 104%;
+    position: relative;
+    {% if section.settings.background_image != blank %}
+        background-image: url({{ section.settings.background_image | img_url: 'master' }});
+    {% else %}
+        background-color: {{ section.settings.background_color }};
+    {% endif %}
+}
+
+.section-{{ section.id }} .item-background p {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+</style>
+
+<div class="hide">
+    <div class="section-{{section.id}} custom-item">
+        {% if section.settings.card_url != blank %}
+            <a target="_blank" href="{{ section.settings.card_url }}">
+        {% endif %}
+            <div class="item-background">
+                <p>{{ section.settings.title }}</p>
+            </div>
+        {% if section.settings.card_url != blank %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var productItem = $('.product-item:nth-of-type(' + {{ section.settings.place_index }} + ')')
+        if (productItem.length == 0) return;
+        var productClass = productItem.attr('class');
+        $('.section-{{section.id}}.custom-item').addClass(productClass)
+
+        productItem.after($('.section-{{section.id}}.custom-item'))
+    })
+</script>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Custom Item",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable_card",
+            "label": "Enable Card?",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "place_index",
+            "label": "Place card after item with this index",
+            "default": "1",
+            "info": "Must be a number",
+            "placeholder": "5"
+        },
+        {
+            "type": "image_picker",
+            "id": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color",
+            "default": "#6487FB",
+            "info": "Displays if background image is empty"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Card Title (optional)",
+            "placeholder": "Lorem Ipsum"
+        },
+        {
+            "id": "card_url",
+            "type": "url",
+            "label": "Card CTA (optional)"
+        }
+    ]
+}
+{% endschema %}

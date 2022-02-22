@@ -1,0 +1,13 @@
+{% for child_link in parent_link.links %}
+  <li {% if child_link.links != blank %}class="has-dropdown"{% endif %}>
+    <a href="{{ child_link.url }}" {% if child_link.url == "#" %}onclick="$(this).next('i').click(); return false;"{% endif %}>
+      {{ child_link.title | escape }}
+    </a>
+    {% if child_link.links != blank %}
+    <i class="fa fa-angle-down animation"></i>
+    <ul>
+      {% include 'menu_mobile_level', parent_link: child_link %}
+    </ul>
+    {% endif %}
+  </li>
+{% endfor %}

@@ -1,0 +1,47 @@
+<style>
+  .page.cure-club{margin:0;}
+  .page.cure-club a{text-decoration: none;}
+
+  .page.cure-club .hero-carousel,
+  .page.cure-club .overlay,
+  .page.cure-club .hero-carousel .item_img{max-height: 610px;}
+  .page.cure-club .hero-carousel h1{text-transform: none;line-height: 1.5em;margin-bottom: 0.5em;}
+  .page.cure-club .hero-carousel .overlay{padding: 0 4em;}
+  .page.cure-club .hero-carousel .text p{max-width: 19em;}
+  .page.cure-club .hero-carousel .btn{text-decoration: none;background-color: #fff;color: {{ settings.content_main_color}};}
+  .isNotMobile .page.cure-club .hero-carousel .btn:hover {background-color: #000;color: #fff;}
+
+  .page.cure-club #shopify-section-cure_club_img_title_text .item-container h4{font-weight: 600;margin-top: 1.2em;color:#6387fb;}
+  .page.cure-club #shopify-section-cure_club_img_title_text .item-container p{color: #858585;margin-top: 0.5em;max-width: 250px;}
+
+  .page.cure-club #shopify-section-cure_club_img_txt{margin-top: 4em;}
+  .page.cure-club #shopify-section-cure_club_img_txt .multipurpose .image-text .img{padding-top: 51%;}
+  .page.cure-club #shopify-section-cure_club_img_txt .text h2{color: #4a4a4a;margin-bottom: -0.7em;}
+  .page.cure-club #shopify-section-cure_club_img_txt .text ul{list-style-type: none;}
+  .page.cure-club #shopify-section-cure_club_img_txt .text ul img{width: 20px;margin-right: 0.4em;}
+  .page.cure-club #shopify-section-cure_club_img_txt .text ul li{display: flex;align-items: center;color: #6f6e6d;}
+  .page.cure-club #shopify-section-cure_club_img_txt .multipurpose .image-text .text p:last-child{display: none;}
+
+  .page.cure-club .section-featured h2{text-transform: none;margin-top: 2em;}
+  .page.cure-club .section-featured h2 a{pointer-events: none;text-decoration: none;}
+  .page.cure-club .section-featured .product-item .price{display: none;}
+
+  .page.cure-club .section-instagram {margin-top: 6em;}
+
+  @media all and (max-width: 600px){
+    .page.cure-club .hero-carousel .overlay{padding: 0 2em;}
+  }
+  @media all and (max-width: 376px){
+    .page.cure-club .hero-carousel h1{font-size: 1.8em!important;}
+  }
+</style>
+
+{% include 'shogun-products', content: page %}
+<div class="page cure-club">
+	<div class="container-big">
+      {% section 'carousel' %}
+      {% section 'cure_club_img_title_text' %}
+      {% section 'cure_club_img_txt' %}
+      {% section 'featured_products' %}
+	</div>
+</div>

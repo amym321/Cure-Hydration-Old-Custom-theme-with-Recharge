@@ -1,0 +1,56 @@
+<style>
+#utility-bar .text-slide {
+  box-sizing: border-box;
+  padding-top: 5px;
+  font-size: 0.66em;
+}
+
+#utility-bar a, #utility-bar .utility-text {
+  margin-bottom: -3px;
+}
+
+#utility-bar .flex {
+  height: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  #utility-bar a, #utility-bar .utility-text {
+    font-size: .8em;
+  }
+}
+</style>
+
+{% if settings.show_utility_bar %}
+<div id="utility-bar">
+  <div class="container"></div>
+  <a href="#" onclick="$('#utility-bar').slideUp(); return false;" class="close">
+    <i class="lnr lnr-cross"></i>
+  </a>
+</div>
+{% endif %}
+
+<script>
+  var contentPaddingTop = function(){
+    setTimeout(function(){
+      $('.content-wrapper').css('padding-top', $('#header').height());
+      $(window).resize(function(){
+        $('.content-wrapper').css('padding-top', $('#header').height());
+      });
+    }, 400);
+  };
+
+  $('#utility-bar .close').on('click',contentPaddingTop)
+
+  $(function () {
+    var titles = $('#utility-bar-titles');
+
+    if (titles.lenght <= 0) { return }
+
+    $('#utility-bar .container').html(titles.html());
+    $('#utility-bar .container').slick({
+      arrows: false,
+      autoplay: true,
+      adaptiveHeight: true
+    });
+  })
+</script>

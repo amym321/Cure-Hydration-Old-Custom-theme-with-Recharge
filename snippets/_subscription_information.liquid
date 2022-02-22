@@ -1,0 +1,35 @@
+<section id="subscription-information-popup" class="subscription-information-popup">
+    <div class="container-big">
+        <h2 class="title medium-down--text-center">{{section.settings.title}}</h2>
+        <p class="description medium-down--text-center">{{section.settings.main_text}}</p>
+        <div class="icons flex justify-content-start align-items-start one-whole medium-down--direction-column  medium-down--justify-content-center medium-down--align-items-center">
+            <div class="one-third medium-down--one-whole icon-and-text text-left medium-down--text-center flex">
+                <div class="icon-and-text-container">
+                <div class="image-container flex justify-content-start align-items-center medium-down--justify-content-center">
+                    <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_1 %}" alt="Customizable Subscription">
+                </div>
+                <h3>{{ section.settings.icon_title1 }}</h3>
+                <p>{{ section.settings.icon_desc1 }}</p>
+                </div>
+            </div>
+            <div class="one-third medium-down--one-whole icon-and-text text-left medium-down--text-center flex">
+                <div class="icon-and-text-container">
+                <div class="image-container flex justify-content-start align-items-center medium-down--justify-content-center">
+                    <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_2 %}" alt="Delivery Frequency">
+                </div>
+                <h3>{{ section.settings.icon_title2 }}</h3>
+                <p>{{ section.settings.icon_desc2 }}</p>
+                </div>
+            </div>
+            <div class="one-third medium-down--one-whole icon-and-text text-left medium-down--text-center flex">
+                <div class="icon-and-text-container">
+                <div class="image-container flex justify-content-start align-items-center medium-down--justify-content-center">
+                    <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_3 %}" alt="Adjustable Preferences">
+                </div>
+                <h3>{{ section.settings.icon_title3 }}</h3>
+                <p>{{ section.settings.icon_desc3 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

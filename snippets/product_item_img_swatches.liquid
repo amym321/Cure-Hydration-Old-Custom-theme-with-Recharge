@@ -1,0 +1,20 @@
+<a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">
+  <div class="image">
+    <div class="img" style="display: block; background-image:url('{{ currentProduct.featured_image | product_img_url: '323x375', crop: "center" }}')"></div>
+    {% assign totalImages = 0 %}
+    {% for img in currentProduct.images %}
+      {% unless img.alt contains 'ingredient' %}
+        {% if img.variants.size > 0 and totalImages < 4 and img != currentProduct.featured_image %}
+          <div class="img" style="display: none; background-image:url('{{ img | product_img_url: '323x375', crop: "center" }}')"></div>
+          {% assign totalImages = totalImages | plus: 1 %}
+        {% endif %}
+      {% endunless %}
+    {% endfor %}
+    {% if settings.show_product_item_sale_badge and currentProduct.available and currentProduct.price_min < currentProduct.compare_at_price_min %}
+      <div class="sale">sale</div>
+    {% endif %}
+    {% unless currentProduct.available %}
+      <div class="sold-out">sold<br />out</div>
+    {% endunless %}
+  </div>
+</a>

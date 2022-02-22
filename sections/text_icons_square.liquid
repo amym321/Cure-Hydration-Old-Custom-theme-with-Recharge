@@ -1,0 +1,88 @@
+{% schema %}
+  {
+    "name": "Text + Icons Square",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Sub Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_1",
+        "label": "First Icon"
+      },
+      {
+        "type": "text",
+        "id": "icon_text_1",
+        "label": "First Icon Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_2",
+        "label": "Second Icon"
+      },
+      {
+        "type": "text",
+        "id": "icon_text_2",
+        "label": "Second Icon Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_3",
+        "label": "Third Icon"
+      },
+      {
+        "type": "text",
+        "id": "icon_text_3",
+        "label": "Third Icon Text"
+      }      
+    ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} .square{border: 10px solid #6387FB;background-color: #FAFBFF;max-width: 605px;margin:auto;text-align: center;padding: 60px 50px;margin-top: 3em;}
+  #shopify-section-{{section.id}} .square .icon-text{width: 129px;}
+  #shopify-section-{{section.id}} .square h2,
+  #shopify-section-{{section.id}} .square h3,
+  #shopify-section-{{section.id}} .square p{color: #6387FB;}
+  #shopify-section-{{section.id}} .square h2{text-transform: none;font-size: 3.3em;letter-spacing: -3px;margin-bottom: 0.5em;}
+  #shopify-section-{{section.id}} .square h3{text-transform: none;font-size: 2.2em;letter-spacing: -2px;line-height: 45px;}
+  #shopify-section-{{section.id}} .square p{font-family:'GT Pressura Mono', sans-serif;}
+  #shopify-section-{{section.id}} .square img{max-width: 95px;}
+  #shopify-section-{{section.id}} .square .icons-container{justify-content: space-between;max-width: 90%;margin: auto;}
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} .square{padding: 30px 10px;}
+    #shopify-section-{{section.id}} .square .icon-text{width: 80px;}
+    #shopify-section-{{section.id}} .square h2{font-size: 2em;}
+    #shopify-section-{{section.id}} .square h3{font-size: 1.5em;line-height: 35px;}
+    #shopify-section-{{section.id}} .square p{font-size: 0.8em;line-height: 17px;}
+    #shopify-section-{{section.id}} .square img{max-width: 80px;}
+  }
+</style>
+
+<div class="square">
+  <h2>{{section.settings.title}}</h2>
+  <h3>{{section.settings.sub_title}}</h3>
+  <div class="icons-container flex">
+    <div class="icon-text">
+      <img class="custom lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_1 %}" alt="{{icon_text_1}}" />
+      <p>{{ section.settings.icon_text_1 }}</p>
+    </div>
+    <div class="icon-text">
+      <img class="custom lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_2 %}" alt="{{icon_text_2}}" />
+      <p>{{ section.settings.icon_text_2 }}</p>
+    </div>
+    <div class="icon-text">
+      <img class="custom lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon_3 %}" alt="{{icon_text_3}}" />
+      <p>{{ section.settings.icon_text_3 }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,294 @@
+{% schema %}
+{
+   "name":"Image + Text",
+   "presets":[
+      {
+         "name":"Image + Text",
+         "category":"Home"
+      }
+   ],
+   "settings":[
+      {
+         "type":"text",
+         "id":"title",
+         "label":"Title"
+      },
+      {
+         "type":"color",
+         "id":"section_bg",
+         "label":"Background Color",
+         "default":"#ffffff"
+      },
+      {
+        "type": "checkbox",
+        "id": "zoom_on_hover",
+        "label": "Image zoom on hover",
+        "default": true
+      }
+   ],
+   "blocks":[
+      {
+         "type":"image_overlay",
+         "name":"Image + Overlay",
+         "settings":[
+            {
+               "type":"image_picker",
+               "id":"image",
+               "label":"Image"
+            },
+            {
+               "type":"color",
+               "id":"bg_color",
+               "label":"Background Color",
+               "default":"#ffffff"
+            },
+            {
+               "type":"color",
+               "id":"text_color",
+               "label":"Text Color",
+               "default":"#ffffff"
+            },
+            {
+               "type":"select",
+               "id":"width",
+               "label":"Width",
+               "options":[
+                  {
+                     "value":"one-third",
+                     "label":"33.33%"
+                  },
+                  {
+                     "value":"one-half",
+                     "label":"50%"
+                  },
+                  {
+                     "value":"two-thirds",
+                     "label":"66.66%"
+                  },
+                  {
+                     "value":"one-whole",
+                     "label":"100%"
+                  }
+               ],
+               "default":"one-half"
+            },
+            {
+               "type":"select",
+               "id":"text_alignment",
+               "label":"Text Alignment",
+               "options":[
+                  {
+                     "value":"left",
+                     "label":"Left"
+                  },
+                  {
+                     "value":"center",
+                     "label":"Center"
+                  },
+                  {
+                     "value":"right",
+                     "label":"Right"
+                  }
+               ],
+               "default":"center"
+            },
+            {
+               "type":"text",
+               "id":"title",
+               "label":"Title",
+               "default":"Lorem ipsum"
+            },
+            {
+               "type":"textarea",
+               "id":"text",
+               "label":"Text",
+               "default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi. Donec at libero ligula. Ut ac massa dapibus, vulputate leo quis, commodo tortor."
+            },
+            {
+               "type":"text",
+               "id":"button",
+               "label":"Button",
+               "default":"Shop Now"
+            },
+            {
+               "type":"url",
+               "id":"link",
+               "label":"Link"
+            }
+         ]
+      },
+      {
+         "type":"image_text",
+         "name":"Image + Text",
+         "settings":[
+            {
+              "type": "checkbox",
+              "id": "show_block",
+              "label": "Show Content?",
+              "default": true
+            },
+            {
+               "type":"image_picker",
+               "id":"image",
+               "label":"Image"
+            },
+            {
+               "type":"color",
+               "id":"bg_color",
+               "label":"Background Color",
+               "default":"#f5f5f5"
+            },
+            {
+               "type":"select",
+               "id":"image_position_x",
+               "label":"Image position X",
+               "options":[
+                  {
+                     "value":"left",
+                     "label":"Left"
+                  },
+                  {
+                     "value":"right",
+                     "label":"Right"
+                  }
+               ],
+               "default":"left"
+            },
+            {
+               "type":"select",
+               "id":"text_alignment",
+               "label":"Text Alignment",
+               "options":[
+                  {
+                     "value":"left",
+                     "label":"Left"
+                  },
+                  {
+                     "value":"center",
+                     "label":"Center"
+                  },
+                  {
+                     "value":"right",
+                     "label":"Right"
+                  }
+               ],
+               "default":"left"
+            },
+            {
+               "type":"text",
+               "id":"title",
+               "label":"Title",
+               "default":"Lorem ipsum"
+            },
+            {
+               "type":"textarea",
+               "id":"text",
+               "label":"Text",
+               "default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et sapien interdum, accumsan leo id, eleifend nisi."
+            },
+            {
+               "type":"text",
+               "id":"button",
+               "label":"Button",
+               "default":"Shop Now"
+            },
+            {
+               "type":"url",
+               "id":"link",
+               "label":"Link"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}
+
+<style>
+  #home section.multipurpose{padding: 0;}
+  .multipurpose {text-align: center;}
+  .multipurpose .image {position: relative; overflow: hidden;}
+  .multipurpose .img {position: relative; padding-top: 60%; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center; -webkit-transition: all 1s ease-out; -moz-transition: all 1s ease-out; -o-transition: all 1s ease-out; transition: all 1s ease-out; -ms-transform: scale(1, 1); -webkit-transform: scale(1, 1); transform: scale(1, 1);}
+  .isNotMobile .multipurpose .img:hover { {% if section.settings.zoom_on_hover %}-ms-transform: scale(1.05, 1.05); -webkit-transform: scale(1.05, 1.05); transform: scale(1.05, 1.05);{% endif %} }
+  
+  .multipurpose .image-block .overlay {display: flex; display: -webkit-flex; align-items: center; justify-content: center; position: absolute; width: 100%; height: 100%; left: 0; top: 0;} 
+  .multipurpose .image-block .overlay .wrap {max-width: 600px; padding: 3em;}
+  
+  
+  .multipurpose .image-text {margin-top: 2em;}
+  .multipurpose .image-text .flex {align-items: center; flex-wrap: wrap;}
+  .multipurpose .image-text .flex.reverse {-webkit-flex-direction: row-reverse; flex-direction: row-reverse;}
+  .multipurpose .image-text .img {padding-top: 68%;}
+  .multipurpose .image-text .text .wrap {margin: auto;}
+  .multipurpose .image-text .text h2{text-transform: none;margin-bottom: 15px;}
+  .multipurpose .image-text .text p {max-width: 310px; display: inline-block;color:rgba(16,15,15,0.58);line-height: 26px;margin-bottom: 2em;}
+  .multipurpose .image-text .text .btn{margin-bottom: 1em;}
+  
+  .templateIndex .multipurpose .image-text:nth-child(2) .text p{max-width: 340px;}
+  .templateIndex .multipurpose .image-text:nth-child(3) .text p{max-width: 320px;}
+  
+  @media all and (min-width: 901px) {
+  .multipurpose .image-block.one-whole .img {padding-top: 35%;}
+  .multipurpose .image-block.one-third .img {padding-top: 90%;}
+  .multipurpose .image-block.two-thirds .img {padding-top: 45%;}
+  }
+  
+  @media all and (max-width: 900px) and (min-width: 601px) {
+    .multipurpose .image-text .text .wrap {padding: 2em;}
+    .multipurpose .image-block .img {padding: 0; height: 350px;}
+    .multipurpose .image-text .img {padding-top: 80%;}
+  }
+  @media all and (max-width: 600px) {
+    .multipurpose .image-block {padding-bottom: 1em;}
+    .multipurpose .image-text {padding-bottom: 0;}
+    .multipurpose .image-text .text .wrap {padding: 2em 20px;}
+  }
+</style>
+
+<section class="multipurpose" style="background: {{section.settings.section_bg}};">
+  
+  <div class="container">
+    {% if section.settings.title != "" %}
+      <h2>{{section.settings.title}}</h2>
+    {% endif %}
+  </div>
+
+  <div class="container-big">
+    <div class="grid">
+    {% for block in section.blocks %}
+      {% if block.type == "image_text" and block.settings.show_block %}
+      <div class="image-text grid__item one-whole">
+        <div class="flex {% if block.settings.image_position_x == "right" %}reverse{% endif %}"  style="background-color: {{block.settings.bg_color}};">
+          <div class="image three-fifths medium-down--one-whole">
+            <div class="img lazyload" data-sizes="auto" data-bgset="{% include 'lazy_src', image: block.settings.image %}">
+            </div>
+          </div>
+          <div class="text two-fifths medium-down--one-whole text-{{block.settings.text_alignment}} flex">
+            <div class="wrap">
+              {% if block.settings.title != "" %}<h2>{{block.settings.title}}</h2>{% endif %}
+              {% if block.settings.text != "" %}<p>{{block.settings.text}}</p>{% endif %}
+              {% if block.settings.button != "" %}<div><a class="btn" href="{{block.settings.link}}">{{block.settings.button}}</a></div>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% elsif block.type == "image_overlay" %}
+      <div class="image-block grid__item {{block.settings.width}} small--one-whole">
+        {% if block.settings.link != blank %}<a href="{{block.settings.link}}">{% endif %}
+        <div class="image">
+          <div class="img lazyload" data-bgset="{% include 'lazy_src', image: block.settings.image %}" style="background-color: {{block.settings.bg_color}};"></div>
+          <div class="overlay">
+            <div class="wrap text-{{block.settings.text_alignment}}" style="color: {{block.settings.text_color}};">
+              {% if block.settings.title != "" %}<h2 style="color: {{block.settings.text_color}};">{{block.settings.title}}</h2>{% endif %}
+              {% if block.settings.text != "" %}<p>{{block.settings.text}}</p>{% endif %}
+              {% if block.settings.button != "" %}<div><a class="btn" href="{{block.settings.link}}">{{block.settings.button}}</a></div>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% if block.settings.link != blank %}</a>{% endif %}
+      </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+  
+</section>

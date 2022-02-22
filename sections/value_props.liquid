@@ -1,0 +1,63 @@
+{% assign currentProduct = product %}
+{% for tag in currentProduct.tags %}
+  {% if tag contains 'background' %}
+    {% assign bg_color = tag | split: '-' | last %}
+  {% endif %}
+  {% break %}
+{% endfor %}
+
+<style>
+  .text-blocks-section{background-color: #E4EDFE; }
+  .text-blocks-section .content{padding: 5em 3em;margin:auto;}
+  .text-blocks-section .block img{max-width: 50px;margin-bottom: 0.5em;}
+  .text-blocks-section .block h3{letter-spacing: 1.8px;font-size: 1em;margin-bottom: 1.8em;}
+  .text-blocks-section .block p{color: #696766;font-weight: 500;line-height: 28px;max-width: 85%;}
+  .text-blocks-section .block p strong {font-weight: 900;}
+</style>
+
+<section class="text-blocks-section">
+  <div class="container-big">
+    <div class="content grid">
+      {%- if product.metafields.custom_fields["value_prop_1_title"] != blank -%}
+        <div class="block grid__item one-third medium-down--one-whole">
+          <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon %}" alt="">
+          <h3>{{ product.metafields.custom_fields["value_prop_1_title"] }}</h3>
+          <p>{{ product.metafields.custom_fields["value_prop_1_text"] | replace: "amazing", "<strong>amazing</strong>"}}</p>
+        </div>
+      {%- endif -%}
+      {%- if product.metafields.custom_fields["value_prop_2_title"] != blank -%}
+        <div class="block grid__item one-third medium-down--one-whole">
+          <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon %}" alt="">
+          <h3>{{ product.metafields.custom_fields["value_prop_2_title"] }}</h3>
+          <p>{{ product.metafields.custom_fields["value_prop_2_text"] | replace: "World Health Organization", "<strong>World Health Organization</strong>" }}</p>       
+        </div>
+      {%- endif -%}
+      {%- if product.metafields.custom_fields["value_prop_3_title"] != blank -%}
+        <div class="block grid__item one-third medium-down--one-whole">
+          <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: section.settings.icon %}" alt="">
+          <h3>{{ product.metafields.custom_fields["value_prop_3_title"] }}</h3>
+          <p>{{ product.metafields.custom_fields["value_prop_3_text"] }}</p>
+        </div>
+      {%- endif -%}
+    </div>  
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Value Props",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#F9F5F2"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon",
+        "label": "Icon"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,144 @@
+{% schema %}
+  {
+    "name": "Advisory Board",
+    "class": "carousel",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "Advisory Board"
+      },
+    {
+        "type": "textarea",
+        "id": "section_sub_text",
+        "label": "Section Sub Title Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ea vitae deserunt minus animi aliquam magnam fugiat."
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#e5ecff"
+      }
+    ],
+    "blocks":[
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default":"Lorem ipsum dolor"
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+          }
+        ]
+      }
+    ],
+    "presets": [
+    {
+      "name": "Advisory Board",
+      "category": "Home",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+   ]
+  }
+{% endschema %}
+<style>
+  #shopify-section-{{section.id}} .advisory-board-section{background-color: {{section.settings.bg_color}};text-align: center;padding: 86px 0px 4em;}
+  /*#shopify-section-{{section.id}} .advisory-board-section .container-big{max-width: 1200px;}*/
+  #shopify-section-{{section.id}} h3{text-transform: uppercase;font-size: 1em;letter-spacing: 1.8px;margin-bottom: 0.5em;}
+  #shopify-section-{{section.id}} .sub-text{text-align: center;max-width: 700px;margin: auto;font-weight: 300;margin-bottom: 2.5em;padding: 0 20px;}
+  #shopify-section-{{section.id}} .advisory-slider {text-align: left;}
+  #shopify-section-{{section.id}} .advisory-slider img,
+  #shopify-section-{{section.id}} .advisory-slider .text-container{max-width: 275px;margin: auto;}
+  #shopify-section-{{section.id}} .advisory-slider h4{font-size: 1.1em;letter-spacing: 1.8px;margin: 22px 0 15px;}
+  #shopify-section-{{section.id}} .advisory-slider p{font-weight: 300;font-size: 0.9em;}
+
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow{font-size: 28px;font-weight: 800;color: #888c98;}
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow.left-arrow{left: -20px;}
+  #shopify-section-{{section.id}} .slick-slider .slick-arrow.right-arrow{right: -20px;}
+
+  #shopify-section-{{section.id}} .slick-slider .slick-slide{margin: 0 5px;}
+  @media all and (min-width: 1350px){
+    /*#shopify-section-{{section.id}} .slick-slider .slick-arrow.left-arrow{left: -70px;}
+    #shopify-section-{{section.id}} .slick-slider .slick-arrow.right-arrow{right: -70px;}*/
+    #shopify-section-{{section.id}} .slick-slider .slick-arrow.left-arrow{left: -20px;}
+    #shopify-section-{{section.id}} .slick-slider .slick-arrow.right-arrow{right: -20px;}
+  }
+  @media all and (max-width: 600px){
+    #shopify-section-{{section.id}} .advisory-board-section{padding: 86px 0px 3em;}
+    #shopify-section-{{section.id}} h3{font-size: 1.3em;margin-bottom: 3em;}
+  }
+</style>
+<div class="advisory-board-section">
+  <h3>{{section.settings.section_title}}</h3>
+  <p class="sub-text">{{section.settings.section_sub_text}}</p>
+  <div class="container-big">    
+    <div class="advisory-slider">
+      {% for block in section.blocks %}
+      <div class="advisory">
+        <img class="lazyload" src="{{block.settings.image | img_url: 'master'}}" alt="advisory image">
+        <div class="text-container">
+          <h4>{{block.settings.title}}</h4>
+          <p>{{block.settings.text}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<script>
+  $(function(){
+    var advisorySlider = $('#shopify-section-{{ section.id }} .advisory-slider');
+    advisorySlider.slick({
+      autoplay: false,
+      dots: false,
+      arrows: true,
+      fade: false,
+      slidesToShow: 4,
+      prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+      responsive: [
+        {
+          breakpoint: 950,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 700,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });   
+  });
+</script>

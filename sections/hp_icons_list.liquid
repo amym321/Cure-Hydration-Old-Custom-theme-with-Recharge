@@ -1,0 +1,209 @@
+<style>
+#shopify-section-{{ section.id }} .container {
+    max-width: none;
+    padding: {{ section.settings.section_padding }};
+    margin: {{ section.settings.section_margin }};
+    background-color: {{ section.settings.background_color }};
+}
+
+#shopify-section-{{ section.id }} h2 {
+    text-transform: capitalize;
+}
+
+#shopify-section-{{ section.id }} .block {
+    padding: 0 1em;
+}
+
+#shopify-section-{{ section.id }} p {
+    font-style: italic;
+    line-height: 1.3em;
+}
+
+{% for block in section.blocks %}
+    #shopify-section-{{ section.id }} .block-{{ block.id }} {
+        padding: {{ section.settings.block_padding }};
+    }
+
+    #shopify-section-{{ section.id }} .block-{{ block.id }} img {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: {{ block.settings.icon_margin_bottom_desktop }};
+        margin-top: {{ block.settings.icon_margin_top_desktop }};
+        width: {{ block.settings.icon_width_desktop | default: 'auto' }};
+        height: {{ block.settings.icon_height_desktop | default: 'auto' }};
+    }
+{% endfor %}
+
+@media screen and (max-width: 900px) {
+    {% for block in section.blocks %}
+        #shopify-section-{{ section.id }} .block-{{ block.id }} {
+            margin-bottom: 1em;
+        }
+
+        #shopify-section-{{ section.id }} .block-{{ block.id }} img {
+            margin-bottom: {{ block.settings.icon_margin_bottom_mobile }};
+            margin-top: {{ block.settings.icon_margin_top_mobile }};
+            width: {{ block.settings.icon_width_mobile | default: 'auto' }};
+            height: {{ block.settings.icon_height_mobile | default: 'auto' }};
+        }
+    {% endfor %}
+}
+</style>
+<div class="flex flex-wrap container">
+    <h2 class="text-center one-whole">{{ section.settings.title }}</h2>
+    <div class="flex flex-wrap one-whole">
+        {% for block in section.blocks %}
+            <div class="block-{{ block.id }} block flex direction-column one-third medium-down--one-whole justify-content-center align-items-center">
+                <img class="lazyload" data-sizes="auto" data-srcset="{% include 'lazy_src', image: block.settings.icon %}" alt="{{ block.settings.icon_alt }}">
+                <p class="text-center">{{ block.settings.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#shopify-section-{{ section.id }} .container .flex.one-whole').slick({
+            autoplay: true,
+            speed: 700,
+            pauseOnHover: false,
+            slidesToShow: 3,
+            slidesToScroll: 0,
+            prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+            nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+            responsive: [
+                {
+                    breakpoint: 900,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Icon List",
+    "presets": [
+        {
+            "name":"Icon List"
+        }
+    ],
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "As Seen In"
+        },
+        {
+            "type": "text",
+            "id": "section_padding",
+            "label": "Padding",
+            "default": "1em"
+        },
+        {
+            "type": "text",
+            "id": "section_margin",
+            "label": "Margin",
+            "default": "1em 0"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color",
+            "default": "#E4EAF5"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "icon_text",
+            "name": "Icon + Text",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Icon"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_alt",
+                    "label": "Alt Text"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_width_desktop",
+                    "label": "Width Desktop",
+                    "info": "Leave empty is not using it"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_height_desktop",
+                    "label": "Height Desktop",
+                    "info": "Leave empty is not using it",
+                    "default": "50px"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_width_mobile",
+                    "label": "Width Mobile",
+                    "info": "Leave empty is not using it"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_height_mobile",
+                    "label": "Height Mobile",
+                    "info": "Leave empty is not using it",
+                    "default": "50px"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_margin_bottom_desktop",
+                    "label": "Margin Bottom Desktop",
+                    "default": "1em"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_margin_top_desktop",
+                    "label": "Margin Top Desktop",
+                    "default": "0"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_margin_bottom_mobile",
+                    "label": "Margin Bottom Mobile",
+                    "default": "1em"
+                },
+                {
+                    "type": "text",
+                    "id": "icon_margin_top_mobile",
+                    "label": "Margin Top Mobile",
+                    "default": "0"
+                },
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "text",
+                    "id": "block_padding",
+                    "label": "Padding",
+                    "default": "0 1em"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
